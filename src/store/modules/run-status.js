@@ -1,4 +1,4 @@
-import axios from 'axios'
+import $httpService from '../../common/utils'
 import * as types from "../mutation-type"
 
 export default {
@@ -20,28 +20,20 @@ export default {
   },
   actions: {
     getRunStatus({dispatch, commit}, $param) {
-      let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-
-      return axios.get(apiUrl + '/summary').then(response => {
-        let msg = JSON.parse(response.request.response);
-
+      return $httpService.get('/summary/blockchain/latest-info').then(response => {
         commit({
           type: types.SET_RUN_STATUS,
-          info: msg.Result
+          info: response.result
         })
       }).catch(error => {
         console.log(error)
       })
     },
     generateTime({dispatch, commit}, $param) {
-      let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-
-      return axios.get(apiUrl + '/block/generatetime/' + $param.amount).then(response => {
-        let msg = JSON.parse(response.request.response);
-
+      return $httpService.get('/blocks/generate-time?count=' + $param.amount).then(response => {
         commit({
           type: types.SET_GENERATE_TIME,
-          info: msg.Result
+          info: response.result
         })
       }).catch(error => {
         console.log(error)

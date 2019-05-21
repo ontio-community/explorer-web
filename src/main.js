@@ -30,6 +30,8 @@ Vue.use(Highcharts);
 import HighchartsVue from 'highcharts-vue';
 Vue.use(HighchartsVue)
 
+import service from './common/utils'
+Vue.prototype.$httpService = service;
 /**
  * 全局组件注册
  */

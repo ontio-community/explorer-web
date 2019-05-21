@@ -154,7 +154,7 @@
 
 <script>
   import LangStorage from './../../helpers/lang'
-
+  import {TEST_NET, MAIN_NET} from './../../common/consts'
   export default {
     name: "NavBar1",
     data() {
@@ -178,8 +178,10 @@
       },
       changeNet() {
         if (this.$route.params.net === 'testnet') {
+          sessionStorage.setItem('network', TEST_NET)
           this.$router.push({name: 'Home'});
         } else {
+          sessionStorage.setItem('network', MAIN_NET)
           this.$router.push({name: 'HomeTest', params: {net: 'testnet'}});
         }
         location.reload();

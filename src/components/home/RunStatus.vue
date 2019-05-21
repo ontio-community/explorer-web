@@ -5,21 +5,21 @@
         <span class="run-status-label">{{ $t('runStatus.CurrentHeight') }}</span>
         <span class="view-go-to">>></span>
         <span class="d-block run-status-p font-ExtraLight font-size48">
-          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.CurrentHeight) }}</span>
+          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.block_height) }}</span>
         </span>
       </div>
       <div class="col col-click" @click="toTransactionListPage">
         <span class="run-status-label">{{ $t('runStatus.TxnCount') }}</span>
         <span class="view-go-to">>></span>
         <span class="d-block run-status-p font-ExtraLight font-size48">
-          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.TxnCount) }}</span>
+          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.tx_count) }}</span>
         </span>
       </div>
       <div class="col col-click" @click="toOnlineNodes" v-if="$route.params.net !== 'testnet'">
         <span class="run-status-label">{{ $t('runStatus.NodeCount') }}</span>
         <span class="view-go-to">>></span>
         <span class="d-block run-status-p font-ExtraLight font-size48">
-          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.NodeCount) }}</span>
+          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.node_count) }}</span>
         </span>
       </div>
       <div class="col col-click" @click="toAddressListPage">
@@ -27,14 +27,14 @@
         <span class="run-status-label">{{ $t('runStatus.addressCount') }}</span>
         <span class="view-go-to">>></span>
         <span class="d-block run-status-p font-ExtraLight font-size48">
-          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.AddressCount) }}</span>
+          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.address_count) }}</span>
         </span>
       </div>
       <div class="col col-click" @click="toOntIdListPage">
         <span class="run-status-label">{{ $t('runStatus.ontid') }}</span>
         <span class="view-go-to">>></span>
         <span class="d-block run-status-p font-ExtraLight font-size48">
-          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.OntIdCount) }}</span>
+          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.ontid_count) }}</span>
         </span>
       </div>
     </div>
@@ -105,20 +105,20 @@
       'getTime.info': function () {
         if (this.getTime.info.length > 1) {
           for (var i = 0; i < this.getTime.info.length; i++) {
-            this.chartData[75 - i] = this.getTime.info[i].GenerateTime
-            this.chartLabels[75 - i] = this.getTime.info[i].Height
-            this.lastheight = this.getTime.info[i].Height
+            this.chartData[75 - i] = this.getTime.info[i].generate_time
+            this.chartLabels[75 - i] = this.getTime.info[i].block_height
+            this.lastheight = this.getTime.info[i].block_height
           }
           this.myChart.update();
         } else {
-          if (this.getTime.info[0].Height !== this.lastheight) {
+          if (this.getTime.info[0].block_height !== this.lastheight) {
             this.chartData.splice(0, 1)
             this.chartLabels.splice(0, 1)
-            this.chartData.push(this.getTime.info[0].GenerateTime)
-            this.chartLabels.push(this.getTime.info[0].Height)
+            this.chartData.push(this.getTime.info[0].generate_time)
+            this.chartLabels.push(this.getTime.info[0].block_height)
             this.removeData(this.myChart)
-            this.addData(this.myChart, this.getTime.info[0].GenerateTime)
-            this.lastheight = this.getTime.info[0].Height
+            this.addData(this.myChart, this.getTime.info[0].generate_time)
+            this.lastheight = this.getTime.info[0].block_height
           }
         }
       },

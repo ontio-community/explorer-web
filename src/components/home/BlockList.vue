@@ -13,14 +13,14 @@
       <div v-for="(block,index) in latestBlockList.info" class="col-12 block-item-wrapper">
         <div class="divider-line"></div>
         <div class="row block-item-sub-wrapper">
-          <div class="block-item col-6 text-left padding0 block-item-height font700 font-size22 pointer" @click="toBlockDetailPage(block.Height)" style="color:#32a4be;line-height: 27px;">{{block.Height}}</div>
-          <div v-if="block.TxnNum ==1" class="block-item col-6 text-right padding0 font-size14">{{block.TxnNum}} Txns</div>
-          <div v-else class="block-item col-6 text-right padding0 font-size14">{{block.TxnNum}} Txns</div>
+          <div class="block-item col-6 text-left padding0 block-item-height font700 font-size22 pointer" @click="toBlockDetailPage(block.block_height)" style="color:#32a4be;line-height: 27px;">{{block.block_height}}</div>
+          <div v-if="block.tx_count ==1" class="block-item col-6 text-right padding0 font-size14">{{block.tx_count}} Txns</div>
+          <div v-else class="block-item col-6 text-right padding0 font-size14">{{block.tx_count}} Txns</div>
         </div>
         <div class="row block-item-sub-wrapper-s">
-          <span class="block-item col-6 text-left padding0 font-size14">{{block.BlockSize}} byte</span>
-          <span v-if="$HelperTools.getDateTime(block.BlockTime) < 60" class="block-item col-6 text-right padding0 font-size14 ">{{showtime[index]}}s ago</span>
-          <span v-else class="block-item col-6 text-right padding0 font-size14 ">{{getShowDate(block.BlockTime)}} ago</span>
+          <span class="block-item col-6 text-left padding0 font-size14">{{block.block_size}} byte</span>
+          <span v-if="$HelperTools.getDateTime(block.block_time) < 60" class="block-item col-6 text-right padding0 font-size14 ">{{showtime[index]}}s ago</span>
+          <span v-else class="block-item col-6 text-right padding0 font-size14 ">{{getShowDate(block.block_time)}} ago</span>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
     data() {
       return {
         info: [],
-        blocktime: [0, 0, 0, 0, 0],
+        block_time: [0, 0, 0, 0, 0],
         timestamp: (new Date()).valueOf(),
         showtime: [0, 0, 0, 0, 0]
       }
@@ -56,7 +56,7 @@
       '$route': 'getBlockList',
       'latestBlockList.info': function () {
         for (var i = 0; i < 5; i++) {
-          this.showtime[i] = this.$HelperTools.getDateTime(this.latestBlockList.info[i].BlockTime)
+          this.showtime[i] = this.$HelperTools.getDateTime(this.latestBlockList.info[i].block_time)
         }
       },
     },

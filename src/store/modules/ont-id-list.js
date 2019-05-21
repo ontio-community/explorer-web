@@ -1,4 +1,4 @@
-import axios from 'axios'
+import $httpService from '../../common/utils'
 import * as types from "../mutation-type"
 
 export default {
@@ -14,12 +14,10 @@ export default {
   },
   actions: {
     getOntIdList({dispatch, commit}, $param) {
-      let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-
-      return axios.get(apiUrl + '/ontidlist/5').then(response => {
+      return $httpService.get('/latest-ontids?count=5').then(response => {
         commit({
           type: types.SET_ONT_ID_LIST,
-          info: response.data.Result
+          info: response.result
         })
       }).catch(error => {
         console.log(error)

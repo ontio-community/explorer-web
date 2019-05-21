@@ -1,4 +1,6 @@
 import axios from 'axios'
+import $httpService from '../../common/utils'
+
 import * as types from "../mutation-type"
 
 /**
@@ -27,17 +29,17 @@ function setAllData(list) {
 
   // 表格数据填充
   for (let listKey in list) {
-    chartData.labels.push(list[listKey].Time.length > 5 ? list[listKey].Time.substr(5) : list[listKey].Time);
-    chartData.data.block.list.push(list[listKey].BlockCount);
-    chartData.data.txn.list.push(list[listKey].TxnCount);
-    chartData.data.newAddress.list.push(list[listKey].NewAddress);
-    chartData.data.activeAddress.list.push(list[listKey].ActiveAddress);
-    chartData.data.newOntId.list.push(list[listKey].OntIdNewCount);
-    chartData.data.activeOntId.list.push(list[listKey].OntIdActiveCount);
-    chartData.data.sumAddress.list.push(list[listKey].AddressSum);
-    chartData.data.sumOntId.list.push(list[listKey].OntIdSum);
-    chartData.data.ont.list.push(list[listKey].OntCount);
-    chartData.data.ong.list.push(list[listKey].OngCount)
+    chartData.labels.push(list[listKey].time.length > 5 ? list[listKey].time.substr(5) : list[listKey].time);
+    chartData.data.block.list.push(list[listKey].block_count);
+    chartData.data.txn.list.push(list[listKey].tx_count);
+    chartData.data.newAddress.list.push(list[listKey].new_address_count);
+    chartData.data.activeAddress.list.push(list[listKey].active_address_count);
+    chartData.data.newOntId.list.push(list[listKey].new_ontid_count);
+    chartData.data.activeOntId.list.push(list[listKey].active_ontid_count);
+    chartData.data.sumAddress.list.push(list[listKey].address_total);
+    chartData.data.sumOntId.list.push(list[listKey].ontid_total);
+    chartData.data.ont.list.push(list[listKey].ont_sum);
+    chartData.data.ong.list.push(list[listKey].ong_sum)
   }
 
   return chartData;
@@ -64,12 +66,12 @@ function setContractData(list) {
 
   // 表格数据填充
   for (let listKey in list) {
-    chartData.labels.push(list[listKey].Time);
-    chartData.data.newAddress.list.push(list[listKey].NewAddress);
-    chartData.data.activeAddress.list.push(list[listKey].ActiveAddress);
-    chartData.data.ont.list.push(list[listKey].OntCount);
-    chartData.data.ong.list.push(list[listKey].OngCount);
-    chartData.data.txn.list.push(list[listKey].TxnCount)
+    chartData.labels.push(list[listKey].time);
+    chartData.data.newAddress.list.push(list[listKey].new_address_count);
+    chartData.data.activeAddress.list.push(list[listKey].active_address_count);
+    chartData.data.ont.list.push(list[listKey].ont_sum);
+    chartData.data.ong.list.push(list[listKey].ong_sum);
+    chartData.data.txn.list.push(list[listKey].tx_count)
   }
 
   return chartData;
@@ -106,15 +108,17 @@ export default {
       let startTimestamp = timestamp - (86400 * days) - 86400; // 14 days or 30 days ago
 
       let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-      let url = apiUrl + '/summary/daily/' + startTimestamp + '/' + timestamp;
+      // let url = apiUrl + '/summary/daily/' + startTimestamp + '/' + timestamp;
+      let url = `/summary/blockchain/daily?start_time=${startTimestamp}&end_time=${timestamp}`
 
       // 如果有hash，说明是合约信息
       if (typeof($param.contractHash) !== "undefined") {
-        url = apiUrl + '/summary/contract/' + $param.contractHash + '/daily/' + startTimestamp + '/' + timestamp;
+        // url = apiUrl + '/summary/contract/' + $param.contractHash + '/daily/' + startTimestamp + '/' + timestamp;
+        url = `/summary/contracts/${$param.contractHash}/daily?start_time=${startTimestamp}&end_time=${timestamp}`
       }
 
-      return axios.get(url).then(response => {
-        let list = response.data.Result.SummaryList;
+      return $httpService.get(url).then(response => {
+        let list = response.result.records;
         let chartData = list;
 
         if (typeof($param.contractHash) !== "undefined") {
@@ -141,10 +145,9 @@ export default {
      * @return {Promise<AxiosResponse | never>}
      */
     getContractList({dispatch, commit}, $param) {
-      let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-      let url = apiUrl + '/contract/100/1';
+      let url = '/contract/100/1';
 
-      return axios.get(url).then(response => {
+      return $httpService.get(url).then(response => {
         commit({
           type: types.SET_SC_LIST,
           info: response.data.Result.ContractList
