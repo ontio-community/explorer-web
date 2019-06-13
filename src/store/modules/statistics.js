@@ -1,5 +1,6 @@
 import axios from 'axios'
 import $httpService from '../../common/utils'
+import Helper from '../../helpers/helper'
 
 import * as types from "../mutation-type"
 
@@ -29,7 +30,8 @@ function setAllData(list) {
 
   // 表格数据填充
   for (let listKey in list) {
-    chartData.labels.push(list[listKey].time.length > 5 ? list[listKey].time.substr(5) : list[listKey].time);
+    let time = Helper.HelperTools.getStatisticsTime(list[listKey].time)
+    chartData.labels.push(time.length > 5 ? time.substr(0,5) : time);
     chartData.data.block.list.push(list[listKey].block_count);
     chartData.data.txn.list.push(list[listKey].tx_count);
     chartData.data.newAddress.list.push(list[listKey].new_address_count);
@@ -66,7 +68,8 @@ function setContractData(list) {
 
   // 表格数据填充
   for (let listKey in list) {
-    chartData.labels.push(list[listKey].time);
+    let sctime = Helper.HelperTools.getStatisticsTime(list[listKey].time)
+    chartData.labels.push(sctime.length > 5 ? sctime.substr(0,5) : sctime);
     chartData.data.newAddress.list.push(list[listKey].new_address_count);
     chartData.data.activeAddress.list.push(list[listKey].active_address_count);
     chartData.data.ont.list.push(list[listKey].ont_sum);
@@ -105,16 +108,18 @@ export default {
       let timestamp = (new Date()).valueOf();
       timestamp = parseInt(timestamp / 1000); // to second
       let days = typeof($param.day) !== "undefined" ? $param.day : '14';
-      let startTimestamp = timestamp - (86400 * days) - 86400; // 14 days or 30 days ago
+      let startTimestamp = days == '14' ? timestamp - (86400 * days) - 86400:timestamp - (86400 * days); // 14 days or 30 days ago
 
       let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
       // let url = apiUrl + '/summary/daily/' + startTimestamp + '/' + timestamp;
-      let url = `/summary/blockchain/daily?start_time=${startTimestamp}&end_time=${timestamp}`
+       let url = `/summary/blockchain/daily?start_time=${startTimestamp}&end_time=${timestamp}`
+      //let url = `/summary/blockchain/daily?start_time=1558051200&end_time=1558569600`
 
       // 如果有hash，说明是合约信息
       if (typeof($param.contractHash) !== "undefined") {
         // url = apiUrl + '/summary/contract/' + $param.contractHash + '/daily/' + startTimestamp + '/' + timestamp;
-        url = `/summary/contracts/${$param.contractHash}/daily?start_time=${startTimestamp}&end_time=${timestamp}`
+         url = `/summary/contracts/${$param.contractHash}/daily?start_time=${startTimestamp}&end_time=${timestamp}`
+        //url = `/summary/contracts/01f7166c22f7164651e57c1ebec02a01960500d0/daily?start_time=${startTimestamp}&end_time=${timestamp}`
       }
 
       return $httpService.get(url).then(response => {

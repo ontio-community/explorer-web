@@ -10,7 +10,7 @@
     <div class="d-none d-sm-block col">
       <div class="detail-col detail-col-right">
         <span class="f-color">{{name2}}</span>
-        <span class="word-break" :class="classObject2" @click="doAction(params2)">{{val2}}</span>
+        <span class="word-break" :class="classObject2" @click="doAction(params2)">{{val2?val2:1}}</span>
 
         <a v-if="tip === 'true'" href="#" data-toggle="tooltip" :title="tipTit" class="common-tooltip-style">
           <i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -138,12 +138,12 @@
         if (this.$route.params.net === 'testnet') {
           this.$router.push({
             name: 'AddressDetailTest',
-            params: {address: address, pageSize: 20, pageNumber: 1, net: 'testnet'}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1, net: 'testnet'}
           })
         } else {
           this.$router.push({
             name: 'AddressDetail',
-            params: {address: address, pageSize: 20, pageNumber: 1}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1}
           })
         }
       }

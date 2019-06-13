@@ -112,22 +112,23 @@
               </thead>
               <tbody>
               <tr v-for="tx in TxnList">
-                <td class="font-size14 important_color font-Regular pointer" @click="toTransactionDetailPage(tx.TxnHash)">
-                  {{tx.TxnHash.substr(0,4) + '...' + tx.TxnHash.substr(60)}}
+                <td class="font-size14 important_color font-Regular pointer" @click="toTransactionDetailPage(tx.tx_hash)">
+                  {{tx.tx_hash.substr(0,4) + '...' + tx.tx_hash.substr(60)}}
                 </td>
                 <td class="font-size14 font-Regular normal_color ">
-                  {{getOntIDEvent(tx.Description)}}
+                  {{getOntIDEvent(tx.description)}}
                 </td>
                 <td class="font-size14 font-Regular normal_color">
-                  {{tx.Fee}}
+                  {{tx.fee}}
                 </td>
                 <td class="font-size14 font-Regular normal_color">
-                  {{$HelperTools.getTransDate(tx.TxnTime)}}
+                  {{$HelperTools.getTransDate(tx.tx_time)}}
                 </td>
               </tr>
               </tbody>
             </table>
           </div>
+          <ont-pagination :total="TxnTotal"></ont-pagination>
         </div>
       </div>
     </div>
@@ -160,7 +161,12 @@
       }
     },
     created() {
-      this.getOntIdDetail()
+      if (this.$route.params.pageSize == undefined || this.$route.params.pageNumber == undefined) {
+        this.toOntIdDetailPageReload(this.$route.params.ontid)
+      }else{
+        this.getOntIdDetail()
+      }
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
     watch: {
       '$route': 'getOntIdDetail',
@@ -187,25 +193,43 @@
           this.work.work_HASH = this.Ddo.Attributes[8].SelfDefined['work HASH']
           /* console.log(this.work) */
         }
+      },
+      'OntIdDdo':function(){
+        console.log(this.OntIdDdo)
+        this.Ddo = this.OntIdDdo
+      },
+      'OntIdTxnList':function(){
+        console.log(this.OntIdTxnList)
+        this.TxnList = this.OntIdTxnList.records
+        this.TxnTotal = this.OntIdTxnList.total
       }
     },
     computed: {
       ...mapState({
-        OntIdDetail: state => state.OntIDs.Detail,
+        OntIdDdo: state => state.OntIDs.Ddo,
+        OntIdTxnList: state => state.OntIDs.Tx,
       })
     },
     methods: {
+      toOntIdDetailPageReload($OntId) {
+        if (this.$route.params.net == undefined) {
+          this.$router.push({name: 'OntIdDetail', params: {ontid: $OntId,pageSize:10,pageNumber:1}})
+        } else {
+          this.$router.push({name: 'OntIdDetailTest', params: {ontid: $OntId,pageSize:10,pageNumber:1, net: "testnet"}})
+        }
+      },
       getOntIdDetail() {
-        this.$store.dispatch('GetOntIdDetail', this.$route.params).then()
+        this.$store.dispatch('GetOntIdDdoDetail', this.$route.params).then()
+        this.$store.dispatch('GetOntIdTxDetail', this.$route.params).then()
       },
       toReturn() {
         this.$router.go(-1)
       },
       toTransactionDetailPage($TxnId) {
         if (this.$route.params.net == undefined) {
-          this.$router.push({name: 'TransactionDetail', params: {txnHash: $TxnId}})
+          this.$router.push({name: 'TransactionDetail', params: {tx_hash: $TxnId}})
         } else {
-          this.$router.push({name: 'TransactionDetailTest', params: {txnHash: $TxnId, net: "testnet"}})
+          this.$router.push({name: 'TransactionDetailTest', params: {tx_hash: $TxnId, net: "testnet"}})
         }
       },
       toOntIdDetailPage($OntId) {
@@ -235,6 +259,8 @@
             return "Add recovery"
           case "remove attri":
             return "Remove attribute"
+          case "create new c":
+            return "create new claim"
         }
       }
     }

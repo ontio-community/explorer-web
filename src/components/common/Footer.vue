@@ -72,7 +72,7 @@
           <a href="https://www.linkedin.com/company/ontology-network-official/"><img class="footer-link-linkedin footer-link-img" src="../../assets/footer/linkedin@2x.png"></a>
         </div>
       </div>
-      <div class="footer-copyright">Copyright © 2018 The Ontology Team</div>
+      <div class="footer-copyright">Copyright © 2019 The Ontology Team</div>
 
 
     </div>

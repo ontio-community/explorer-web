@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import XLSX from 'xlsx'
+  /* import XLSX from 'xlsx' */
 
 	export default {
     name: "DownloadExcel",
@@ -27,8 +27,9 @@
       downloadExcel() {
         this.isShow = false;
 
-        this.$store.dispatch('getAddressDetailAllData', this.$route.params).then(res => {
+        this.$store.dispatch('getAddressDetailAllData', {address:this.$route.params.address,pageSize:20,pageNumber:1}).then(res => {
           if (res !== false) this.generatingExcelData(res)
+
         })
       },
       generatingExcelData(json) {

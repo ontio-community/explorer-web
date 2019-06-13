@@ -24,7 +24,7 @@
     </div>
 
     <!--Node authorization data process bar-->
-    <div v-show="fetchProcess !== 100" class="node-progress-row">
+<!--     <div v-show="fetchProcess !== 100" class="node-progress-row">
       <div class="row">
         <div class="col text-center">
           <div class="important_color"><p>{{ $t('nodes.processTip') }}</p></div>
@@ -38,18 +38,19 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!--The node list-->
-    <div v-show="fetchProcess === 100" class="row justify-content-center">
+    <div  class="row justify-content-center">
       <div class="col">
-        <div class="table-responsive">
+        <o-load :type="listType" v-if="!(nodelist && loadingFlag)" ></o-load>
+        <div v-else class="table-responsive">
           <table class="table table-hover">
             <thead>
             <tr>
               <th class="trl-tab-border-top-none font-size18" scope="col">{{ $t('nodes.rank') }}</th>
               <th class="trl-tab-border-top-none font-size18" scope="col">{{ $t('nodes.name') }}</th>
-              <th class="trl-tab-border-top-none font-size18" scope="col">{{ $t('all.ontId') }}</th>
+              <th class="trl-tab-border-top-none font-size18" scope="col">{{ $t('all.pk') }}</th>
               <th class="trl-tab-border-top-none font-size18" scope="col">{{ $t('all.address') }}</th>
               <th class="trl-tab-border-top-none font-size18" scope="col">{{ $t('nodes.reward') }}
                 <a href="#" data-toggle="tooltip" :title="$t('nodes.tooltipTit')" class="tooltip-style">
@@ -61,14 +62,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="nL in nodeList" class="font-size14 font-Regular p-tb-18">
-              <td><div class="rank-style font-blod">{{ nL.rank }}</div></td>
-              <td class="important_color font-blod pointer" @click="toNodeDetail(nL.pk)">{{ nL.name }}</td>
-              <td class="f-color pointer2" @click="toOntIdDetailPage(nL.ontId)">{{ nL.ontId.substr(0,12)}}...{{nL.ontId.substr(38) }}</td>
+            <tr v-for="nL in nodelist" class="font-size14 font-Regular p-tb-18">
+              <td><div class="rank-style font-blod">{{ nL.node_rank }}</div></td>
+              <td class="important_color font-blod pointer" @click="toNodeDetail(nL.public_key)">{{ nL.name }}</td>
+              <td class="f-color pointer2" @click="toNodeDetail(nL.public_key)">{{ nL.public_key.substr(0,12)}}...{{nL.public_key.substr(38) }}</td>
               <td class="f-color pointer2" @click="goToAddressDetail(nL.address)">{{ nL.address.substr(0,8)}}...{{nL.address.substr(26) }}</td>
-              <td class="s_color">{{ nL.nodeProportion }}</td>
-              <td class="normal_color">{{ nL.currentStake }}</td>
-              <td class="normal_color">{{ nL.process }}</td>
+              <td class="s_color">{{ nL.node_proportion }}</td>
+              <td class="normal_color">{{ nL.current_stake }}</td>
+              <td class="normal_color">{{ nL.progress }}</td>
             </tr>
             </tbody>
           </table>
@@ -89,17 +90,42 @@
 
 	export default {
     name: "stake-authorization",
+    data() {
+      return {
+        loadingFlag:true,
+        listType:'list'
+      }
+    },
     created() {
-      this.getNodeListInfo()
+      /* this.getNodeListInfo() */
+      this.getNodeList()
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      this.intervalBlock = setInterval(() => {
+        this.getNodeList()
+      }, 60000)
     },
     computed: {
       ...mapState({
-        nodeList: state => state.NodeAuthorization.AuthorizationList,
+/*         nodeList: state => state.NodeAuthorization.AuthorizationList,
+        fetchProcess: state => state.NodeAuthorization.fetchProcess, */
         countdown: state => state.NodeAuthorization.Countdown,
-        fetchProcess: state => state.NodeAuthorization.fetchProcess
+        nodelist: state => state.NodeAuthorization.nodelist
       })
     },
+    watch: {
+      'nodelist':function(){
+        this.loadingFlag = true
+      }
+    },
     methods: {
+      getNodeList(){
+        this.loadingFlag = true
+        this.$store.dispatch('getNodelist', this.$route.params).then();
+        this.getCountdown()
+      },
+      getCountdown(){
+        this.$store.dispatch('fetchBlockCountdown', this.$route.params).then()
+      },
       getNodeListInfo() {
         this.$store.dispatch('fetchNodeList', this.$route.params).then();
         this.$store.dispatch('fetchBlockCountdown', this.$route.params).then()
@@ -118,15 +144,18 @@
         if (this.$route.params.net === 'testnet') {
           this.$router.push({
             name: 'AddressDetailTest',
-            params: {address: address, pageSize: 20, pageNumber: 1, net: 'testnet'}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1, net: 'testnet'}
           })
         } else {
           this.$router.push({
             name: 'AddressDetail',
-            params: {address: address, pageSize: 20, pageNumber: 1}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1}
           })
         }
       }
+    },
+    beforeDestroy() {
+      clearInterval(this.intervalBlock)
     }
   }
 </script>

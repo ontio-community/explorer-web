@@ -12,13 +12,13 @@ module.exports = {
     blocks: '区块列表',
     addrs: '地址列表',
     tarns: '交易列表',
-    ontIds: 'ONT ID列表',
+    ontIds: 'ONT ID 列表',
     top: {
       blockchain: '区块链',
       contracts: '合约',
       tokens: '通证',
       ontId: 'ONT ID',
-      apis: '文档',
+      apis: 'API文档',
       mainNet: '主网',
       testNet: '测试网',
       nodes: '节点',
@@ -27,11 +27,12 @@ module.exports = {
       blocks: '区块',
       txns: '交易',
       accounts: '账户',
-      oep4: 'OEP-4概述',
-      oep5: 'OEP-5概述',
-      oep8: 'OEP-8概述',
+      oep4: 'OEP-4 概述',
+      oep5: 'OEP-5 概述',
+      oep8: 'OEP-8 概述',
       statistics: '统计',
-      tool: '工具'
+      tool: '工具',
+      apiDocUrl:"https://dev-docs.ont.io/#/docs-cn/explorer/overview"
     }
   },
   all: {
@@ -55,6 +56,7 @@ module.exports = {
     token: 'Token',
     txn: '交易',
     txns: '交易',
+    pk:"公钥"
   },
   ontPagination: {
     total: '共有 ',
@@ -62,7 +64,7 @@ module.exports = {
   },
   searchInput: {
     search: '查询',
-    placeholder: 'Ont ID，区块高度，交易哈希，合约哈希，资产地址',
+    placeholder: ' ONT ID，区块高度，交易哈希，合约哈希，资产地址',
     slogan: '区块链浏览器 & 可信验证器'
   },
   runStatus: {
@@ -75,21 +77,21 @@ module.exports = {
     addressCount: '注册地址数量',
     second: '秒',
     address: "地址数",
-    ontid: "ONT ID总数："
+    ontid: "ONT ID 总数："
   },
   ontIdList: {
-    name: '最新ONT ID事件'
+    name: '最新 ONT ID 事件'
   },
   ontIdDetail: {
-    nickname: 'Ont ID详情',
-    name: 'Ont ID: ',
-    msgName: 'Ont ID 事件记录',
-    TxnId: '交易id',
+    nickname: 'ONT ID 详情',
+    name: 'ONT ID: ',
+    msgName: 'ONT ID 事件记录',
+    TxnId: '交易 id',
     Height: '区块高度',
     TxnType: '交易类型',
     TxnTime: '区块时间',
     Description: '操作描述',
-    events: '在这个ONT ID上的事件',
+    events: '在这个 ONT ID 上的事件',
     owner: '所属人',
     failed: '没有找到数据。'
   },
@@ -114,12 +116,14 @@ module.exports = {
     address: '地址： ',
     ontBalance: 'ONT： ',
     ongBalance: 'ONG： ',
-    claimable: '可提取的ONG： ',
-    unbound: '未解绑的ONG： ',
+    claimable: '可提取的 ONG： ',
+    unbound: '未解绑的 ONG： ',
     txOnAddr: '笔交易在这个地址上：',
     txns: '交易列表:',
     oep8Assets: 'OEP-8 资产：',
-    oepOtherAssets: '其他的OEP资产:'
+    oep4Assets: 'OEP-4 资产：',
+    oep5Assets: 'OEP-5 资产：',
+    oepOtherAssets: '其他的 OEP 资产:'
   },
   assetName: {
     ont: 'ONT',
@@ -145,7 +149,7 @@ module.exports = {
     PrevBlock: '上一个区块：',
     LastBlock: '最后一个区块：',
     NextBlock: '下一个区块：',
-    merkle: 'Merkle根：',
+    merkle: 'Merkle 根：',
     Consensus: '共识数据：',
     txOnBlock: '条交易记录在这个区块：'
   },
@@ -158,11 +162,14 @@ module.exports = {
     time: '时间：',
     type: '类型： ',
     deploySC: 'Deploy Smart Contract',
-    sc: 'Smart Contract',
+    sc: 'Invoke Smart Contract',
     height: '高度： ',
     status: '状态： ',
     fee: '费用： ',
-    issuer: '发行人OntId'
+    issuer: '发行人  ONT ID',
+    detial:'事件：',
+    open:'详情',
+    close:'收起'
   },
   claimDetail: {
     name: '认证详情'
@@ -198,7 +205,7 @@ module.exports = {
     rewardRate: '奖励比例：',
     rank2: '排名：',
     stake2: '质押：',
-    stakeOWallet: '在Owallet上质押 →',
+    stakeOWallet: '在 Owallet 上质押 →',
     process2: '进度：',
     ip: 'IP地址：',
     email: '邮箱：',
@@ -237,8 +244,8 @@ module.exports = {
       createdTime: '创建时间：',
       contractInfo: '信息',
       logo: 'Logo',
-      ontFlow: 'ONT流水总量：',
-      ongFlow: 'ONG流水总量：',
+      ontFlow: 'ONT 流水总量：',
+      ongFlow: 'ONG 流水总量：',
       amount: '流水总量：'
     }
   },
@@ -269,8 +276,8 @@ module.exports = {
       createdTime: '创建时间：',
       contractInfo: '信息',
       logo: 'Logo',
-      ontFlow: 'ONT流水总量：',
-      ongFlow: 'ONG流水总量：',
+      ontFlow: 'ONT 流水总量：',
+      ongFlow: 'ONG 流水总量：',
       amount: '流水总量：',
       txn: '交易总数',
       volume: '流水总量',
@@ -290,13 +297,13 @@ module.exports = {
     newAddressLbl: '新增地址数',
     activeAddressLbl: '活动地址数',
     blockLbl: '新增区块数',
-    newOntIdLbl: '新增ONT-ID数',
-    activeOntIdLbl: '活动ONT-ID数',
+    newOntIdLbl: '新增 ONT ID 数',
+    activeOntIdLbl: '活动 ONT ID 数',
     sumAddressLbl: '地址增长',
-    sumOntIdLbl: 'ONT-ID增长',
+    sumOntIdLbl: 'ONT ID 增长',
     txnLbl: '交易数',
-    ontLbl: 'ONT交易总额',
-    ongLbl: 'ONG交易总额'
+    ontLbl: 'ONT 交易总额',
+    ongLbl: 'ONG 交易总额'
   },
   footer:{
     flag:"zh",
@@ -320,12 +327,13 @@ module.exports = {
     WhitePaper:'白皮书',
     Explorer:'区块链浏览器',
     dApps:'dApps',
-    dAppsList:'dApps列表',
-    SubmitAdApp:'提交dApp',
+    dAppsList:'dApps 列表',
+    SubmitAdApp:'提交 dApp',
   },
   error:{
     format:"对不起，无法找到您输入的搜索内容。",
     copied:"已复制!",
-    pagesize:"pageSize limit 30"
+    pagesize:"pageSize limit 20",
+    searching:"查询中"
   }
 };

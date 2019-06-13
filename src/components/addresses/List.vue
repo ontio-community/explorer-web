@@ -19,7 +19,8 @@
 
     <div class="row justify-content-center">
       <div class="col">
-        <div class="table-responsive">
+        <o-load :type="listType" v-if="!(addressList && loadingFlag)" ></o-load>
+        <div v-else class="table-responsive">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -55,9 +56,16 @@
   export default {
     created() {
       this.getAddressListInfo()
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
     watch: {
-      '$route': 'getAddressListInfo'
+      '$route': function(){
+        this.getAddressListInfo()
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      },
+      'addressList':function(){
+        this.loadingFlag = true
+      }
     },
     computed: {
       ...mapState({
@@ -72,7 +80,15 @@
               let tmpB = lists[i].balance.toString();
               lists[i].balance = tmpB.substring(0, tmpB.length - 9) + '.' + tmpB.substring(tmpB.length - 9)
             }
-          }
+          };
+          for(let j in lists ){
+            if(lists[j].address === "0700000000000000000000000000000000000000"){
+              lists[j].address = "AFmseVrdL9f9oyCzZefL9tG6UbviEH9ugK"
+            }
+            if(lists[j].address === "0100000000000000000000000000000000000000"){
+              lists[j].address = "AFmseVrdL9f9oyCzZefL9tG6UbvhUMqNMV"
+            }
+          };
 
           return lists;
         } else {
@@ -80,8 +96,15 @@
         }
       }
     },
+    data() {
+      return {
+        loadingFlag:false,
+        listType:'list',
+      }
+    },
     methods: {
       getAddressListInfo() {
+        this.loadingFlag =false
         this.$store.dispatch('GetAddressList', this.$route.params).then()
       },
       toAddressListPage($token) {
@@ -98,12 +121,12 @@
         if (this.$route.params.net == undefined) {
           this.$router.push({
             name: 'AddressDetail',
-            params: {address: address, pageSize: 20, pageNumber: 1}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1}
           })
         } else {
           this.$router.push({
             name: 'AddressDetailTest',
-            params: {address: address, pageSize: 20, pageNumber: 1, net: 'testnet'}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1, net: 'testnet'}
           })
         }
       }

@@ -56,6 +56,7 @@
 
 <script>
   import axios from 'axios'
+  import $httpService from '../../common/utils'
   export default {
 
     components: {},
@@ -71,66 +72,97 @@
        this.$message({message: this.$t('error.format')});
       },
       searchHash($searchContent){
-        let apiUrl = (this.$route.params.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-        axios.get(apiUrl + '/transaction/' + $searchContent).then(res=>{
-            if(res.data.Error != 0){
+        $httpService.get('/transactions/' + $searchContent).then(res=>{
+            if(res.code != 0){
                 this.notFound()
             }else{
                 if (this.$route.params.net == undefined){
-                    this.$router.push({name: 'TransactionDetail', params: {txnHash: this.searchContent}})
+                    this.$router.push({name: 'TransactionDetail', params: {tx_hash: this.searchContent}})
                 }else{
                     this.$router.push({
                       name: 'TransactionDetailTest',
-                      params: {txnHash: this.searchContent, net: 'testnet'}
+                      params: {tx_hash: this.searchContent, net: 'testnet'}
                     })
                 }
             }          
+        }).catch(error => {
+          this.notFound()
         })
       },
       searchAddress($searchContent){
-        if (this.$route.params.net == undefined) {
-          this.$router.push({
-            name: 'AddressDetail',
-            params: {address: this.searchContent, pageSize: 20, pageNumber: 1}
-          })
-        } else {
-          this.$router.push({
-            name: 'AddressDetailTest',
-            params: {address: this.searchContent, pageSize: 20, pageNumber: 1, net: 'testnet'}
-          })
-        }
-
+          if($searchContent.substr(0,1)!= "A"){
+                this.notFound()
+          }else{
+                if (this.$route.params.net == undefined) {
+                  this.$router.push({
+                    name: 'AddressDetail',
+                    params: {address: this.searchContent, assetName:"ALL", pageSize: 20, pageNumber: 1}
+                  })
+                } else {
+                  this.$router.push({
+                    name: 'AddressDetailTest',
+                    params: {address: this.searchContent, assetName:"ALL", pageSize: 20, pageNumber: 1, net: 'testnet'}
+                  })
+                }
+          }
       },
       searchContract($searchContent){
-        let apiUrl = (this.$route.params.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-        let url = apiUrl + '/contract/' + $searchContent + '/10/1';
-        axios.get(url).then(response => {
-            if(response.data.Error != 0){
+        $httpService.get('/contracts/'+$searchContent).then(res => {
+            if(res.code != 0){
                 this.notFound()
             }else{
-              console.log(response)
-                if(response.data.Result == null){
+              console.log(res)
+              console.log("this.$route",this.$route)
+                if(res.result == null){
                   this.notFound()
                 }else{
-                  if (this.$route.params.net == undefined){
-                    this.$router.push({
-                      name: 'ContractDetail',
-                      params: {contractHash: this.searchContent, pageSize: 10, pageNumber: 1}
-                    })
+                  if(res.result.type == ""){
+                    if (this.$route.params.net == undefined){
+                      this.$router.push({
+                        name: 'ContractDetail',
+                        params: {contractHash: this.searchContent, contractType:"other",pageSize: 10, pageNumber: 1}
+                      })
+                    }else{
+                      this.$router.push({
+                        name: 'ContractDetailTest',
+                        params: {contractHash: this.searchContent, contractType:"other", pageSize: 10, pageNumber: 1, net: 'testnet'}
+                      })
+                    }
                   }else{
-                    this.$router.push({
-                      name: 'ContractDetailTest',
-                      params: {contractHash: this.searchContent, pageSize: 10, pageNumber: 1, net: 'testnet'}
-                    })
+                    if (this.$route.params.net == undefined) {
+                      this.$router.push({
+                          name: 'TokenDetail', 
+                          params: {
+                            contractType: res.result.type,
+                            tokenName: res.result.name,
+                            contractHash: this.searchContent,
+                            pageSize: 10,
+                            pageNumber: 1
+                          }
+                      })
+                    } else {
+                      this.$router.push({
+                          name: 'TokenDetailTest', 
+                          params: {
+                            contractType: res.result.type,
+                            tokenName: res.result.name,
+                            contractHash: this.searchContent,
+                            pageSize: 10,
+                            pageNumber: 1,
+                            net: 'testnet'
+                          }
+                      })
+                    }
                   }
                 }
             }  
+        }).catch(error => {
+          this.notFound()
         })
       },
       searchONTID($searchContent){
-        let apiUrl = (this.$route.params.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-        axios.get(apiUrl + '/ontid/'+$searchContent+'/20/1').then(response => {
-            if(response.data.Error != 0){
+        $httpService.get('/ontids/'+$searchContent+'/ddo').then(res => {
+            if(res.code != 0){
               
                 this.notFound()
             }else{
@@ -146,12 +178,13 @@
                 })
               }        
             }      
+        }).catch(error => {
+          this.notFound()
         })
       },
       searchHeight($searchContent){
-        let apiUrl = (this.$route.params.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-        axios.get(apiUrl + '/block/' + $searchContent).then(response => {
-            if(response.data.Error != 0){
+        $httpService.get('/blocks/' + $searchContent).then(response => {
+            if(response.code != 0){
                 this.notFound()
             }else{
               if (this.$route.params.net == undefined) {
@@ -160,11 +193,13 @@
                 this.$router.push({name: 'blockDetailTest', params: {param: this.searchContent, net: 'testnet'}})
               }              
             }          
+        }).catch(error => {
+          this.notFound()
         })
       },
       submitSearch() {
         if (this.searchContent !== '') {
-            this.searchContent = this.searchContent.trim();
+          this.searchContent = this.searchContent.trim();
           switch (this.searchContent.length) {
             /* txhash */
             case 64:

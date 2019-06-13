@@ -6,7 +6,8 @@
 
     <div class="row justify-content-center">
       <div class="col">
-        <div class="table-responsive">
+        <o-load :type="listType" v-if="!(ontIdList.list && loadingFlag)" ></o-load>
+        <div v-else class="table-responsive">
           <table class="table table-hover">
             <thead>
             <tr>
@@ -20,12 +21,12 @@
             </thead>
             <tbody>
             <tr v-for="OntId in ontIdList.list">
-              <td class="font-size14 font-Regular important_color pointer" @click="toTransactionDetailPage(OntId.TxnHash)">{{OntId.TxnHash.substr(0,8) + '...' + OntId.TxnHash.substr(56)}}</td>
-              <td class="font-size14 font-Regular important_color pointer" @click="toOntIdDetailPage(OntId.OntId)">{{OntId.OntId.substr(0,10)}}...{{OntId.OntId.substr(35,46)}}</td>
-              <td class="font-size14 font-Regular normal_color">{{getOntIDEvent(OntId.Description)}}</td>
-              <td class="font-size14 font-Regular normal_color">{{OntId.Height}}</td>
-              <td class="font-size14 font-Regular normal_color">{{Number(OntId.Fee)}}</td>
-              <td class="font-size14 font-Regular normal_color">{{$HelperTools.getTransDate(OntId.TxnTime)}}</td>
+              <td class="font-size14 font-Regular important_color pointer" @click="toTransactionDetailPage(OntId.tx_hash)">{{OntId.tx_hash.substr(0,8) + '...' + OntId.tx_hash.substr(56)}}</td>
+              <td class="font-size14 font-Regular important_color pointer" @click="toOntIdDetailPage(OntId.ontid)">{{OntId.ontid.substr(0,10)}}...{{OntId.ontid.substr(35,46)}}</td>
+              <td class="font-size14 font-Regular normal_color">{{getOntIDEvent(OntId.description)}}</td>
+              <td class="font-size14 font-Regular normal_color">{{OntId.block_height}}</td>
+              <td class="font-size14 font-Regular normal_color">{{Number(OntId.fee)}}</td>
+              <td class="font-size14 font-Regular normal_color">{{$HelperTools.getTransDate(OntId.tx_time)}}</td>
             </tr>
             </tbody>
           </table>
@@ -42,11 +43,25 @@
   import GetTransactionType from './../../common/OntMsg/GetTransactionType.js'
 
   export default {
+    data() {
+      return {
+        listType:"list",
+        loadingFlag:false,
+      }
+    },
     created() {
       this.getOntIdList()
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
     watch: {
-      '$route': 'getOntIdList'
+      '$route': function(){
+        this.getOntIdList()
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      },
+      'ontIdList':function(){
+        this.loadingFlag = true
+        console.log(this.ontIdList)
+      }
     },
     computed: {
       ...mapState({
@@ -55,6 +70,7 @@
     },
     methods: {
       getOntIdList() {
+        this.loadingFlag = false
         this.testNetPageSizeCheck()
         this.$store.dispatch('GetOntIdList', this.$route.params).then()
       },
@@ -73,16 +89,16 @@
       },
       toTransactionDetailPage($TxnId) {
         if (this.$route.params.net == undefined) {
-          this.$router.push({name: 'TransactionDetail', params: {txnHash: $TxnId}})
+          this.$router.push({name: 'TransactionDetail', params: {tx_hash: $TxnId}})
         } else {
-          this.$router.push({name: 'TransactionDetailTest', params: {txnHash: $TxnId, net: "testnet"}})
+          this.$router.push({name: 'TransactionDetailTest', params: {tx_hash: $TxnId, net: "testnet"}})
         }
       },
       toOntIdDetailPage($OntId) {
         if (this.$route.params.net == undefined) {
-          this.$router.push({name: 'OntIdDetail', params: {ontid: $OntId}})
+          this.$router.push({name: 'OntIdDetail', params: {ontid: $OntId,pageSize:10,pageNumber:1}})
         } else {
-          this.$router.push({name: 'OntIdDetailTest', params: {ontid: $OntId, net: "testnet"}})
+          this.$router.push({name: 'OntIdDetailTest', params: {ontid: $OntId,pageSize:10,pageNumber:1, net: "testnet"}})
         }
       },
       getOntIDEvent: function ($event) {
@@ -105,6 +121,10 @@
             return "Add recovery"
           case "remove attri":
             return "Remove attribute"
+          case "create new c":
+            return "Create new claim"
+          case "revoke claim":
+            return "revoke claim"
         }
       }
     }

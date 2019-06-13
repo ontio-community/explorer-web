@@ -23,6 +23,32 @@
   background-color: #32A4BE !important;
   border-radius: 0 !important;
 }
+.el-pagination .el-select {
+  padding: 0px 5px;
+}
+.ont-oep-el-select{
+  width:100px;
+}
+.el-select {
+  white-space: nowrap;
+  padding: 2px 5px;
+  color: #303133;
+  font-weight: 700;
+}
+.el-select .el-input .el-input__inner {
+  height: 28px;
+  font-size:13px;
+  border-radius: 0 !important;
+  border: 1px solid #AFACAC !important;
+}
+.el-select .el-input .el-input__inner:hover{
+  color: #32a4be !important;
+  border: 1px solid #32A4BE !important;
+}
+.el-select .el-input .el-input__icon {
+  line-height: 28px;
+  font-size:13px;
+}
 .el-pagination.is-background .el-pager li:not(.disabled).active:hover {
   color: white !important;
   background-color: #32A4BE !important;

@@ -31,7 +31,8 @@ module.exports = {
       oep5: 'OEP-5 Overview',
       oep8: 'OEP-8 Overview',
       statistics: 'Statistics',
-      tool: 'Tools'
+      tool: 'Tools',
+      apiDocUrl:"https://dev-docs.ont.io/#/docs-en/explorer/overview"
     }
   },
   all: {
@@ -55,6 +56,7 @@ module.exports = {
     token: 'Token',
     txn: 'Transaction',
     txns: 'Transactions',
+    pk:"Public Key"
   },
   ontPagination: {
     total: 'A total of ',
@@ -82,8 +84,8 @@ module.exports = {
   },
   ontIdDetail: {
     nickname: 'ONT ID DETAILS',
-    name: 'Ont ID: ',
-    msgName: 'Ont ID Event Log',
+    name: 'ONT ID: ',
+    msgName: 'ONT ID Event Log',
     TxnId: 'Transaction ID',
     Height: 'Block height',
     TxnType: 'Transaction Type',
@@ -119,6 +121,8 @@ module.exports = {
     txOnAddr: 'Transactions on this Address:',
     txns: 'Transactions:',
     oep8Assets: 'OEP-8 Assets:',
+    oep4Assets: 'OEP-4 Assets:',
+    oep5Assets: 'OEP-5 Assets:',
     oepOtherAssets: 'Other OEP Assets:'
   },
   assetName: {
@@ -158,11 +162,14 @@ module.exports = {
     time: 'Time: ',
     type: 'Type: ',
     deploySC: 'Deploy Smart Contract',
-    sc: 'Smart Contract',
+    sc: 'Invoke Smart Contract',
     height: 'Height: ',
     status: 'Status: ',
     fee: 'Fee: ',
-    issuer: 'Issuer OntId'
+    issuer: 'Issuer OntId',
+    detial:'Event: ',
+    open:'Detail',
+    close:'Close'
   },
   claimDetail: {
     name: 'CLAIM DETAILS'
@@ -346,6 +353,7 @@ module.exports = {
   error:{
     format:"Sorry, the search string you entered could not be found.",
     copied:"Copied!",
-    pagesize:"pageSize limit 30"
+    pagesize:"pageSize limit 20",
+    searching:"Querying"
   }
 };

@@ -42,14 +42,13 @@ export default {
       })
     },
     GetBlock({dispatch, commit}, $param) {
-      let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
 
-      return axios.get(apiUrl + '/block/' + $param.param).then(response => {
-        let msg = response.data;
-        let blockData = msg.Result;
+      return $httpService.get('/blocks/'+$param.param).then(response => {
+        let msg = response;
+        let blockData = msg.result;
 
         // 将bookkeeper拆成数组
-        blockData.BookKeeper = blockData.BookKeeper.split('&');
+        blockData.BookKeeper = blockData.bookkeepers.split('&');
 
         commit({
           type: types.SET_BLOCK_DETAIL_PAGE,

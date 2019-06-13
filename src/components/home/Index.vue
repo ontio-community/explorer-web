@@ -34,6 +34,9 @@
 
   export default {
     name: 'Home',
+    created() {
+      console.log(this.$route)
+    },
     components: {
       SearchInput,
       RunStatus,

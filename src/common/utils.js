@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { TEST_NET, MAIN_NET } from './consts'
-const network = sessionStorage.getItem('network') || MAIN_NET
+const network = window.location.href.indexOf("testnet")>-1 ? 'TEST_NET' : sessionStorage.getItem('network') || MAIN_NET
 // 创建axios实例
 const service = axios.create({
   baseURL: network === TEST_NET ? process.env.TEST_API_URL : process.env.API_URL,
-  timeout: 15000 // 请求超时时间
+  timeout: 30000 // 请求超时时间
 });
 
 // request拦截器

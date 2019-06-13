@@ -20,8 +20,6 @@
     "decimal.js": "^10.0.2",
     "element-ui": "^2.4.11",
     "font-awesome": "^4.7.0",
-    "highcharts": "^7.0.2",
-    "highcharts-vue": "^1.2.0",
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
     "numeral": "^2.0.6",
@@ -30,12 +28,11 @@
     "vue": "^2.5.2",
     "vue-axios": "^2.0.2",
     "vue-chartjs": "^3.4.0",
-    "vue-highcharts": "0.0.11",
     "vue-html-loader": "^1.2.4",
     "vue-i18n": "^7.4.1",
+    "vue-json-pretty": "^1.6.0",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1",
-    "xlsx": "^0.14.1"
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

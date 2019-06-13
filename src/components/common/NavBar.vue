@@ -1,22 +1,22 @@
 <template>
   <div class="e-container">
-    <div class="row">
+    <div class="nav-wrapper">
       <!--  Logo区域  -->
-      <div v-if="isHome" class="col index-logo-warpper">
+      <div v-if="isHome" class="left-model index-logo-warpper">
         <img src="../../assets/logos/ontlogo.png" class="index-logo">
       </div>
-      <div v-else class="col no-index-logo-warpper">
+      <div v-else class="left-model no-index-logo-warpper">
         <router-link class="navbar-brand" :to="{path: $route.params.net === 'testnet'?'/testnet':'/'}">
           <img class="index-logo" src="../../assets/logos/logo.png" alt="">
         </router-link>
       </div>
 
       <!--  Nav-Bar 点击区域  -->
-      <nav class="navbar navbar-expand-lg navbar-dark" :class="isHome ? '' : 'navbar-no-home'">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <nav class="navbar navbar-expand-lg navbar-dark right-model" :class="isHome ? '' : 'navbar-no-home'">
+        <button class="navbar-toggler mobile-navbar-btn" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
           <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" :class="isHome ? '' : 'not-home-bar'" id="collapsibleNavbar">
+        <div class="collapse navbar-collapse navbar-collapse-mobile" :class="isHome ? '' : 'not-home-bar'" id="collapsibleNavbar">
 
           <!--  具体菜单区域  -->
           <ul class="navbar-nav" :class="isHome ? '' : 'navbar-nav-no-home'">
@@ -30,8 +30,8 @@
                 <a class="dropdown-item" @click="toBlockListPage"><i class="fas fa-th"></i>&nbsp;&nbsp;{{ $t('navbar.top.blocks') }}</a>
                 <hr style="margin: 4px 1rem">
                 <a class="dropdown-item" @click="toTransactionListPage"><i class="fas fa-exchange-alt"></i>&nbsp;&nbsp;{{ $t('navbar.top.txns') }}</a>
-                <hr style="margin: 4px 1rem">
-                <a class="dropdown-item" @click="toAddressList"><i class="fas fa-university"></i>&nbsp;&nbsp;{{ $t('navbar.top.accounts') }}</a>
+                <hr v-if="$route.params.net !== 'testnet' " style="margin: 4px 1rem">
+                <a v-if="$route.params.net !== 'testnet' " class="dropdown-item" @click="toAddressList"><i class="fas fa-university"></i>&nbsp;&nbsp;{{ $t('navbar.top.accounts') }}</a>
               </div>
             </li>
 
@@ -76,7 +76,7 @@
                 <i class="fas fa-tools"></i>&nbsp;&nbsp;{{ $t('navbar.top.tool') }}
               </a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" target="_blank" :href="apiDocUrl"><i class="fas fa-book"></i>&nbsp;&nbsp;{{ $t('navbar.top.apis') }}</a>
+                <a class="dropdown-item" target="_blank" :href="$t('navbar.top.apiDocUrl')"><i class="fas fa-book"></i>&nbsp;&nbsp;{{ $t('navbar.top.apis') }}</a>
                 <hr style="margin: 4px 1rem">
                 <a class="dropdown-item" @click="toStatistics"><i class="fas fa-table"></i>&nbsp;&nbsp;{{ $t('navbar.top.statistics') }}</a>
               </div>
@@ -127,6 +127,7 @@
 
 <script>
   import LangStorage from './../../helpers/lang'
+  import {TEST_NET, MAIN_NET} from './../../common/consts'
 
   export default {
     name: "NavBar",
@@ -151,8 +152,10 @@
       },
       changeNet() {
         if (this.$route.params.net === 'testnet') {
+          sessionStorage.setItem('network', MAIN_NET)
           this.$router.push({name: 'Home'});
         } else {
+          sessionStorage.setItem('network', TEST_NET)
           this.$router.push({name: 'HomeTest', params: {net: 'testnet'}});
         }
         location.reload();
@@ -201,9 +204,9 @@
       },
       toTokenList($type) {
         if (this.$route.params.net === 'testnet') {
-          this.$router.push({name: 'TokenListTest', params: {type: $type, pageSize: 10, pageNumber: 1, net: 'testnet'}})
+          this.$router.push({name: 'TokenListTest', params: {contractType: $type, pageSize: 10, pageNumber: 1, net: 'testnet'}})
         } else {
-          this.$router.push({name: 'TokenList', params: {type: $type, pageSize: 10, pageNumber: 1}})
+          this.$router.push({name: 'TokenList', params: {contractType: $type, pageSize: 10, pageNumber: 1}})
         }
       },
       toStatistics() {
@@ -346,5 +349,16 @@
   .pointer-events{
     pointer-events: none;
     color: #e4e4e4 !important;
+  }
+  .navbar-collapse-mobile{
+    width:120px;
+  }
+  .nav-wrapper{
+    display: flex;
+    justify-content: space-between;
+  }
+  .mobile-navbar-btn{
+    flex: 1;
+    text-align: right;
   }
 </style>

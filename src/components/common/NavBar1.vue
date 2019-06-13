@@ -40,8 +40,8 @@
                 <a class="dropdown-item" @click="toBlockListPage"><!-- <i class="fas fa-th"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.blocks') }}</a>
                 <hr style="margin: 4px 1rem">
                 <a class="dropdown-item" @click="toTransactionListPage"><!-- <i class="fas fa-exchange-alt"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.txns') }}</a>
-                <hr style="margin: 4px 1rem">
-                <a class="dropdown-item" @click="toAddressList"><!-- <i class="fas fa-university"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.accounts') }}</a>
+                <hr v-if="$route.params.net !== 'testnet' " style="margin: 4px 1rem">
+                <a v-if="$route.params.net !== 'testnet' " class="dropdown-item" @click="toAddressList"><!-- <i class="fas fa-university"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.accounts') }}</a>
               </div>
             </li>
 
@@ -99,7 +99,7 @@
                 <!-- <i class="fas fa-tools"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.tool') }}
               </a>
               <div class="dropdown-menu">
-                <a class="dropdown-item" target="_blank" :href="apiDocUrl"><!-- <i class="fas fa-book"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.apis') }}</a>
+                <a class="dropdown-item" target="_blank" :href="$t('navbar.top.apiDocUrl')"><!-- <i class="fas fa-book"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.apis') }}</a>
                 <hr style="margin: 4px 1rem">
                 <a class="dropdown-item" @click="toStatistics"><!-- <i class="fas fa-table"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.statistics') }}</a>
               </div>
@@ -174,14 +174,14 @@
     },
     methods: {
       changeView() {
-        this.isHome = (this.$route.path === '/' || this.$route.path === '/testnet');
+        this.isHome = (this.$route.name === 'Home' || this.$route.name === 'HomeTest');
       },
       changeNet() {
         if (this.$route.params.net === 'testnet') {
-          sessionStorage.setItem('network', TEST_NET)
+          sessionStorage.setItem('network', MAIN_NET)
           this.$router.push({name: 'Home'});
         } else {
-          sessionStorage.setItem('network', MAIN_NET)
+          sessionStorage.setItem('network', TEST_NET)
           this.$router.push({name: 'HomeTest', params: {net: 'testnet'}});
         }
         location.reload();
@@ -192,6 +192,9 @@
         this.$validator.localize($lang);
 
         LangStorage.setLang(this.$i18n.locale)
+        if(this.$route.name == "Statistics" || this.$route.name == "StatisticsTest"){
+          window.location.reload()
+        }
       },
       toContractList() {
         if (this.$route.params.net === 'testnet') {
@@ -230,9 +233,9 @@
       },
       toTokenList($type) {
         if (this.$route.params.net === 'testnet') {
-          this.$router.push({name: 'TokenListTest', params: {type: $type, pageSize: 10, pageNumber: 1, net: 'testnet'}})
+          this.$router.push({name: 'TokenListTest', params: {contractType: $type, pageSize: 10, pageNumber: 1, net: 'testnet'}})
         } else {
-          this.$router.push({name: 'TokenList', params: {type: $type, pageSize: 10, pageNumber: 1}})
+          this.$router.push({name: 'TokenList', params: {contractType: $type, pageSize: 10, pageNumber: 1}})
         }
       },
       toStatistics() {

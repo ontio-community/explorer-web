@@ -144,12 +144,12 @@
         if (this.$route.params.net === 'testnet') {
           this.$router.push({
             name: 'AddressDetailTest',
-            params: {address: address, pageSize: 20, pageNumber: 1, net: 'testnet'}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1, net: 'testnet'}
           })
         } else {
           this.$router.push({
             name: 'AddressDetail',
-            params: {address: address, pageSize: 20, pageNumber: 1}
+            params: {address: address, assetName:"ALL", pageSize: 20, pageNumber: 1}
           })
         }
       }

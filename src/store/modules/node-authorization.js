@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as types from "../mutation-type"
 import numeral from 'numeral'
+import $httpService from '../../common/utils'
 
 /**
  * 写死的节点数据。。。
@@ -385,6 +386,18 @@ function nodeDetailData() {
       "publickey": "02f0e43592212629ff5f482a0011eba5c5be059cd40eb1bdd2c956c1139967bb35",
       "address": "AV59sm9kRGB4EYRKCMYXXsiCPKzbAFMcpA",
       "ontid": "did:ont:AdiYHQJkfGC1PjMP9KePMAcoPJrVpBW6RB",
+    },
+    {
+      "nodename": "Huobi Wallet",
+      "publickey": "02fcf82dbd1952fa073d47c831d35fdb3bc264edc355962e3d9332060a61c962cd",
+      "address": "ATTzSUQm5MgXQCLfrbWBv9hSBLcZX75giR",
+      "ontid": "did:ont:AanoxBZqh2fzdfWuKckQXHcjeMRRupdpW7",
+    },
+    {
+      "nodename": "Karathen",
+      "publickey": "03b28e0376202679cc993fbc1a7982718cbee00b8718309fa5731c8ce645a7a41c",
+      "address": "AW4ytrVJX2h6W2jxKCf5Ws2bh1DUXAK2qq",
+      "ontid": "did:ont:ARi9Hi88dv9ENqNdnzvAhWJubdC3eWuVzV",
     }
   ]
 }
@@ -409,7 +422,8 @@ export default {
     AuthorizationList: {},
     NodeInfo: {},
     Countdown: 0,
-    fetchProcess: 0
+    fetchProcess: 0,
+    nodelist:{}
   },
   mutations: {
     [types.UPDATE_NODE_LIST](state, payload) {
@@ -423,9 +437,22 @@ export default {
     },
     [types.UPDATE_FETCH_PROCESS](state, payload) {
       state.fetchProcess = payload.info;
+    },
+    [types.GET_NODE_LIST](state, payload) {
+      state.nodelist = payload.info;
     }
   },
   actions: {
+    getNodelist({dispatch, commit},$param) {
+      return $httpService.get( '/candidate-nodes/current_stake').then(response => {
+        commit({
+          type: types.GET_NODE_LIST,
+          info: response.result
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+    },
     async fetchNodeList({commit}, params) {
       let url = (params.net === 'testnet') ? process.env.TEST_DAPP_NODE_URL : process.env.DAPP_NODE_URL;
 

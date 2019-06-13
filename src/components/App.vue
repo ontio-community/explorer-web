@@ -31,7 +31,7 @@
     },
     methods: {
       isDisplay() {
-        this.inHomePage = (this.$route.path === '/' || this.$route.path === '/testnet');
+        this.inHomePage = (this.$route.name === 'Home' || this.$route.name === 'HomeTest');
       }
     },
     components: {TheFooter}

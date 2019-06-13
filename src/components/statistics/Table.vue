@@ -77,10 +77,12 @@
     name: "StatisticsTable",
     created() {
       this.getTableData();
-      this.getContractList()
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+     // this.getContractList()
     },
     watch: {
-      '$route': ['getTableData', 'getContractList'],
+      '$route': ['getTableData'],
+      'statistics.day':['getTableData'],
     },
     computed: {
       ...mapState({

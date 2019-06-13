@@ -22,10 +22,16 @@
           <span>{{ $HelperTools.toFinancialVal(blockStatus.info.node_count) }}</span>
         </span>
       </div>
-      <div class="col col-click" @click="toAddressListPage">
-<!--      <div class="col col-no-click-fix">-->
+      <div v-if="$route.params.net !== 'testnet' " class="col col-click" @click="toAddressListPage">
         <span class="run-status-label">{{ $t('runStatus.addressCount') }}</span>
         <span class="view-go-to">>></span>
+        <span class="d-block run-status-p font-ExtraLight font-size48">
+          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.address_count) }}</span>
+        </span>
+      </div>
+      <div v-else class="col col-no-click-fix" >
+        <span class="run-status-label">{{ $t('runStatus.addressCount') }}</span>
+        <span class="view-go-to"></span>
         <span class="d-block run-status-p font-ExtraLight font-size48">
           <span>{{ $HelperTools.toFinancialVal(blockStatus.info.address_count) }}</span>
         </span>
@@ -86,6 +92,10 @@
         dealNum: 0,
         node: 0,
         lastheight: 0,
+        k:0,
+        addLength:0,
+        addDatas:[],
+        addLabels:[],
         chartData: [],
         chartLabels: [],
         chartbackgroundColor: this.generateBgColor()
@@ -96,31 +106,52 @@
       this.getRunStatus()
       this.generateTime("76")
       this.intervalBlock = setInterval(() => {
-        this.generateTime(1)
         this.getRunStatus()
+      }, 3000)
+      this.intervalBlock1 = setInterval(() => {
+        this.generateTime(40)
       }, 3000)
     },
     watch: {
       '$route': 'getRunStatus',
       'getTime.info': function () {
-        if (this.getTime.info.length > 1) {
+        if (this.getTime.info.length > 40) {
           for (var i = 0; i < this.getTime.info.length; i++) {
             this.chartData[75 - i] = this.getTime.info[i].generate_time
             this.chartLabels[75 - i] = this.getTime.info[i].block_height
-            this.lastheight = this.getTime.info[i].block_height
+            this.lastheight = this.getTime.info[0].block_height
+            /* console.log("first last",this.lastheight) */
           }
           this.myChart.update();
         } else {
-          if (this.getTime.info[0].block_height !== this.lastheight) {
-            this.chartData.splice(0, 1)
-            this.chartLabels.splice(0, 1)
-            this.chartData.push(this.getTime.info[0].generate_time)
-            this.chartLabels.push(this.getTime.info[0].block_height)
-            this.removeData(this.myChart)
-            this.addData(this.myChart, this.getTime.info[0].generate_time)
+          if (this.getTime.info[0].block_height > this.lastheight) {
+            this.addDatas = []
+            this.addLabels = []
+            this.addLength = 0
+            for(var j = 0; j < this.getTime.info.length; j++){
+              if(this.getTime.info[j].block_height > this.lastheight){      
+                this.addDatas.push(this.getTime.info[j].generate_time)
+                this.addLabels.push(this.getTime.info[j].block_height)
+              }
+            }
+            this.addLength = this.addLabels.length
+            /* console.log(this.addLabels) */
+            this.k = 0
+            this.handler = setInterval(() => {
+              this.setTime()
+            }, 200)
+/*             for(var k = 0; k < this.addLength; k++){
+              this.chartData.splice(0, 1)
+              this.chartLabels.splice(0, 1)
+              this.chartData.push(this.addDatas[this.addLength-k-1])
+              this.chartLabels.push(this.addLabels[this.addLength-k-1])
+              this.removeData(this.myChart)
+              this.addData(this.myChart, this.addDatas[this.addLength-k-1])
+            } */
             this.lastheight = this.getTime.info[0].block_height
           }
         }
+        /* console.log(this.getTime.info[0].block_height) */
       },
     },
     computed: {
@@ -131,6 +162,21 @@
       })
     },
     methods: {
+      setTime(){
+              if(this.k<this.addLength){
+                  if(this.k>=this.addLength){
+                          clearInterval(this.handler);//关闭定时
+                  }
+                  this.chartData.splice(0, 1)
+                  this.chartLabels.splice(0, 1)
+                  this.chartData.push(this.addDatas[this.addLength-this.k-1])
+                  this.chartLabels.push(this.addLabels[this.addLength-this.k-1])
+                  this.removeData(this.myChart)
+                  this.addData(this.myChart, this.addDatas[this.addLength-this.k-1])
+                  
+                  this.k++;
+              }
+      },
       getTableData() {
         var params={}
         params.day = 14
@@ -391,6 +437,7 @@
     },
     beforeDestroy() {
       clearInterval(this.intervalBlock)
+      clearInterval(this.intervalBlock1)
     }
   }
 </script>

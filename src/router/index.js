@@ -55,18 +55,23 @@ let routes = [
     component: OntIdListPage
   },
   {
-    path: '/ontid/:ontid',
+    path: '/ontid/:ontid/:pageSize/:pageNumber',
     name: 'OntIdDetail',
     component: OntIdDetailPage
   },
   {
-    path: '/address/:address/:pageSize/:pageNumber',
+    path: '/ontid/:ontid',
+    name: 'OntIdDetailWithoutPage',
+    component: OntIdDetailPage
+  },
+  {
+    path: '/address/:address/:assetName/:pageSize/:pageNumber',
     name: 'AddressDetail',
     component: AddressDetailPage
   },
   {
-    path: '/address/:address',
-    name: 'AddressDetail',
+    path: '/address/:address/',
+    name: 'AddressDetailwithoutpage',
     component: AddressDetailPage
   },
   {
@@ -90,12 +95,12 @@ let routes = [
     component: TransactionList
   },
   {
-    path: '/transaction/:txnHash',
+    path: '/transaction/:tx_hash',
     name: 'TransactionDetail',
     component: TransactionDetail
   },
   {
-    path: '/transaction/:txnHash/:net',
+    path: '/transaction/:tx_hash/:net',
     name: 'TransactionDetailTest',
     component: TransactionDetail
   },
@@ -120,17 +125,12 @@ let routes = [
     component: OntIdListPage
   },
   {
-    path: '/ontid/:ontid/:net',
+    path: '/ontid/:ontid/:pageSize/:pageNumber/:net',
     name: 'OntIdDetailTest',
     component: OntIdDetailPage
   },
   {
-    path: '/address/:address/:pageSize/:pageNumber/:net',
-    name: 'AddressDetailTest',
-    component: AddressDetailPage
-  },
-  {
-    path: '/address/:address/:net',
+    path: '/address/:address/:assetName/:pageSize/:pageNumber/:net',
     name: 'AddressDetailTest',
     component: AddressDetailPage
   },
@@ -170,12 +170,32 @@ let routes = [
     component: ContractList
   },
   {
-    path: '/contract/:contractHash/:pageSize/:pageNumber',
+    path: '/contract/:contractType/:contractHash/:pageSize/:pageNumber',
     name: 'ContractDetail',
     component: ContractDetail
   },
   {
-    path: '/contract/:contractHash/:pageSize/:pageNumber/:net',
+    path: '/contract/:contractType/:contractHash',
+    name: 'ContractDetailwithoutpage',
+    component: ContractDetail
+  },
+/*   {
+    path: '/contract/:contractType/:contractHash/:pageSize',
+    name: 'ContractDetailwithoutpageSize',
+    component: ContractDetail
+  }, */
+  {
+    path: '/contract/:contractHash/:pageSize/:pageNumber',
+    name: 'ContractDetailwithoutType',
+    component: ContractDetail
+  },
+  {
+    path: '/contract/:contractHash',
+    name: 'ContractDetailOnlyHash',
+    component: ContractDetail
+  },
+  {
+    path: '/contract/:contractType/:contractHash/:pageSize/:pageNumber/:net',
     name: 'ContractDetailTest',
     component: ContractDetail
   },
@@ -190,22 +210,22 @@ let routes = [
     component: ContractRegistrationForm
   }, */
   {
-    path: '/token/list/:type/:pageSize/:pageNumber',
+    path: '/token/list/:contractType/:pageSize/:pageNumber',
     name: 'TokenList',
     component: TokenList
   },
   {
-    path: '/token/list/:type/:pageSize/:pageNumber/:net',
+    path: '/token/list/:contractType/:pageSize/:pageNumber/:net',
     name: 'TokenListTest',
     component: TokenList
   },
   {
-    path: '/token/detail/:type/:contractHash/:pageSize/:pageNumber',
+    path: '/token/detail/:contractType/:contractHash/:tokenName/:pageSize/:pageNumber',
     name: 'TokenDetail',
     component: TokenDetail
   },
   {
-    path: '/token/detail/:type/:contractHash/:pageSize/:pageNumber/:net',
+    path: '/token/detail/:contractType/:contractHash/:tokenName/:pageSize/:pageNumber/:net',
     name: 'TokenDetailTest',
     component: TokenDetail
   },

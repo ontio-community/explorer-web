@@ -25,10 +25,10 @@ import {
 } from "element-ui";
 Vue.component(Pagination.name, Pagination);
 
-import Highcharts from 'highcharts/highstock';
+/* import Highcharts from 'highcharts/highstock';
 Vue.use(Highcharts);
 import HighchartsVue from 'highcharts-vue';
-Vue.use(HighchartsVue)
+Vue.use(HighchartsVue) */
 
 import service from './common/utils'
 Vue.prototype.$httpService = service;
@@ -48,6 +48,7 @@ import DetailBlock2 from './components/common/DetailBlock2'
 import DetailBlock3 from './components/common/DetailBlock3'
 import LineChart from './components/common/LineChart'
 import HiChart from './components/common/HiChart'
+import Loading from './components/common/Loading'
 
 Vue.component('nav-bar', NavBar);
 Vue.component('nav-bar-1', NavBar1);
@@ -62,6 +63,7 @@ Vue.component('detail-block-2', DetailBlock2);
 Vue.component('detail-block-3', DetailBlock3);
 Vue.component('line-chart', LineChart);
 Vue.component('hi-chart', HiChart);
+Vue.component('o-load', Loading);
 
 /**
  * Fixed compatibility issues with low version IE. lyx.
