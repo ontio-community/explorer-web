@@ -444,7 +444,7 @@ export default {
   },
   actions: {
     getNodelist({dispatch, commit},$param) {
-      return $httpService.get( '/candidate-nodes/current_stake').then(response => {
+      return $httpService.get( '/nodes/current-stakes').then(response => {
         commit({
           type: types.GET_NODE_LIST,
           info: response.result
