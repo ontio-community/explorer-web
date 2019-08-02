@@ -152,7 +152,6 @@
 
 <script>
   import {mapState} from 'vuex'
-  import $ from 'jquery'
 
 export default {
   name: 'HelloWorld',

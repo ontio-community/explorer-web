@@ -81,12 +81,6 @@
 
 <script>
   import {mapState} from 'vuex'
-  import $ from 'jquery'
-
-  //提示框
-  $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-  });
 
 	export default {
     name: "stake-authorization",
@@ -103,6 +97,11 @@
       this.intervalBlock = setInterval(() => {
         this.getNodeList()
       }, 60000)
+    },
+    mounted() {
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
     },
     computed: {
       ...mapState({

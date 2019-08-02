@@ -50,13 +50,7 @@
 </template>
 
 <script>
-  import $ from 'jquery'
-
   //提示框
-  $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-  });
-
   export default {
     /**
      * 该全局子组件提供【Details】页面内详情的【单行双列】白色数据块。
@@ -78,6 +72,11 @@
      */
     name: "DetailBlock3",
     props: ['name1', 'val1', 'rows1', 'params1', 'name2', 'val2', 'rows2', 'params2', 'tip', 'tipTit'],
+    mounted() {
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    },
     computed: {
       /**
        * 是否换行，字体大小，颜色，是否可以点击跳转。
