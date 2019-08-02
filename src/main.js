@@ -26,6 +26,13 @@ Vue.use(Highcharts);
 import HighchartsVue from 'highcharts-vue';
 Vue.use(HighchartsVue) */
 
+// 提取加载css文件，构建时让webpack打包压缩优化。
+import '../static/css/detail-block.css'
+import '../static/css/detail-tab.css'
+import '../static/css/loading.css'
+import '../static/css/main.css'
+import '../static/css/ont-element.css'
+
 import service from './common/utils'
 Vue.prototype.$httpService = service;
 /**

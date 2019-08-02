@@ -45,7 +45,7 @@
         showtime: [0, 0, 0, 0, 0]
       }
     },
-    created() {
+    mounted() {
       this.getOntIdList()
       this.intervalBlock1 = setInterval(() => {
         this.getOntIdList()

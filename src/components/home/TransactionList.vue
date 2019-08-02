@@ -40,7 +40,7 @@
         showtime: [0, 0, 0, 0, 0]
       }
     },
-    created() {
+    mounted() {
       this.getTransactionList()
       this.intervalBlock2 = setInterval(() => {
         this.getTransactionList()

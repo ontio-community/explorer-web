@@ -80,9 +80,6 @@
 
   export default {
     name: "run-status",
-    mounted: function () {
-      this.createAChart()
-    },
     data() {
       return {
         num: 1,
@@ -101,7 +98,8 @@
         chartbackgroundColor: this.generateBgColor()
       }
     },
-    created() {
+    mounted() {
+      this.createAChart()
       this.getTableData()
       this.getRunStatus()
       this.generateTime("76")
