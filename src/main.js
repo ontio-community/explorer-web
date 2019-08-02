@@ -2,15 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './components/App'
-import "element-ui/lib/theme-chalk/index.css"; // element-ui css
+// import "element-ui/lib/theme-chalk/index.css"; // element-ui css
 import router from './router'
 import store from './store/index'
-import Axios from 'axios'
-import VueAxios from 'vue-axios'
 import VeeValidate from 'vee-validate';
 import i18n from "./common/lang"; // Internationalization
-import $ from 'jquery'
-import 'font-awesome/css/font-awesome.css'
 import './components/Toast/toast.css';
 
 Vue.use(VeeValidate);
@@ -71,7 +67,6 @@ Vue.component('o-load', Loading);
 import promise from 'es6-promise'
 promise.polyfill();
 
-Vue.use(VueAxios, Axios);
 
 Vue.config.productionTip = false;
 

@@ -10,8 +10,6 @@
 </template>
 
 <script>
-  import 'bootstrap/dist/css/bootstrap.min.css'
-  import 'bootstrap/dist/js/bootstrap.min.js'
   import 'chart.js'
   //import TheFooter from './common/TheFooter'
   import TheFooter from './common/Footer'
