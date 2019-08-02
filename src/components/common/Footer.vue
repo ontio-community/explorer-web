@@ -42,9 +42,9 @@
         <div class="footer-content">
           <div class="mobile-foot-line"></div>
           <div class="footer-content-title">{{ $t('footer.dApps') }}</div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://dapp.ont.io"></a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://dapp.ont.io/">{{ $t('footer.dApp') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://ont.io/#/dapp">{{ $t('footer.SubmitAdApp') }}</a></div>
+          <div class="footer-content-div"><a class="footer-content-text" href="https://oodapp.io"></a></div>
+          <div class="footer-content-div"><a class="footer-content-text" href="https://oodapp.io/">{{ $t('footer.dApp') }} <img class="wailian-img" src="../../assets/wailian.svg"/></a></div>
+          <div class="footer-content-div"><a class="footer-content-text" href="https://submit.oodapp.io">{{ $t('footer.SubmitAdApp') }} <img class="wailian-img" src="../../assets/wailian.svg"/></a></div>
         </div>
       </div>
 
@@ -302,5 +302,10 @@ export default {
       width: 160px;
     }
   }
-
+.wailian-img{
+  width: 11px;
+  margin-left: 2px;
+  margin-bottom:2px;
+  opacity: 0.5;
+}
 </style>

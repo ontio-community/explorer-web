@@ -70,6 +70,11 @@ let routes = [
     component: AddressDetailPage
   },
   {
+    path: '/address/:address/:pageSize/:pageNumber',
+    name: 'AddressDetail',
+    component: AddressDetailPage
+  },
+  {
     path: '/address/:address/',
     name: 'AddressDetailwithoutpage',
     component: AddressDetailPage
@@ -131,6 +136,16 @@ let routes = [
   },
   {
     path: '/address/:address/:assetName/:pageSize/:pageNumber/:net',
+    name: 'AddressDetailTest',
+    component: AddressDetailPage
+  },
+  {
+    path: '/address/:address/:pageSize/:pageNumber/:net',
+    name: 'AddressDetailTest',
+    component: AddressDetailPage
+  },
+  {
+    path: '/address/:address/:net',
     name: 'AddressDetailTest',
     component: AddressDetailPage
   },

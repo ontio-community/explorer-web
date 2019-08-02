@@ -203,10 +203,16 @@
       }
     },
     created() {
-      if (this.$route.params.pageSize == undefined || this.$route.params.pageNumber == undefined || this.$route.params.assetName == undefined) {
+      console.log(this.$route.params)
+      if (this.$route.params.pageSize == 'testnet' || this.$route.params.pageNumber == 'testnet' || this.$route.params.assetName == 'testnet') {
+        this.$route.params.net = 'testnet'
         this.toAddressDetailPage(this.$route.params.address)
       } else {
-        this.getAddressDetailData()
+        if (this.$route.params.pageSize == undefined || this.$route.params.pageNumber == undefined || this.$route.params.assetName == undefined) {
+          this.toAddressDetailPage(this.$route.params.address)
+        } else {
+          this.getAddressDetailData()
+        }
       }
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
@@ -334,6 +340,7 @@
         }
       },
       toAddressDetailPage($address) {
+        debugger
         if (this.$route.params.net == undefined) {
           this.$router.push({name: 'AddressDetail', params: {address: $address, assetName:"ALL", pageSize: 20, pageNumber: 1}})
         } else {
