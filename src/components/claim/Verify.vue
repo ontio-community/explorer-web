@@ -134,7 +134,7 @@
         verifyresult: true
       }
     },
-    created() {
+    mounted() {
       this.getClaimDetailPage()
       this.setTimeoutstep2 = setTimeout(() => {
 

@@ -58,7 +58,7 @@
         listType:'littlelist',
       }
     },
-    created() {
+    mounted() {
       this.getTransactions()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },

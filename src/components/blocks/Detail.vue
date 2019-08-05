@@ -65,7 +65,7 @@
         nextCheck: false,
       }
     },
-    created() {
+    mounted() {
       this.getBlock()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },

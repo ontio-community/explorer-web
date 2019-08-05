@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// import Home from '@/components/home/Index'
+import Home from '@/components/home/Index'
 // import BlockListPage from '@/components/blocks/List'
 // import BlockDetailPage from '@/components/blocks/Detail'
 // import OntIdListPage from '@/components/ontId/List'
@@ -21,7 +21,7 @@ import Router from 'vue-router'
 // import StatisticsTable from '@/components/statistics/Table'
 // import ContractForm from '@/components/form/ContractForm'
 
-const Home = () => import('@/components/home/Index')
+// const Home = () => import('@/components/home/Index')
 const BlockListPage = () => import('@/components/blocks/List')
 const BlockDetailPage = () => import('@/components/blocks/Detail')
 const OntIdListPage = () => import('@/components/ontId/List')
@@ -44,6 +44,11 @@ const ContractForm = () => import('@/components/form/ContractForm')
 Vue.use(Router);
 
 let routes = [
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
+  },
   {
     path: '/',
     name: 'Home',

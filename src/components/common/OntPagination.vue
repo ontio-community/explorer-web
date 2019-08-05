@@ -68,7 +68,7 @@
       'total': 'setParams',
       'oepValue':'setAsset'
     },
-    created(){
+    mounted(){
       this.setParams()
       console.log(this.$route.name)
     },

@@ -52,7 +52,7 @@
         nodeDetailInfo: {}
       }
     },
-    created() {
+    mounted() {
       this.getNodeList()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },

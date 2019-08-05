@@ -75,7 +75,7 @@
 
   export default {
     name: "StatisticsTable",
-    created() {
+    mounted() {
       this.getTableData();
       document.body.scrollTop = document.documentElement.scrollTop = 0;
      // this.getContractList()

@@ -40,7 +40,7 @@
   import {mapState} from 'vuex'
 
   export default {
-    created() {
+    mounted() {
       this.getBlocks()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },

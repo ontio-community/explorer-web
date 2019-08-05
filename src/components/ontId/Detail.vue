@@ -160,7 +160,7 @@
         workFlag:false
       }
     },
-    created() {
+    mounted() {
       if (this.$route.params.pageSize == undefined || this.$route.params.pageNumber == undefined) {
         this.toOntIdDetailPageReload(this.$route.params.ontid)
       }else{

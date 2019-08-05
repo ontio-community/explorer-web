@@ -212,7 +212,7 @@
 
   export default {
     name: "Token-Detail",
-    created() {
+    mounted() {
       this.getTokenData()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },

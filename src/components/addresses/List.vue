@@ -54,7 +54,7 @@
   import {mapState} from 'vuex'
 
   export default {
-    created() {
+    mounted() {
       this.getAddressListInfo()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },

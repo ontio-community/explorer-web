@@ -202,7 +202,7 @@
         loadingFlag:false,
       }
     },
-    created() {
+    mounted() {
       console.log(this.$route.params)
       if (this.$route.params.pageSize == 'testnet' || this.$route.params.pageNumber == 'testnet' || this.$route.params.assetName == 'testnet') {
         this.$route.params.net = 'testnet'

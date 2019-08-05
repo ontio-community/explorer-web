@@ -16,7 +16,7 @@
       <div class="col-xl-4 col-lg-5 col-md-8 col-sm-10 col-10 col-guide">
         <span style="">{{ $t('nodes.guideTxt') }}</span>
         <span class="font-blod">
-          <a class="here-color pointer2"
+          <a class="here-color"
              href="https://medium.com/ontologynetwork/owallet-stake-authorization-feature-released-11776706bb34"
              target="_blank">{{ $t('nodes.here') }}</a>
         </span>
@@ -92,16 +92,17 @@
     },
     created() {
       /* this.getNodeListInfo() */
-      this.getNodeList()
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      this.intervalBlock = setInterval(() => {
-        this.getNodeList()
-      }, 60000)
+      
     },
     mounted() {
       $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
       });
+      this.getNodeList()
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      this.intervalBlock = setInterval(() => {
+        this.getNodeList()
+      }, 60000)
     },
     computed: {
       ...mapState({

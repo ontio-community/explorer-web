@@ -91,11 +91,11 @@
               </a>
               <div class="dropdown-menu">
                 <a class="dropdown-item"
-                   :class="$route.params.net === 'testnet' ? '' : 'pointer-events'" href="#"
+                   :class="$route.params.net === 'testnet' ? '' : 'pointer-events'" 
                    @click="changeNet()"><i class="fas fa-home"></i>&nbsp;&nbsp;{{ $t('navbar.top.mainNet') }}</a>
                 <hr style="margin: 4px 1rem">
                 <a class="dropdown-item"
-                   :class="$route.params.net === 'testnet' ? 'pointer-events' : ''" href="#"
+                   :class="$route.params.net === 'testnet' ? 'pointer-events' : ''" 
                    @click="changeNet()"><i class="fas fa-vial"></i>&nbsp;&nbsp;{{ $t('navbar.top.testNet') }}</a>
               </div>
             </li>
@@ -139,7 +139,7 @@
         language: 'en'
       }
     },
-    created() {
+    mounted() {
       this.changeView();
       this.language = this.$i18n.locale
     },

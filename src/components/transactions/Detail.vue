@@ -252,7 +252,7 @@
         detailFlagFlag:false,
       }
     },
-    created() {
+    mounted() {
       this.getTxData()
       this.getTxDetail()
       document.body.scrollTop = document.documentElement.scrollTop = 0;

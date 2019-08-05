@@ -210,7 +210,7 @@
 
   export default {
     name: "Contracts-Detail",
-    created() {
+    mounted() {
       if (this.$route.params.pageSize == undefined || this.$route.params.pageNumber == undefined || this.$route.params.contractType == undefined) {
         this.toContractDetailPage(this.$route.params.contractHash)
       }else{    

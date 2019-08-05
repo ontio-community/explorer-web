@@ -165,7 +165,7 @@
         language: 'en'
       }
     },
-    created() {
+    mounted() {
       this.changeView();
       this.language = this.$i18n.locale
     },

@@ -94,7 +94,7 @@
         verifyresult: true
       }
     },
-    created() {
+    mounted() {
       this.getClaimDetailPage()
     },
     watch: {

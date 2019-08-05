@@ -85,9 +85,9 @@ module.exports = {
     child_process: 'empty'
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      // Your HtmlWebpackPlugin config
-    }),
+    // new HtmlWebpackPlugin({
+    //   // Your HtmlWebpackPlugin config
+    // }),
     // new SkeletonPlugin({
     //   pathname: path.resolve(__dirname, '../shell'), // 用来存储 shell 文件的地址
     //   staticDir: path.resolve(__dirname, '../dist'), // 最好和 `output.path` 相同

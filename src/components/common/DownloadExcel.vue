@@ -19,7 +19,7 @@
         isShow: true
       }
     },
-    created() {
+    mounted() {
       let nowDate = new Date();
       this.excelFileName = this.excelFileName + '-' + nowDate.toLocaleDateString() + '.xlsx';
     },

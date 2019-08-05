@@ -216,7 +216,7 @@ export default {
     ...mapState({
     })
   },
-  created(){
+  mounted(){
 
   },
   methods:{

@@ -66,7 +66,7 @@
         applyForUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdszQp1BbviS83psIZUZYMKoNkn0e4zcYxrVqM6v5Qbmzby3g/viewform?vc=0&c=0&w=1'
       }
     },
-    created() {
+    mounted() {
       this.getContractsData()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
