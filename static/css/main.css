@@ -1,16 +1,19 @@
 @font-face {
   font-family: 'SourceSansPro-Bold';
-  src: url('./../fonts/SourceSansPro-Bold.otf');
+  /* src: url('./../fonts/SourceSansPro-Bold.otf'); */
+  src: url('https://cdn.jsdelivr.net/npm/source-sans-pro@2.45.0/OTF/SourceSansPro-Bold.otf')
 }
 
 @font-face {
   font-family: 'SourceSansPro-ExtraLight';
-  src: url('./../fonts/SourceSansPro-ExtraLight.otf');
+  /* src: url('./../fonts/SourceSansPro-ExtraLight.otf'); */
+  src: url('https://cdn.jsdelivr.net/npm/source-sans-pro@2.45.0/OTF/SourceSansPro-ExtraLight.otf')
 }
 
 @font-face {
   font-family: 'SourceSansPro-Regular';
-  src: url('./../fonts/SourceSansPro-Regular.otf');
+  /* src: url('./../fonts/SourceSansPro-Regular.otf'); */
+  src: url('https://cdn.jsdelivr.net/npm/source-sans-pro@2.45.0/OTF/SourceSansPro-Regular.otf')
 }
 
 body {
