@@ -17,9 +17,11 @@ import Helper from './helpers/helper'
 Vue.use(Helper);
 
 import {
-  Pagination
+  Pagination,
+  Message
 } from "element-ui";
 Vue.component(Pagination.name, Pagination);
+Vue.prototype.$message = Message;
 
 /* import Highcharts from 'highcharts/highstock';
 Vue.use(Highcharts);
