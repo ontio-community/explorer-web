@@ -4,9 +4,9 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 // 引入插件
-const {
-  SkeletonPlugin
-} = require('page-skeleton-webpack-plugin')
+// const {
+//   SkeletonPlugin
+// } = require('page-skeleton-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 function resolve (dir) {
