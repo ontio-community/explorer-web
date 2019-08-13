@@ -38,3 +38,4 @@ export const SET_TOKEN_DATA = 'SET_TOKEN_DATA';
 export const SET_STATISTICS_DATA = 'SET_STATISTICS_DATA';
 export const SET_SC_LIST = 'SET_SC_LIST';
 export const GET_NODE_LIST = 'GET_NODE_LIST';
+export const GET_NODE_DETAIL = 'GET_NODE_DETAIL';

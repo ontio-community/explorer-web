@@ -33,12 +33,12 @@
     </div>
 
     <!--The ONT-ID and Reward-rate-->
-    <detail-block-2 :name1="$t('nodes.ip')" :val1="nodeDetailInfo.ip?nodeDetailInfo.ip:'Undisclosed'"
-                    :name2="$t('nodes.website')" :val2="nodeDetailInfo.Website?nodeDetailInfo.Website:'Undisclosed'">
+    <detail-block-2  v-if="" :name1="$t('nodes.ip')" val1="Undisclosed"
+                    :name2="$t('nodes.website')" :val2="nodedetail.website?nodedetail.website:'Undisclosed'" :params2="nodedetail.website?nodedetail.website:'Undisclosed'">
     </detail-block-2>
 
     <!--The Intro, Vision and Website.-->
-    <detail-block :params="detailParams" :styleVal="'new'"></detail-block>
+    <detail-block :params="detailParams"></detail-block>
   </div>
 </template>
 
@@ -54,6 +54,7 @@
     },
     mounted() {
       this.getNodeList()
+      this.getNodeDetail()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     },
     watch: {
@@ -64,15 +65,21 @@
             break
           }
         }
+      },
+      'nodedetail':function(){
+        console.log(this.nodedetail.website)
+        this.nodeDetailInfo.Website = this.nodedetail.website
+        console.log(this.nodeDetailInfo)
       }
     },
     computed: {
       ...mapState({
-        nodelist: state => state.NodeAuthorization.nodelist
+        nodelist: state => state.NodeAuthorization.nodelist,
+        nodedetail: state => state.NodeAuthorization.nodedetail
       }),
       detailParams: function () {
         return [
-          {name: this.$t('nodes.intro'), val: this.nodeDetailInfo.introduce ? this.nodeDetailInfo.introduce:'Undisclosed' , rows: 2},
+          {name: this.$t('nodes.intro'), val: this.nodedetail.introduction ? this.nodedetail.introduction:'Undisclosed' , rows: 2},
 /*           {name: this.$t('nodes.vision'), val: this.nodeDetailInfo.Vision ? this.nodeDetailInfo.Vision :'', rows: 2} */
         ]
       }
@@ -80,6 +87,9 @@
     methods: {
       getNodeList(){
         this.$store.dispatch('getNodelist', this.$route.params).then();
+      },
+      getNodeDetail(){
+        this.$store.dispatch('getNodeDetail', this.$route.params).then();
       },
     }
   }

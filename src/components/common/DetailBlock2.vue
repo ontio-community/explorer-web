@@ -111,6 +111,9 @@
         } else if (params[0] === 'address') {
           this.goToAddressDetail(params[1])
         }
+        if (params.indexOf("http")>-1) {
+          window.open(params)
+        }
       },
       toBlockDetailPage($blockHeight) {
         if (this.$route.params.net === 'testnet') {

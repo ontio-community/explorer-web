@@ -423,7 +423,8 @@ export default {
     NodeInfo: {},
     Countdown: 0,
     fetchProcess: 0,
-    nodelist:{}
+    nodelist:{},
+    nodedetail:{}
   },
   mutations: {
     [types.UPDATE_NODE_LIST](state, payload) {
@@ -440,6 +441,9 @@ export default {
     },
     [types.GET_NODE_LIST](state, payload) {
       state.nodelist = payload.info;
+    },
+    [types.GET_NODE_DETAIL](state, payload) {
+      state.nodedetail = payload.info;
     }
   },
   actions: {
@@ -447,6 +451,16 @@ export default {
       return $httpService.get( '/nodes/current-stakes').then(response => {
         commit({
           type: types.GET_NODE_LIST,
+          info: response.result
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getNodeDetail({dispatch, commit},$param) {
+      return $httpService.get( '/nodes/off-chain-info/'+$param.pk).then(response => {
+        commit({
+          type: types.GET_NODE_DETAIL,
           info: response.result
         })
       }).catch(error => {
