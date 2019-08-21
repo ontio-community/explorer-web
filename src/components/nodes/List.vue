@@ -91,8 +91,7 @@
       }
     },
     created() {
-      /* this.getNodeListInfo() */
-      
+      window.open("https://node.ont.io/",'_self')
     },
     mounted() {
       $(document).ready(function(){

@@ -52,6 +52,9 @@
         nodeDetailInfo: {}
       }
     },
+    created() {
+      window.open("https://node.ont.io/",'_self')
+    },
     mounted() {
       this.getNodeList()
       this.getNodeDetail()
