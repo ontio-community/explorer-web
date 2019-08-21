@@ -270,6 +270,7 @@
     height: 48px;
     max-width: 620px;
     margin: 60px auto 0;
+    background-color: #fff;
   }
 
   .input-search {
