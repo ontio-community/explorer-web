@@ -45,21 +45,11 @@
               </div>
             </li>
 
-            <li v-if="$route.params.net !== 'testnet'" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle padding-lr0" data-toggle="dropdown" href="#">
-                <!-- <i class="fab fa-linode"></i>&nbsp;&nbsp; -->
+            <li class="nav-item">
+              <a class="nav-link padding-lr0" :href="nodelist" target="_blank">
                 <img v-if='isHome' src="../../assets/navbar/nodes@2xM.png" class="nav-link-icon" />
-                <img v-else src="../../assets/navbar/nodes@2x.png" class="nav-link-icon" />{{ $t('navbar.top.nodes') }}
-              </a>
-              <div class="dropdown-menu">
-                <router-link class="dropdown-item nav-link" :to="{ name: 'NodeStakeList'}">
-                  <!-- <i class="far fa-handshake"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.stake') }}
-                </router-link>
-                <hr style="margin: 4px 1rem">
-                <a class="dropdown-item" :href="monitor" target="_blank">
-                  <!-- <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.nodeMap') }}
-                </a>
-              </div>
+                <img v-else src="../../assets/navbar/nodes@2x.png" class="nav-link-icon" />
+                <!-- <i class="far fa-file"></i>&nbsp;&nbsp; -->{{ $t('navbar.top.nodes') }}</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -162,7 +152,8 @@
         isHome: true,
         monitor: 'https://monitor.ont.io/',
         apiDocUrl: 'https://dev-docs.ont.io/#/docs-en/explorer/overview',
-        language: 'en'
+        language: 'en',
+        nodelist: 'https://node.ont.io/'
       }
     },
     mounted() {

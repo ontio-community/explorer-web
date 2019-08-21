@@ -19,7 +19,7 @@
         <span class="run-status-label">{{ $t('runStatus.NodeCount') }}</span>
         <span class="view-go-to">>></span>
         <span class="d-block run-status-p font-ExtraLight font-size48">
-          <span>{{ $HelperTools.toFinancialVal(blockStatus.info.node_count) }}</span>
+          <span>{{ $HelperTools.toFinancialVal(nodeCount.info.candidate_node_count+nodeCount.info.consensus_node_count) }}</span>
         </span>
       </div>
       <div v-if="$route.params.net !== 'testnet' " class="col col-click" @click="toAddressListPage">
@@ -102,6 +102,7 @@
       this.createAChart()
       this.getTableData()
       this.getRunStatus()
+      this.getNodeCountStatus()
       this.generateTime("76")
       this.intervalBlock = setInterval(() => {
         this.getRunStatus()
@@ -156,6 +157,7 @@
       ...mapState({
         blockStatus: state => state.RunStatus.BlockStatus,
         getTime: state => state.RunStatus.GenerateTime,
+        nodeCount: state => state.RunStatus.NodeCount,
         /* data: state => state.Statistics.StatisticsData, */
       })
     },
@@ -218,8 +220,11 @@
         }
       },
       toOnlineNodes() {
-        this.$router.push({ name: 'NodeStakeList'})
-        // window.location.href = 'https://monitor.ont.io/'
+        /* this.$router.push({ name: 'NodeStakeList'}) */
+         window.open('https://node.ont.io/')
+      },
+      getNodeCountStatus() {
+        this.$store.dispatch('getNodeCount').then()
       },
       getRunStatus() {
         this.$store.dispatch('getRunStatus', this.$route.params).then()

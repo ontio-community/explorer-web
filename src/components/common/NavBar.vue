@@ -35,19 +35,8 @@
               </div>
             </li>
 
-            <li v-if="$route.params.net !== 'testnet'" class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fab fa-linode"></i>&nbsp;&nbsp;{{ $t('navbar.top.nodes') }}
-              </a>
-              <div class="dropdown-menu">
-                <router-link class="dropdown-item nav-link" :to="{ name: 'NodeStakeList'}">
-                  <i class="far fa-handshake"></i>&nbsp;&nbsp;{{ $t('navbar.top.stake') }}
-                </router-link>
-                <hr style="margin: 4px 1rem">
-                <a class="dropdown-item" :href="monitor" target="_blank">
-                  <i class="fas fa-map-marked-alt"></i>&nbsp;&nbsp;{{ $t('navbar.top.nodeMap') }}
-                </a>
-              </div>
+            <li class="nav-item">
+              <a class="nav-link" :href="nodelist" target="_blank"><i class="fab fa-linode"></i>&nbsp;&nbsp;{{ $t('navbar.top.nodes') }}</a>
             </li>
 
             <li class="nav-item dropdown">
@@ -136,6 +125,7 @@
         isHome: true,
         monitor: 'https://monitor.ont.io/',
         apiDocUrl: 'https://dev-docs.ont.io/#/docs-en/explorer/overview',
+        nodelist: 'https://node.ont.io',
         language: 'en'
       }
     },

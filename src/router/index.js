@@ -32,8 +32,8 @@ const TransactionList = () => import('@/components/transactions/List')
 const TransactionDetail = () => import('@/components/transactions/Detail')
 const ClaimDetailPage = () => import('@/components/claim/Detail')
 const ClaimVerifyPage = () => import('@/components/claim/Verify')
-const NodeStakeAuthorization = () => import('@/components/nodes/List')
-const NodeTeamDetail = () => import('@/components/nodes/Detail')
+/* const NodeStakeAuthorization = () => import('@/components/nodes/List')
+const NodeTeamDetail = () => import('@/components/nodes/Detail') */
 const ContractList = () => import('@/components/contracts/List')
 const ContractDetail = () => import('@/components/contracts/Detail')
 const TokenList = () => import('@/components/tokens/List')
@@ -184,7 +184,7 @@ let routes = [
     name: 'ClaimVerifyTest',
     component: ClaimVerifyPage
   },
-  {
+/*   {
     path: '/nodes/list',
     name: 'NodeStakeList',
     component: NodeStakeAuthorization
@@ -198,7 +198,7 @@ let routes = [
     path: '/nodes/list/:net',
     name: 'NodeStakeListTestNet',
     component: NodeStakeAuthorization
-  },
+  }, */
   {
     path: '/contract/list/:pageSize/:pageNumber',
     name: 'ContractList',

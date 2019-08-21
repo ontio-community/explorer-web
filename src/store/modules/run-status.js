@@ -8,6 +8,9 @@ export default {
     },
     GenerateTime: {
       info: ''
+    },
+    NodeCount:{
+      info: ''
     }
   },
   mutations: {
@@ -16,6 +19,9 @@ export default {
     },
     [types.SET_GENERATE_TIME](state, payload) {
       state.GenerateTime.info = payload.info
+    },
+    [types.SET_NODECOUNT_STATUS](state, payload) {
+      state.NodeCount.info = payload.info
     }
   },
   actions: {
@@ -23,6 +29,16 @@ export default {
       return $httpService.get('/summary/blockchain/latest-info').then(response => {
         commit({
           type: types.SET_RUN_STATUS,
+          info: response.result
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    getNodeCount({dispatch, commit}) {
+      return $httpService.get('/nodes/count').then(response => {
+        commit({
+          type: types.SET_NODECOUNT_STATUS,
           info: response.result
         })
       }).catch(error => {
