@@ -340,7 +340,6 @@
         }
       },
       toAddressDetailPage($address) {
-        debugger
         if (this.$route.params.net == undefined) {
           this.$router.push({name: 'AddressDetail', params: {address: $address, assetName:"ALL", pageSize: 20, pageNumber: 1}})
         } else {

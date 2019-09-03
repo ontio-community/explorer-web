@@ -18,11 +18,14 @@ Vue.use(Helper);
 
 import {
   Pagination,
+  Select,
+  Option,
   Message
 } from "element-ui";
 Vue.component(Pagination.name, Pagination);
 Vue.prototype.$message = Message;
-
+Vue.use(Select)
+Vue.use(Option)
 /* import Highcharts from 'highcharts/highstock';
 Vue.use(Highcharts);
 import HighchartsVue from 'highcharts-vue';
