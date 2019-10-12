@@ -7,7 +7,7 @@
     <detail-block
       :params="[{name:$t('txDetail.time'), val:$HelperTools.getTransDate(txData.tx_time)}]"></detail-block>
     <detail-block
-      :params="[{name:$t('txDetail.type'), val:txData.tx_type === 209 ? $t('txDetail.sc') : $t('txDetail.deploySC')}]"></detail-block>
+      :params="[{name:$t('txDetail.type'), val:txData.tx_type === 208 ? $t('txDetail.deploySC') : txData.tx_type === 209 ? $t('txDetail.sc') : $t('txDetail.wasmsc')}]"></detail-block>
     <div class="d-none d-sm-block">
       <div class="row">
         <div class="col">

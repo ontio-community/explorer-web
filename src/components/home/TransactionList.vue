@@ -101,7 +101,9 @@
           case 208:
             return "Deploy Smart Contract"
           case 209:
-            return "Invoke Smart Contract"
+            return "Invoke neovm Contract"
+          case 210:
+            return "Invoke wasmvm Contract"
         }
       }
     },
