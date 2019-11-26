@@ -14,6 +14,11 @@
           <input v-model="tokenName" />
         </div>
         <div class="item">
+          <div class="item-title">Virtual Machine Category*</div>
+          <el-radio v-model="radio" label="wasmvm">wasmvm</el-radio>
+          <el-radio v-model="radio" label="neovm">neovm</el-radio>
+        </div>
+        <div class="item">
           <div class="item-title">Token Abi*</div>
           <textarea v-model="tokenAbi" />
         </div>
@@ -32,7 +37,7 @@
           <el-tab-pane label="OEP-5" name="second">OEP-5</el-tab-pane>
           <el-tab-pane label="OEP-8" name="third">OEP-8</el-tab-pane>
         </el-tabs>
-        <div id="oep4" class="content">
+        <div v-if="activeName === 'first'" id="oep4" class="content">
           <div class="item">
             <div class="item-title">Token Symbol*</div>
             <input v-model="tokenSymbol" />
@@ -44,6 +49,111 @@
           <div class="item">
             <div class="item-title">Total Supply*</div>
             <input v-model="tokenTotalSupply" />
+          </div>
+          <div class="item">
+            <div class="item-title">Logo*</div>
+            <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" id="logoImg" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+            <div class="desc">256px*256px in jpg or png, no rounded corners</div>
+          </div>
+        </div>
+        <div v-if="activeName === 'second'" id="oep5" class="content">
+          <div class="item">
+            <div class="item-title">Token Symbol*</div>
+            <input v-model="tokenSymbol" />
+          </div>
+          <div class="item">
+            <div class="item-title">Token Decimals*</div>
+            <input v-model="tokenDecimals" />
+          </div>
+          <div class="item">
+            <div class="item-title">Total Supply*</div>
+            <input v-model="tokenTotalSupply" />
+          </div>
+          <div class="item">
+            <div class="item-title">Logo*</div>
+            <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" id="logoImg" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+            <div class="desc">256px*256px in jpg or png, no rounded corners</div>
+          </div>
+        </div>
+        <div v-if="activeName === 'third'" id="oep8" class="content">
+          <div class="item">
+            <el-table :data="tokens" style="width: 100%">
+              <el-table-column label="token id" width="120">
+                <template slot-scope="scope">
+                  <div class="table-text">{{scope.row.token_id}}</div>
+                </template>
+              </el-table-column>
+              <el-table-column label="token name" width="120">
+                <template slot-scope="scope">
+                  <div class="table-text">{{scope.row.token_name}}</div>
+                </template>
+              </el-table-column>
+              <el-table-column label="total supply" width="120">
+                <template slot-scope="scope">
+                  <div class="table-text">{{scope.row.total_supply}}</div>
+                </template>
+              </el-table-column>
+              <el-table-column label="symbol" width="120">
+                <template slot-scope="scope">
+                  <div class="table-text">{{scope.row.symbol}}</div>
+                </template>
+              </el-table-column>
+              <el-table-column label>
+                <template slot-scope="scope">
+                  <!--                   <el-button
+                    size="mini"
+                    type="danger"
+                    icon="el-icon-minus"
+                    circle
+                    @click="handleDelete(scope.$index, scope.row)"
+                  ></el-button>-->
+                  <i
+                    style="width:14px;height:14px;color:red;cursor:pointer"
+                    @click="handleDelete(scope.$index, scope.row)"
+                    class="el-icon-remove-outline"
+                  ></i>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+          <div class="item">
+            <div class="item-title">Oep8 Token ID*</div>
+            <input v-model="oep8info.token_id" />
+          </div>
+          <div class="item">
+            <div class="item-title">Oep8 Token Name*</div>
+            <input v-model="oep8info.token_name" />
+          </div>
+          <div class="item">
+            <div class="item-title">Oep8 Total Supply*</div>
+            <input v-model="oep8info.total_supply" />
+          </div>
+          <div class="item">
+            <div class="item-title">Oep8 Token Symbol*</div>
+            <input v-model="oep8info.symbol" />
+          </div>
+          <div class="item">
+            <div class="add-btn">
+              <div class="text" @click="addOep8Token()">Add</div>
+            </div>
           </div>
           <div class="item">
             <div class="item-title">Logo*</div>
@@ -78,6 +188,17 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      title="Success"
+      :visible.sync="dialogVisible"
+      width="480px"
+      :before-close="handleClose"
+    >
+      <span>Token information is sucessfully submitted.</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">OK</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -98,12 +219,14 @@ export default {
   },
   data() {
     return {
+      dialogVisible: false,
       showCodeCopied: false,
       showABICopied: false,
       tokenData: {},
       tokenInfo: {},
       loadingFlag: false,
       activeName: "first",
+      radio: "",
       tokenHash: "",
       tokenSymbol: "",
       tokenAbi: "",
@@ -118,6 +241,12 @@ export default {
       dataURL: "",
       vm_category: "neovm",
       tokens: [],
+      oep8info: {
+        token_id: "",
+        token_name: "",
+        total_supply: "",
+        symbol: ""
+      },
       tokenType: "oep4s"
     };
   },
@@ -140,14 +269,27 @@ export default {
         params.tokenTotalSupply = self.tokenTotalSupply;
         params.tokenDecimals = self.tokenDecimals;
         params.tokenSymbol = self.tokenSymbol;
-        params.vm_category = self.vm_category;
+        params.vm_category = self.radio;
         params.tokens = self.tokens;
-        this.$store.dispatch("submitToken", params)
+        this.$store
+          .dispatch("submitToken", params)
           .then(() => {
-            self.$message({
-              message: "success",
-              type: "success"
-            });
+            this.dialogVisible = true;
+            self.tokenType = ""
+            self.tokenHash = ""
+            self.tokenName = ""
+            self.tokenDescription = ""
+            self.tokenAbi = ""
+            self.tokenCode = ""
+            self.dataURL = ""
+            self.tokenEmail = ""
+            self.tokenWebsite = ""
+            self.tokenTotalSupply = ""
+            self.tokenDecimals = ""
+            self.tokenSymbol = ""
+            self.vm_category = ""
+            self.imageUrl = ""
+            self.tokens = []
           })
           .catch(() => {
             self.$message({
@@ -171,6 +313,14 @@ export default {
       if (self.tokenName === "") {
         self.$message({
           message: self.$t("error.msg2"),
+          type: "error"
+        });
+        flag = false;
+        return flag;
+      }
+      if (self.radio === "") {
+        self.$message({
+          message: self.$t("error.msg13"),
           type: "error"
         });
         flag = false;
@@ -208,6 +358,41 @@ export default {
         flag = false;
         return flag;
       }
+      if ($type === "oep8s") {
+        if (self.tokens.length == 0) {
+          self.$message({
+            message: self.$t("error.msg12"),
+            type: "error"
+          });
+          flag = false;
+          return flag;
+        }
+      } else {
+        if (self.tokenSymbol === "") {
+          self.$message({
+            message: self.$t("error.msg6"),
+            type: "error"
+          });
+          flag = false;
+          return flag;
+        }
+        if (self.tokenDecimals === "") {
+          self.$message({
+            message: self.$t("error.msg7"),
+            type: "error"
+          });
+          flag = false;
+          return flag;
+        }
+        if (self.tokenTotalSupply === "") {
+          self.$message({
+            message: self.$t("error.msg8"),
+            type: "error"
+          });
+          flag = false;
+          return flag;
+        }
+      }
       if (self.tokenEmail === "") {
         self.$message({
           message: self.$t("error.msg11"),
@@ -226,31 +411,31 @@ export default {
           return flag;
         }
       }
-      if (self.tokenSymbol === "") {
-        self.$message({
-          message: self.$t("error.msg6"),
-          type: "error"
-        });
-        flag = false;
-        return flag;
-      }
-      if (self.tokenDecimals === "") {
-        self.$message({
-          message: self.$t("error.msg7"),
-          type: "error"
-        });
-        flag = false;
-        return flag;
-      }
-      if (self.tokenTotalSupply === "") {
-        self.$message({
-          message: self.$t("error.msg8"),
-          type: "error"
-        });
-        flag = false;
-        return flag;
-      }
       return flag;
+    },
+    handleClose(done) {
+      done();
+    },
+    handleEdit(index, row) {
+      console.log(index, row);
+    },
+    handleDelete(index, row) {
+      this.tokens.splice(index, 1);
+      console.log(this.tokens);
+    },
+    addOep8Token(index, row) {
+      let array = {
+        token_id: this.oep8info.token_id,
+        token_name: this.oep8info.token_name,
+        total_supply: this.oep8info.total_supply,
+        symbol: this.oep8info.symbol
+      };
+      this.tokens.push(array);
+      console.log(this.tokens);
+      this.oep8info.token_id = "";
+      this.oep8info.token_name = "";
+      this.oep8info.total_supply = "";
+      this.oep8info.symbol = "";
     },
     handleAvatarSuccess(res, file) {
       /* this.imageUrl = URL.createObjectURL(file.raw); */
@@ -337,6 +522,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+input:focus {
+  outline: none;
+}
+textarea:focus {
+  outline: none;
+}
 .avatar-uploader {
   width: 100%;
   height: 168px;
@@ -355,11 +546,12 @@ export default {
   }
 }
 .avatar-uploader .el-upload:hover {
-  border-color: #409eff;
+  border-color: #32a4be;
 }
 .avatar-uploader-icon {
   font-size: 28px;
-  color: #8c939d;
+  color: #000;
+  font-weight: 1000;
   width: 138px;
   height: 138px;
   line-height: 138px;
@@ -369,6 +561,54 @@ export default {
   width: 138px;
   height: 138px;
   display: block;
+}
+/deep/ .el-table th {
+  background: rgba(0, 0, 0, 0.4);
+  height: 40px;
+  padding: 0;
+}
+/deep/ .el-table th > .cell {
+  font-size: 14px;
+  font-family: NunitoSans-SemiBold, NunitoSans;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  line-height: 19px;
+}
+/deep/ .el-radio.is-checked {
+  color: #32a4be;
+  .el-radio__input.is-checked .el-radio__inner {
+    border-color: #32a4be;
+    background: #32a4be;
+  }
+  .el-radio__input.is-checked + .el-radio__label {
+    color: #32a4be;
+  }
+}
+/deep/ .el-tabs__active-bar {
+  background: #32a4be;
+}
+/deep/ .el-dialog__headerbtn {
+  display: none;
+}
+/deep/ .el-dialog__title {
+  font-size: 16px;
+  font-family: PingFangSC-Semibold, PingFang SC, sans-serif;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1);
+  line-height: 22px;
+}
+/deep/ .el-dialog__body {
+  text-align: center;
+}
+/deep/ .el-dialog__footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+/deep/ .el-button--primary {
+  width: 100px;
+  height: 32px;
+  background: rgba(50, 164, 190, 1);
+  border-radius: 4px;
+  padding: 0;
 }
 .token-submit {
   background: rgba(245, 242, 242, 1);
@@ -495,6 +735,44 @@ export default {
             line-height: 19px;
             margin-top: 11px;
           }
+          .table-input {
+            padding-left: 0px;
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC, sans-serif;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 1);
+            line-height: 20px;
+            border: none;
+          }
+          .table-text {
+            font-size: 14px;
+            font-family: PingFangSC-Regular, PingFang SC, sans-serif;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 1);
+            line-height: 20px;
+            padding: 10px 0;
+          }
+          .add-btn {
+            cursor: pointer;
+            width: 100px;
+            height: 32px;
+            border-radius: 4px;
+            border: 1px solid rgba(50, 164, 190, 1);
+            .text {
+              height: 30px;
+              font-size: 16px;
+              font-family: NunitoSans-Regular, NunitoSans, sans-serif;
+              font-weight: 400;
+              color: rgba(50, 164, 190, 1);
+              line-height: 30px;
+              text-align: center;
+            }
+          }
+          .add-btn:hover {
+            background: rgba(72, 163, 255, 0.1);
+            border-radius: 4px;
+            border: 1px solid rgba(50, 164, 190, 1);
+          }
         }
       }
     }
@@ -548,6 +826,10 @@ export default {
           color: rgba(255, 255, 255, 1);
           line-height: 18px;
         }
+      }
+      .btn:hover {
+        background: rgba(50, 164, 190, 0.8);
+        border-radius: 4px;
       }
     }
   }

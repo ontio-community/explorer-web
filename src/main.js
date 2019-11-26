@@ -20,9 +20,16 @@ import {
   Pagination,
   Select,
   Option,
+  Dialog,
   Tabs,
   TabPane,
   Upload,
+  Table,
+  Button,
+  Radio,
+  popover,
+  Icon,
+  TableColumn,
   Divider,
   Message,
 } from "element-ui";
@@ -30,8 +37,15 @@ Vue.component(Pagination.name, Pagination);
 Vue.prototype.$message = Message;
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Dialog)
 Vue.use(Tabs)
+Vue.use(Table)
+Vue.use(TableColumn)
 Vue.use(TabPane)
+Vue.use(popover)
+Vue.use(Radio)
+Vue.use(Button)
+Vue.use(Icon)
 Vue.use(Divider)
 Vue.use(Upload)
 /* import Highcharts from 'highcharts/highstock';

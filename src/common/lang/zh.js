@@ -30,6 +30,7 @@ module.exports = {
       oep4: 'OEP-4 概述',
       oep5: 'OEP-5 概述',
       oep8: 'OEP-8 概述',
+      submit: '提交',
       statistics: '统计',
       tool: '工具',
       apiDocUrl:"https://dev-docs.ont.io/#/docs-cn/explorer/overview"
@@ -346,6 +347,8 @@ module.exports = {
     msg8:"请输入Token 总供应量",
     msg9:"请上传Token Logo",
     msg10:"请输入正确格式的邮箱",
-    msg11:"请输入联系邮箱"
+    msg11:"请输入联系邮箱",
+    msg12:"请输入至少一种token的信息",
+    msg13:"请选择虚拟机类别"
   }
 };

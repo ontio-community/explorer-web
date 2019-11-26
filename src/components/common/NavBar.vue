@@ -49,6 +49,8 @@
                 <a class="dropdown-item" @click="toTokenList('oep5')"><i class="fas fa-coins"></i>&nbsp;&nbsp;{{ $t('navbar.top.oep5') }}</a>
                 <hr style="margin: 4px 1rem">
                 <a class="dropdown-item" @click="toTokenList('oep8')"><i class="fas fa-coins"></i>&nbsp;&nbsp;{{ $t('navbar.top.oep8') }}</a>
+                <hr style="margin: 4px 1rem">
+                <a class="dropdown-item" @click="toTokenSubmit('submit')"><i class="fas fa-coins"></i>&nbsp;&nbsp;{{ $t('navbar.top.submit') }}</a>
               </div>
             </li>
 
@@ -197,6 +199,13 @@
           this.$router.push({name: 'TokenListTest', params: {contractType: $type, pageSize: 10, pageNumber: 1, net: 'testnet'}})
         } else {
           this.$router.push({name: 'TokenList', params: {contractType: $type, pageSize: 10, pageNumber: 1}})
+        }
+      },
+      toTokenSubmit($type) {
+        if (this.$route.params.net === 'testnet') {
+          this.$router.push({name: 'TokenSubmitTest', params: {net: 'testnet'}})
+        } else {
+          this.$router.push({name: 'TokenSubmit'})
         }
       },
       toStatistics() {

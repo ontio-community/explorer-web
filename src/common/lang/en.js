@@ -30,6 +30,7 @@ module.exports = {
       oep4: 'OEP-4 Overview',
       oep5: 'OEP-5 Overview',
       oep8: 'OEP-8 Overview',
+      submit: 'Submit',
       statistics: 'Statistics',
       tool: 'Tools',
       apiDocUrl:"https://dev-docs.ont.io/#/docs-en/explorer/overview"
@@ -366,6 +367,8 @@ module.exports = {
     msg8:"Please enter Token Total Supply",
     msg9:"Please upload Token Logo",
     msg10:"Please enter the email in the correct format",
-    msg11:"Please enter the contact email address"
+    msg11:"Please enter the contact email address",
+    msg12:"Please enter information for at least one token",
+    msg13:"Please select a virtual machine category"
   }
 };
