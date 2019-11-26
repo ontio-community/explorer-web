@@ -20,12 +20,20 @@ import {
   Pagination,
   Select,
   Option,
-  Message
+  Tabs,
+  TabPane,
+  Upload,
+  Divider,
+  Message,
 } from "element-ui";
 Vue.component(Pagination.name, Pagination);
 Vue.prototype.$message = Message;
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Divider)
+Vue.use(Upload)
 /* import Highcharts from 'highcharts/highstock';
 Vue.use(Highcharts);
 import HighchartsVue from 'highcharts-vue';

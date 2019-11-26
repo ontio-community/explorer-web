@@ -355,6 +355,17 @@ module.exports = {
     format:"Sorry, the search string you entered could not be found.",
     copied:"Copied!",
     pagesize:"pageSize limit 20",
-    searching:"Querying"
+    searching:"Querying",
+    msg1:"Please enter Token hash",
+    msg2:"Please enter the token name",
+    msg3:"Please enter Token Abi",
+    msg4:"Please enter Token Code",
+    msg5:"Please enter Token Description",
+    msg6:"Please enter Token Symbol",
+    msg7:"Please enter Token Decimals",
+    msg8:"Please enter Token Total Supply",
+    msg9:"Please upload Token Logo",
+    msg10:"Please enter the email in the correct format",
+    msg11:"Please enter the contact email address"
   }
 };

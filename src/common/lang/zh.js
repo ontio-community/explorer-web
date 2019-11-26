@@ -335,6 +335,17 @@ module.exports = {
     format:"对不起，无法找到您输入的搜索内容。",
     copied:"已复制!",
     pagesize:"pageSize limit 20",
-    searching:"查询中"
+    searching:"查询中",
+    msg1:"请输入Token 哈希",
+    msg2:"请输入Token 名称",
+    msg3:"请输入Token Abi",
+    msg4:"请输入Token 代码",
+    msg5:"请输入Token 描述",
+    msg6:"请输入Token 简称",
+    msg7:"请输入Token 精度",
+    msg8:"请输入Token 总供应量",
+    msg9:"请上传Token Logo",
+    msg10:"请输入正确格式的邮箱",
+    msg11:"请输入联系邮箱"
   }
 };

@@ -38,6 +38,7 @@ const ContractList = () => import('@/components/contracts/List')
 const ContractDetail = () => import('@/components/contracts/Detail')
 const TokenList = () => import('@/components/tokens/List')
 const TokenDetail = () => import('@/components/tokens/Detail')
+const TokenSubmit = () => import('@/components/tokens/submit')
 const StatisticsTable = () => import('@/components/statistics/Table')
 const ContractForm = () => import('@/components/form/ContractForm')
 
@@ -268,6 +269,16 @@ let routes = [
     path: '/token/detail/:contractType/:contractHash/:tokenName/:pageSize/:pageNumber/:net',
     name: 'TokenDetailTest',
     component: TokenDetail
+  },
+  {
+    path: '/token/submit',
+    name: 'TokenSubmit',
+    component: TokenSubmit
+  },
+  {
+    path: '/token/submit/:net',
+    name: 'TokenSubmitTest',
+    component: TokenSubmit
   },
   {
     path: '/statistics/:day',
