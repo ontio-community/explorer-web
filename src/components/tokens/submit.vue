@@ -11,7 +11,7 @@
         </div>
         <div class="item">
           <div class="item-title">Token Name*</div>
-          <input v-model="tokenName" maxlength="255"/>
+          <input v-model="tokenName" maxlength="255" />
         </div>
         <div class="item">
           <div class="item-title">Virtual Machine Category*</div>
@@ -27,8 +27,8 @@
           <textarea v-model="tokenCode" />
         </div>
         <div class="item">
-          <div class="item-title" >Description*</div>
-          <textarea v-model="tokenDescription" maxlength="800"/>
+          <div class="item-title">Description*</div>
+          <textarea v-model="tokenDescription" maxlength="800" />
         </div>
       </div>
       <div class="token-info">
@@ -40,11 +40,11 @@
         <div v-if="activeName === 'first'" id="oep4" class="content">
           <div class="item">
             <div class="item-title">Token Symbol*</div>
-            <input v-model="tokenSymbol" maxlength="255"/>
+            <input v-model="tokenSymbol" maxlength="255" />
           </div>
           <div class="item">
             <div class="item-title">Token Decimals*</div>
-            <input v-model="tokenDecimals" type="number" maxlength="11"/>
+            <input v-model="tokenDecimals" type="number" maxlength="11" />
           </div>
           <div class="item">
             <div class="item-title">Total Supply*</div>
@@ -68,7 +68,7 @@
         <div v-if="activeName === 'second'" id="oep5" class="content">
           <div class="item">
             <div class="item-title">Token Symbol*</div>
-            <input v-model="tokenSymbol" maxlength="255"/>
+            <input v-model="tokenSymbol" maxlength="255" />
           </div>
           <div class="item">
             <div class="item-title">Total Supply*</div>
@@ -132,11 +132,11 @@
           </div>
           <div class="item">
             <div class="item-title">Oep8 Token ID*</div>
-            <input v-model="oep8info.token_id" maxlength="255"/>
+            <input v-model="oep8info.token_id" maxlength="255" />
           </div>
           <div class="item">
             <div class="item-title">Oep8 Token Name*</div>
-            <input v-model="oep8info.token_name" maxlength="255"/>
+            <input v-model="oep8info.token_name" maxlength="255" />
           </div>
           <div class="item">
             <div class="item-title">Oep8 Total Supply*</div>
@@ -144,7 +144,7 @@
           </div>
           <div class="item">
             <div class="item-title">Oep8 Token Symbol*</div>
-            <input v-model="oep8info.symbol" maxlength="255"/>
+            <input v-model="oep8info.symbol" maxlength="255" />
           </div>
           <div class="item">
             <div class="add-btn">
@@ -207,34 +207,41 @@ export default {
   name: "Token-Detail",
   mounted() {},
   watch: {
-    'submitresult':function(){
-        let self = this
-        console.log("submitresult",this.submitresult)
-        debugger
-        if(this.submitresult.list.code == 61003){
+    submitresult: function() {
+      let self = this;
+      console.log("submitresult", this.submitresult);
+      if (this.submitresult.list.code == 61003) {
+        this.$message({
+          message: this.$t("error.msg19"),
+          type: "error"
+        });
+      } else {
+        if (this.submitresult.list.code == 61011) {
           this.$message({
-            message: this.$t("error.msg19"),
+            message: this.$t("error.msg20"),
             type: "error"
           });
-        }else{
-            this.dialogVisible = true;
-            self.tokenType = ""
-            self.radio = ""
-            self.tokenHash = ""
-            self.tokenName = ""
-            self.tokenDescription = ""
-            self.tokenAbi = ""
-            self.tokenCode = ""
-            self.dataURL = ""
-            self.tokenEmail = ""
-            self.tokenWebsite = ""
-            self.tokenTotalSupply = ""
-            self.tokenDecimals = ""
-            self.tokenSymbol = ""
-            self.vm_category = ""
-            self.imageUrl = ""
-            self.tokens = []
+        } else {
+          this.dialogVisible = true;
+          self.activeName = "first";
+          self.tokenType = "oep4s";
+          self.radio = "";
+          self.tokenHash = "";
+          self.tokenName = "";
+          self.tokenDescription = "";
+          self.tokenAbi = "";
+          self.tokenCode = "";
+          self.dataURL = "";
+          self.tokenEmail = "";
+          self.tokenWebsite = "";
+          self.tokenTotalSupply = "";
+          self.tokenDecimals = "";
+          self.tokenSymbol = "";
+          self.vm_category = "";
+          self.imageUrl = "";
+          self.tokens = [];
         }
+      }
     }
   },
   computed: {
@@ -298,9 +305,7 @@ export default {
         params.tokens = self.tokens;
         this.$store
           .dispatch("submitToken", params)
-          .then((res) => {
-
-          })
+          .then(res => {})
           .catch(() => {
             self.$message({
               message: "failed",
@@ -377,7 +382,7 @@ export default {
           flag = false;
           return flag;
         }
-      } 
+      }
       if ($type === "oep4s") {
         if (self.tokenSymbol === "") {
           self.$message({
@@ -398,6 +403,17 @@ export default {
         if (self.tokenTotalSupply === "") {
           self.$message({
             message: self.$t("error.msg8"),
+            type: "error"
+          });
+          flag = false;
+          return flag;
+        }
+        if (
+          self.tokenTotalSupply > 999999999999999 ||
+          self.tokenTotalSupply < 0
+        ) {
+          self.$message({
+            message: self.$t("error.msg21"),
             type: "error"
           });
           flag = false;
@@ -453,47 +469,57 @@ export default {
       console.log(this.tokens);
     },
     addOep8Token(index, row) {
-      let self = this
-      if(this.oep8info.token_id === ""){
+      let self = this;
+      if (this.oep8info.token_id === "") {
         self.$message({
           message: self.$t("error.msg14"),
           type: "error"
         });
-        return false
+        return false;
       }
-      if(this.oep8info.token_name === ""){
+      if (this.oep8info.token_name === "") {
         self.$message({
           message: self.$t("error.msg15"),
           type: "error"
         });
-        return false
+        return false;
       }
-      if(this.oep8info.total_supply === ""){
+      if (this.oep8info.total_supply === "") {
         self.$message({
           message: self.$t("error.msg16"),
           type: "error"
         });
-        return false
+        return false;
       }
-      if(this.oep8info.symbol === ""){
+      if (
+        self.oep8info.total_supply > 999999999999999 ||
+        self.oep8info.total_supply < 0
+      ) {
+        self.$message({
+          message: self.$t("error.msg21"),
+          type: "error"
+        });
+        return false;
+      }
+      if (this.oep8info.symbol === "") {
         self.$message({
           message: self.$t("error.msg17"),
           type: "error"
         });
-        return false
+        return false;
       }
-      let checkFlag = true
-      for(var i=0;i<this.tokens.length;i++){
-        if(this.tokens[i].token_id === this.oep8info.token_id){
-          checkFlag = false
+      let checkFlag = true;
+      for (var i = 0; i < this.tokens.length; i++) {
+        if (this.tokens[i].token_id === this.oep8info.token_id) {
+          checkFlag = false;
         }
       }
-      if(!checkFlag){
+      if (!checkFlag) {
         self.$message({
           message: self.$t("error.msg18"),
           type: "error"
         });
-        return false
+        return false;
       }
       let array = {
         token_id: this.oep8info.token_id,
@@ -544,15 +570,15 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
       console.log(this.activeName);
-      this.tokens = []
-      this.oep8info.token_id = ""
-      this.oep8info.token_name = ""
-      this.oep8info.total_supply = ""
-      this.oep8info.symbol = ""
-      this.imageUrl = ""
-      this.tokenSymbol = ""
-      this.tokenDecimals = ""
-      this.tokenTotalSupply = ""
+      this.tokens = [];
+      this.oep8info.token_id = "";
+      this.oep8info.token_name = "";
+      this.oep8info.total_supply = "";
+      this.oep8info.symbol = "";
+      this.imageUrl = "";
+      this.tokenSymbol = "";
+      this.tokenDecimals = "";
+      this.tokenTotalSupply = "";
       if (this.activeName === "first") {
         this.tokenType = "oep4s";
       }
