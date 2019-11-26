@@ -54,7 +54,7 @@
             <div class="item-title">Logo*</div>
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -71,10 +71,6 @@
             <input v-model="tokenSymbol" />
           </div>
           <div class="item">
-            <div class="item-title">Token Decimals*</div>
-            <input v-model="tokenDecimals" />
-          </div>
-          <div class="item">
             <div class="item-title">Total Supply*</div>
             <input v-model="tokenTotalSupply" />
           </div>
@@ -82,7 +78,7 @@
             <div class="item-title">Logo*</div>
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -95,7 +91,7 @@
         </div>
         <div v-if="activeName === 'third'" id="oep8" class="content">
           <div class="item">
-            <el-table :data="tokens" style="width: 100%">
+            <el-table :data="tokens" style="width: 100%" empty-text="No token added">
               <el-table-column label="token id" width="120">
                 <template slot-scope="scope">
                   <div class="table-text">{{scope.row.token_id}}</div>
@@ -159,7 +155,7 @@
             <div class="item-title">Logo*</div>
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
@@ -424,6 +420,35 @@ export default {
       console.log(this.tokens);
     },
     addOep8Token(index, row) {
+      let self = this
+      if(this.oep8info.token_id === ""){
+        self.$message({
+          message: self.$t("error.msg14"),
+          type: "error"
+        });
+        return false
+      }
+      if(this.oep8info.token_name === ""){
+        self.$message({
+          message: self.$t("error.msg15"),
+          type: "error"
+        });
+        return false
+      }
+      if(this.oep8info.total_supply === ""){
+        self.$message({
+          message: self.$t("error.msg16"),
+          type: "error"
+        });
+        return false
+      }
+      if(this.oep8info.symbol === ""){
+        self.$message({
+          message: self.$t("error.msg17"),
+          type: "error"
+        });
+        return false
+      }
       let array = {
         token_id: this.oep8info.token_id,
         token_name: this.oep8info.token_name,
@@ -463,15 +488,25 @@ export default {
               return false;
             } else {
               self.dataURL = reader.result;
+              self.imageUrl = reader.result;
             }
           };
         };
       }
-      return isJPG;
+      return false;
     },
     handleClick(tab, event) {
       console.log(tab, event);
       console.log(this.activeName);
+      this.tokens = []
+      this.oep8info.token_id = ""
+      this.oep8info.token_name = ""
+      this.oep8info.total_supply = ""
+      this.oep8info.symbol = ""
+      this.imageUrl = ""
+      this.tokenSymbol = ""
+      this.tokenDecimals = ""
+      this.tokenTotalSupply = ""
       if (this.activeName === "fisrt") {
         this.tokenType = "oep4s";
       }

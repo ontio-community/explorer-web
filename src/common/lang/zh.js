@@ -349,6 +349,10 @@ module.exports = {
     msg10:"请输入正确格式的邮箱",
     msg11:"请输入联系邮箱",
     msg12:"请输入至少一种token的信息",
-    msg13:"请选择虚拟机类别"
+    msg13:"请选择虚拟机类别",
+    msg14:"请输入OEP8 Token ID",
+    msg15:"请输入OEP8 Token Name",
+    msg16:"请输入OEP8 Token 总供应量",
+    msg17:"请输入OEP8 Token 简称"
   }
 };

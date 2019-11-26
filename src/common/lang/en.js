@@ -369,6 +369,10 @@ module.exports = {
     msg10:"Please enter the email in the correct format",
     msg11:"Please enter the contact email address",
     msg12:"Please enter information for at least one token",
-    msg13:"Please select a virtual machine category"
+    msg13:"Please select a virtual machine category",
+    msg14:"Please enter OEP8 Token ID",
+    msg15:"Please enter OEP8 Token Name",
+    msg16:"Please enter OEP8 Token Total Supply",
+    msg17:"Please enter OEP8 Token Symbol"
   }
 };
