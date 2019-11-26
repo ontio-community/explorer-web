@@ -373,6 +373,8 @@ module.exports = {
     msg14:"Please enter OEP8 Token ID",
     msg15:"Please enter OEP8 Token Name",
     msg16:"Please enter OEP8 Token Total Supply",
-    msg17:"Please enter OEP8 Token Symbol"
+    msg17:"Please enter OEP8 Token Symbol",
+    msg18:"OEP8 Token ID is duplicated",
+    msg19:"The token hash you submitted could not be found"
   }
 };

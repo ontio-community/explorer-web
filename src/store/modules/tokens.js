@@ -89,7 +89,13 @@ export default {
           }
         })
       }).catch(error => {
-        console.log(error)
+        console.log(error.msg)
+        commit({
+          type: types.SUBMIT_TOKEN_DATA,
+          info: {
+            list: error
+          }
+        })
       })
     }
   }
