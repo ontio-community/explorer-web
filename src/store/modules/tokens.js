@@ -81,7 +81,7 @@ export default {
         data.tokens = $param.tokens
         data.vm_category = $param.vm_category
       }
-      return $httpService.post('/tokens/'+$param.tokenType,data).then(response => {
+      return $httpService.post('/tokens/'+$param.tokenType+'/submit',data).then(response => {
         commit({
           type: types.SUBMIT_TOKEN_DATA,
           info: {

@@ -720,7 +720,7 @@ textarea:focus {
 }
 /deep/ .el-table th > .cell {
   font-size: 14px;
-  font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
+  font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
   font-weight: 600;
   color: rgba(255, 255, 255, 1);
   line-height: 19px;
@@ -745,7 +745,7 @@ textarea:focus {
 }
 /deep/ .el-dialog__title {
   font-size: 16px;
-  font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
+  font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
   font-weight: 600;
   color: rgba(0, 0, 0, 1);
   line-height: 22px;
@@ -772,7 +772,7 @@ textarea:focus {
 }
 /deep/ .el-divider__text {
   font-size: 16px;
-  font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
+  font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
   font-weight: 600;
   color: rgba(0, 0, 0, 1);
   line-height: 22px;
@@ -790,7 +790,7 @@ textarea:focus {
       justify-content: center;
       .title {
         font-size: 24px;
-        font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
+        font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
         font-weight: 600;
         color: rgba(0, 0, 0, 1);
         line-height: 32px;
@@ -808,7 +808,7 @@ textarea:focus {
         padding-bottom: 40px;
         .item-title {
           font-size: 14px;
-          font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
+          font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
           font-weight: 600;
           color: rgba(0, 0, 0, 1);
           line-height: 19px;
@@ -874,7 +874,7 @@ textarea:focus {
           padding-bottom: 40px;
           .item-title {
             font-size: 14px;
-            font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial",
+            font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial",
               sans-serif;
             font-weight: 600;
             color: rgba(0, 0, 0, 1);
