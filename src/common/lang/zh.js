@@ -357,6 +357,6 @@ module.exports = {
     msg18:"OEP8 Token ID 重复",
     msg19:"没有找到您提交的Token 哈希",
     msg20:"该Token已提交过",
-    msg21:"Token 总供应量范围0-999999999999999"
+    msg21:"Token 总供应量范围1-999999999999999"
   }
 };

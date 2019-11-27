@@ -377,6 +377,6 @@ module.exports = {
     msg18:"OEP8 Token ID is duplicated",
     msg19:"The token hash you submitted could not be found",
     msg20:"The token has been submitted",
-    msg21:"Token total supply range 0-999999999999999"
+    msg21:"Token total supply range 1-999999999999999"
   }
 };

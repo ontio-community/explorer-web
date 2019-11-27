@@ -53,7 +53,7 @@
           <div class="item">
             <div class="item-title">Logo*</div>
             <el-upload
-              class="avatar-uploader"
+              :class="imageUrl?'avatar-uploader none':'avatar-uploader'"
               action="/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
@@ -77,7 +77,7 @@
           <div class="item">
             <div class="item-title">Logo*</div>
             <el-upload
-              class="avatar-uploader"
+              :class="imageUrl?'avatar-uploader none':'avatar-uploader'"
               action="/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
@@ -92,27 +92,27 @@
         <div v-if="activeName === 'third'" id="oep8" class="content">
           <div class="item">
             <el-table :data="tokens" style="width: 100%" empty-text="No token added">
-              <el-table-column label="token id" width="120">
+              <el-table-column label="Token ID" width="120">
                 <template slot-scope="scope">
                   <div class="table-text">{{scope.row.token_id}}</div>
                 </template>
               </el-table-column>
-              <el-table-column label="token name" width="120">
+              <el-table-column label="Token Name" width="120">
                 <template slot-scope="scope">
                   <div class="table-text">{{scope.row.token_name}}</div>
                 </template>
               </el-table-column>
-              <el-table-column label="total supply" width="120">
+              <el-table-column label="Total Supply" width="120">
                 <template slot-scope="scope">
                   <div class="table-text">{{scope.row.total_supply}}</div>
                 </template>
               </el-table-column>
-              <el-table-column label="symbol" width="120">
+              <el-table-column label="Token Symbol" width="120">
                 <template slot-scope="scope">
                   <div class="table-text">{{scope.row.symbol}}</div>
                 </template>
               </el-table-column>
-              <el-table-column label>
+              <el-table-column label="Operation">
                 <template slot-scope="scope">
                   <!--                   <el-button
                     size="mini"
@@ -154,7 +154,7 @@
           <div class="item">
             <div class="item-title">Logo*</div>
             <el-upload
-              class="avatar-uploader"
+              :class="imageUrl?'avatar-uploader none':'avatar-uploader'"
               action="/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
@@ -171,7 +171,7 @@
         <el-divider>Contact Information</el-divider>
         <div class="item">
           <div class="item-title">Website</div>
-          <input v-model="tokenWebsite" />
+          <input v-model="tokenWebsite" placeholder="Optional" />
         </div>
         <div class="item">
           <div class="item-title">E-mail*</div>
@@ -216,7 +216,10 @@ export default {
           type: "error"
         });
       } else {
-        if (this.submitresult.list.code == 61011) {
+        if (
+          this.submitresult.list.code == 61011 ||
+          this.submitresult.list.code == 61010
+        ) {
           this.$message({
             message: this.$t("error.msg20"),
             type: "error"
@@ -410,7 +413,7 @@ export default {
         }
         if (
           self.tokenTotalSupply > 999999999999999 ||
-          self.tokenTotalSupply < 0
+          self.tokenTotalSupply < 1
         ) {
           self.$message({
             message: self.$t("error.msg21"),
@@ -630,6 +633,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: rgba(0, 0, 0, 0.1);
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: rgba(0, 0, 0, 0.1);
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: rgba(0, 0, 0, 0.1);
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: rgba(0, 0, 0, 0.1);
+}
 input:focus {
   outline: none;
 }
@@ -641,7 +660,17 @@ textarea:focus {
   height: 168px;
   background: rgba(255, 255, 255, 1);
   border-radius: 3px;
-  border: 1px solid rgba(170, 179, 180, 1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.avatar-uploader.none {
+  /deep/ .el-upload {
+    width: 138px;
+    height: 138px;
+    background: rgba(72, 163, 255, 0);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0);
+    margin: 14px;
+  }
 }
 .avatar-uploader {
   /deep/ .el-upload {
@@ -665,6 +694,9 @@ textarea:focus {
   line-height: 138px;
   text-align: center;
 }
+.avatar-uploader-icon:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
 .avatar {
   width: 138px;
   height: 138px;
@@ -677,7 +709,7 @@ textarea:focus {
 }
 /deep/ .el-table th > .cell {
   font-size: 14px;
-  font-family: NunitoSans-SemiBold, NunitoSans;
+  font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
   font-weight: 600;
   color: rgba(255, 255, 255, 1);
   line-height: 19px;
@@ -694,13 +726,15 @@ textarea:focus {
 }
 /deep/ .el-tabs__active-bar {
   background: #32a4be;
+  width: 88px !important;
+  display: none;
 }
 /deep/ .el-dialog__headerbtn {
   display: none;
 }
 /deep/ .el-dialog__title {
   font-size: 16px;
-  font-family: PingFangSC-Semibold, PingFang SC, sans-serif;
+  font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
   font-weight: 600;
   color: rgba(0, 0, 0, 1);
   line-height: 22px;
@@ -718,6 +752,20 @@ textarea:focus {
   border-radius: 4px;
   padding: 0;
 }
+/deep/ .el-tabs__item {
+  padding: 0 16px !important;
+  border-bottom: none;
+}
+/deep/ .el-tabs__item.is-active {
+  border-bottom: 2px solid #32a4be;
+}
+/deep/ .el-divider__text {
+  font-size: 16px;
+  font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1);
+  line-height: 22px;
+}
 .token-submit {
   background: rgba(245, 242, 242, 1);
   padding-top: 32px;
@@ -731,7 +779,7 @@ textarea:focus {
       justify-content: center;
       .title {
         font-size: 24px;
-        font-family: NunitoSans-SemiBold, NunitoSans, sans-serif;
+        font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
         font-weight: 600;
         color: rgba(0, 0, 0, 1);
         line-height: 32px;
@@ -749,7 +797,7 @@ textarea:focus {
         padding-bottom: 40px;
         .item-title {
           font-size: 14px;
-          font-family: NunitoSans-SemiBold, NunitoSans, sans-serif;
+          font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial", sans-serif;
           font-weight: 600;
           color: rgba(0, 0, 0, 1);
           line-height: 19px;
@@ -786,7 +834,8 @@ textarea:focus {
       margin-right: auto;
       /deep/ .el-tabs__item {
         font-size: 16px;
-        font-family: PingFangSC-Regular, PingFang SC, sans-serif;
+        font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
+          sans-serif;
         font-weight: 400;
         color: rgba(0, 0, 0, 0.3);
         line-height: 41px;
@@ -806,7 +855,7 @@ textarea:focus {
         width: 265px;
       }
       /deep/ .el-tabs__nav-wrap::after {
-        width: 224px;
+        width: 240px;
       }
       .content {
         padding: 32px 48px 15px;
@@ -814,7 +863,8 @@ textarea:focus {
           padding-bottom: 40px;
           .item-title {
             font-size: 14px;
-            font-family: NunitoSans-SemiBold, NunitoSans, sans-serif;
+            font-family: SourceSansPro-Bold, "Helvetica Neue", "Arial",
+              sans-serif;
             font-weight: 600;
             color: rgba(0, 0, 0, 1);
             line-height: 19px;
@@ -825,7 +875,7 @@ textarea:focus {
             height: 42px;
             background: rgba(255, 255, 255, 1);
             border-radius: 3px;
-            border: 1px solid #aab3b4;
+            border: 1px solid rgba(0, 0, 0, 0.1);
             padding-left: 14px;
           }
           .img-wrapper {
@@ -837,7 +887,8 @@ textarea:focus {
           }
           .desc {
             font-size: 14px;
-            font-family: NunitoSans-Regular, NunitoSans, sans-serif;
+            font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
+              sans-serif;
             font-weight: 400;
             color: rgba(0, 0, 0, 0.5);
             line-height: 19px;
@@ -846,7 +897,8 @@ textarea:focus {
           .table-input {
             padding-left: 0px;
             font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC, sans-serif;
+            font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
+              sans-serif;
             font-weight: 400;
             color: rgba(0, 0, 0, 1);
             line-height: 20px;
@@ -854,7 +906,8 @@ textarea:focus {
           }
           .table-text {
             font-size: 14px;
-            font-family: PingFangSC-Regular, PingFang SC, sans-serif;
+            font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
+              sans-serif;
             font-weight: 400;
             color: rgba(0, 0, 0, 1);
             line-height: 20px;
@@ -869,7 +922,8 @@ textarea:focus {
             .text {
               height: 30px;
               font-size: 16px;
-              font-family: NunitoSans-Regular, NunitoSans, sans-serif;
+              font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
+                sans-serif;
               font-weight: 400;
               color: rgba(50, 164, 190, 1);
               line-height: 30px;
@@ -900,7 +954,8 @@ textarea:focus {
         padding-bottom: 40px;
         .item-title {
           font-size: 14px;
-          font-family: NunitoSans-SemiBold, NunitoSans, sans-serif;
+          font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
+            sans-serif;
           font-weight: 600;
           color: rgba(0, 0, 0, 1);
           line-height: 19px;
@@ -929,7 +984,8 @@ textarea:focus {
         .text {
           height: 22px;
           font-size: 16px;
-          font-family: NunitoSans-Regular, NunitoSans, sans-serif;
+          font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
+            sans-serif;
           font-weight: 400;
           color: rgba(255, 255, 255, 1);
           line-height: 18px;
