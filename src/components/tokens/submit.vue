@@ -790,8 +790,8 @@ textarea:focus {
       justify-content: center;
       .title {
         font-size: 24px;
-        font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
-        font-weight: 600;
+        font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial", sans-serif;
+        font-weight: 300;
         color: rgba(0, 0, 0, 1);
         line-height: 32px;
       }
@@ -877,6 +877,7 @@ textarea:focus {
             font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial",
               sans-serif;
             font-weight: 600;
+            opacity: 0.65;
             color: rgba(0, 0, 0, 1);
             line-height: 19px;
             padding-bottom: 8px;
@@ -922,6 +923,7 @@ textarea:focus {
             font-weight: 400;
             color: rgba(0, 0, 0, 1);
             line-height: 20px;
+            opacity: 0.65;
             padding: 10px 0;
           }
           .add-btn {
