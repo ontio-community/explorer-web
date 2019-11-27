@@ -439,6 +439,17 @@ export default {
           });
           flag = false;
           return flag;
+        }        
+        if (
+          self.tokenTotalSupply > 999999999999999 ||
+          self.tokenTotalSupply < 1
+        ) {
+          self.$message({
+            message: self.$t("error.msg21"),
+            type: "error"
+          });
+          flag = false;
+          return flag;
         }
       }
       if (self.tokenEmail === "") {
@@ -496,7 +507,7 @@ export default {
       }
       if (
         self.oep8info.total_supply > 999999999999999 ||
-        self.oep8info.total_supply < 0
+        self.oep8info.total_supply < 1
       ) {
         self.$message({
           message: self.$t("error.msg21"),
