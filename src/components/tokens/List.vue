@@ -49,7 +49,7 @@
                     </span>
                   </b>
                 </div>
-                <div class="f-color font-size14 token-td">{{ token.description.substr(0,128) + '...' }}</div>
+                <div class="f-color font-size14 token-td word-break">{{ token.description.substr(0,128) + '...' }}</div>
               </td>
 
               <td v-if="$route.params.type === 'oep4'"
@@ -219,5 +219,8 @@
 
   .token-td {
     margin-top: 6px;
+  }
+  .word-break{
+    word-break: break-word;
   }
 </style>
