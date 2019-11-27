@@ -9,7 +9,7 @@ module.exports = {
 
   // 基础API接口
   API_URL: '"https://explorer.ont.io/v2"',
-  TEST_API_URL: '"http://18.136.65.213:8989/v2"',
+  TEST_API_URL: '"https://polarisexplorer.ont.io/v2"',
 
   // 提供节点统计信息计算查询的接口：
   DAPP_NODE_URL: '"https://dappnode1.ont.io:10334"',
