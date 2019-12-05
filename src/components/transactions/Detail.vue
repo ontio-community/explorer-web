@@ -12,9 +12,67 @@
       <div class="row">
         <div class="col">
           <div class="detail-col">
+            <div class="word-break">
+              <span class="f-color">{{ $t('txDetail.transactionHex') }}</span>
+              <span class="pointer important_color" @click="switchtxHexDetail()">{{ !txdetailFlag?$t('txDetail.hexopen'):$t('txDetail.close') }}</span>
+            </div>
+            <div class=" f-color pre-sc-hex-detail" v-if="txdetailFlag">
+              <vue-json-pretty
+                :path="'res'"
+                :showDoubleQuotes="false"
+                :data="TXDetail"
+                :showLine = "false"
+                >
+              </vue-json-pretty>
+            </div>
+            <div  :class="!txdetailFlagFlag? 'f-color pre-sc-detail-close':'f-color pre-sc-hex-detail-close-a'"  v-else>
+              <vue-json-pretty
+                :path="'res'"
+                :showDoubleQuotes="false"
+                :data="TXDetail"
+                :showLine = "false"
+                >
+              </vue-json-pretty>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-sm-block">
+      <div class="row">
+        <div class="col">
+          <div class="detail-col">
+            <div class="word-break">
+              <span class="f-color">{{ $t('txDetail.transactionJson') }}</span>
+              <span class="pointer important_color" @click="switchtxJsonDetail()">{{ !jsontxdetailFlag?$t('txDetail.jasoopen'):$t('txDetail.close') }}</span>
+            </div>
+            <div class=" f-color pre-sc-detail" v-if="jsontxdetailFlag">
+              <vue-json-pretty
+                :path="'res'"
+                :showDoubleQuotes="false"
+                :data="JSONTXDetail"
+                :showLine = "false"
+                >
+              </vue-json-pretty>
+            </div>
+            <div  :class="!jsontxdetailFlagFlag? 'f-color pre-sc-detail-close':'f-color pre-sc-detail-close-a'"  v-else>
+              <vue-json-pretty
+                :path="'res'"
+                :showDoubleQuotes="false"
+                :data="JSONTXDetail"
+                :showLine = "false"
+                >
+              </vue-json-pretty>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-sm-block">
+      <div class="row">
+        <div class="col">
+          <div class="detail-col">
             <span class="f-color">{{ $t('txDetail.detial') }}</span><span class="pointer important_color" @click="switchDetail()">{{ !detailFlag?$t('txDetail.open'):$t('txDetail.close') }}</span>
-<!--             <pre v-if="detailFlag" class=" f-color pre-sc-detail" >{{JSON.stringify(SCDetail, null, 2)}}</pre>
-            <pre v-else :class="!detailFlagFlag? 'f-color pre-sc-detail-close':'f-color pre-sc-detail-close-a'" >{{JSON.stringify(SCDetail, null, 2)}}</pre> -->
             <div class=" f-color pre-sc-detail" v-if="detailFlag">
               <vue-json-pretty
                 :path="'res'"
@@ -250,6 +308,11 @@
         scflag: false,
         detailFlag:false,
         detailFlagFlag:false,
+        txdetailFlag:false,
+        txdetailFlagFlag:false,
+        txdetailFlag:false,
+        jsontxdetailFlagFlag:false,
+        jsontxdetailFlag:false
       }
     },
     mounted() {
@@ -273,14 +336,16 @@
         console.log("record",this.recordflag)
         console.log("record",this.txData.description.substr(0,4)) */
       },
-      'SCDetail':function(){
-/*         console.log(this.SCDetail) */
+      'TXDetail':function(){
+        this.TXDetailFlag = true
       }
     },
     computed: {
       ...mapState({
         txData: state => state.Transactions.Detail,
         SCDetail: state => state.Transactions.SCDetail,
+        TXDetail: state => state.Transactions.TXDetail,
+        JSONTXDetail: state => state.Transactions.JSONTXDetail,
       }),
       issuerData: function () {
         return [
@@ -296,6 +361,20 @@
       switchDetail(){
         this.detailFlag = !this.detailFlag
         this.detailFlagFlag = true
+      },
+      /**
+       * 隐藏或显示交易详情
+       */
+      switchtxHexDetail(){
+        this.txdetailFlag = !this.txdetailFlag
+        this.txdetailFlagFlag = true
+      },
+      /**
+       * 隐藏或显示交易详情
+       */
+      switchtxJsonDetail(){
+        this.jsontxdetailFlag = !this.jsontxdetailFlag
+        this.jsontxdetailFlagFlag = true
       },
       /**
        * 获取资产的真实名称
@@ -358,6 +437,8 @@
       },
       getTxDetail() {
         this.$store.dispatch('GetTransactionDetail', this.$route.params).then()
+        this.$store.dispatch('GetTransactionInfo', this.$route.params).then()
+        this.$store.dispatch('GetTransactionJsonInfo', this.$route.params).then()
       },
       getTransactionType($case) {
         return GetTransactionType.getTransactionType($case)
@@ -448,15 +529,23 @@
     margin-bottom: 0;
     overflow: auto;
   }
-  @-webkit-keyframes fadeIn {
-    0% {
-    opacity: 0; /*初始状态 透明度为0*/
+  .pre-sc-hex-detail{
+    height: 70px;
+    -webkit-animation-name: hexfadeIn; /*动画名称*/
+    -webkit-animation-duration: 1s; /*动画持续时间*/
+    -webkit-animation-iteration-count: 1; /*动画次数*/
+    -webkit-animation-delay: 0s;
+    margin-bottom: 0;
+    overflow: auto;
+  }
+  .pre-sc-hex-detail-close-a{
     height: 0px;
-    }
-    100% {
-    opacity: 1; /*结尾状态 透明度为1*/
-    height: 300px;
-    }
+    -webkit-animation-name: hexfadeOut; /*动画名称*/
+    -webkit-animation-duration: 1s; /*动画持续时间*/
+    -webkit-animation-iteration-count: 1; /*动画次数*/
+    -webkit-animation-delay: 0s;
+    margin-bottom: 0;
+    overflow: auto;
   }
   .pre-sc-detail-close{
     height: 0px;
@@ -471,6 +560,36 @@
     -webkit-animation-delay: 0s;
     margin-bottom: 0;
     overflow: auto;
+  }
+  @-webkit-keyframes hexfadeIn {
+    0% {
+    opacity: 0; /*初始状态 透明度为0*/
+    height: 0px;
+    }
+    100% {
+    opacity: 1; /*结尾状态 透明度为1*/
+    height: 70px;
+    }
+  }
+  @-webkit-keyframes hexfadeOut {
+    0% {
+    opacity: 1; /*初始状态 透明度为0*/
+    height: 70px;
+    }
+    100% {
+    opacity: 0; /*结尾状态 透明度为1*/
+    height: 0px;
+    }
+  }
+  @-webkit-keyframes fadeIn {
+    0% {
+    opacity: 0; /*初始状态 透明度为0*/
+    height: 0px;
+    }
+    100% {
+    opacity: 1; /*结尾状态 透明度为1*/
+    height: 300px;
+    }
   }
   @-webkit-keyframes fadeOut {
     0% {

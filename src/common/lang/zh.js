@@ -169,9 +169,13 @@ module.exports = {
     status: '状态： ',
     fee: '费用： ',
     issuer: '发行人  ONT ID',
-    detial:'事件：',
+    detial:'合约事件：',
     open:'详情',
-    close:'收起'
+    close:'收起',
+    transactionHex:'交易 Hex: ',
+    transactionJson:'交易 Json: ',
+    hexopen: 'Hex',
+    jasoopen: 'Json'
   },
   claimDetail: {
     name: '认证详情'

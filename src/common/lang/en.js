@@ -169,9 +169,13 @@ module.exports = {
     status: 'Status: ',
     fee: 'Fee: ',
     issuer: 'Issuer OntId',
-    detial:'Event: ',
+    detial:'SC Event: ',
     open:'Detail',
-    close:'Close'
+    close:'Close',
+    transactionHex:'Transaction Hex: ',
+    transactionJson:'Transaction Json: ',
+    hexopen: 'Hex',
+    jasoopen: 'Json'
   },
   claimDetail: {
     name: 'CLAIM DETAILS'

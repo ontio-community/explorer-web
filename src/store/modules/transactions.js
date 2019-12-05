@@ -6,7 +6,9 @@ export default {
   state: {
     List: {},
     Detail: {},
-    SCDetail: {}
+    SCDetail: {},
+    TXDetail: {},
+    JSONTXDetail: {}
   },
   mutations: {
     [types.SET_TRANSACTION_LIST_PAGE](state, payload) {
@@ -17,6 +19,12 @@ export default {
     },
     [types.SET_TRANSACTIONSC_DETAIL_PAGE](state, payload) {
       state.SCDetail = payload.info
+    },
+    [types.SET_TRANSACTIONSC_INFO_PAGE](state, payload) {
+      state.TXDetail = payload.info
+    },
+    [types.SET_TRANSACTIONSC_JSONINFO_PAGE](state, payload) {
+      state.JSONTXDetail = payload.info
     }
   },
   actions: {
@@ -58,6 +66,32 @@ export default {
         var msg = JSON.parse(response.request.response)
         commit({
           type: types.SET_TRANSACTIONSC_DETAIL_PAGE,
+          info: msg.Result
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    GetTransactionInfo({dispatch, commit}, $param) {
+      let apiUrl = ($param.net === "testnet") ? process.env.TEST_DAPP_NODE_URL : process.env.DAPP_NODE_URL;
+
+      return axios.get( apiUrl+'/api/v1/transaction/'+$param.tx_hash+'?raw=1').then(response => {
+        var msg = JSON.parse(response.request.response)
+        commit({
+          type: types.SET_TRANSACTIONSC_INFO_PAGE,
+          info: msg.Result
+        })
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    GetTransactionJsonInfo({dispatch, commit}, $param) {
+      let apiUrl = ($param.net === "testnet") ? process.env.TEST_DAPP_NODE_URL : process.env.DAPP_NODE_URL;
+
+      return axios.get( apiUrl+'/api/v1/transaction/'+$param.tx_hash+'?raw=0').then(response => {
+        var msg = JSON.parse(response.request.response)
+        commit({
+          type: types.SET_TRANSACTIONSC_JSONINFO_PAGE,
           info: msg.Result
         })
       }).catch(error => {
