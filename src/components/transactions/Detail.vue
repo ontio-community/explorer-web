@@ -316,13 +316,12 @@
       }
     },
     mounted() {
-      this.getTxData()
-      this.getTxDetail()
+      this.initData()
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       console.log(window.location.href.indexOf("testnet")>-1)
     },
     watch: {
-      '$route': 'getTxData',
+      '$route': 'initData',
       'txData': function () {
         /* console.log(this.txData) */
         if (this.txData.confirm_flag === 1) {
@@ -338,7 +337,8 @@
       },
       'TXDetail':function(){
         this.TXDetailFlag = true
-      }
+       /*  Vue.set(this.TXDetail,this.TXDetail) */
+      },
     },
     computed: {
       ...mapState({
@@ -431,6 +431,10 @@
         } else {
           return Number(txTmp.amount)
         }
+      },
+      initData() {
+        this.getTxData()
+        this.getTxDetail()
       },
       getTxData() {
         this.$store.dispatch('GetTransaction', this.$route.params).then()
