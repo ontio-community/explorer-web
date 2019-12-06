@@ -19,7 +19,7 @@
             <div class=" f-color pre-sc-hex-detail" v-if="txdetailFlag">
               <vue-json-pretty
                 :path="'res'"
-                :showDoubleQuotes="false"
+                :showDoubleQuotes="true"
                 :data="TXDetail"
                 :showLine = "false"
                 >
@@ -28,7 +28,7 @@
             <div  :class="!txdetailFlagFlag? 'f-color pre-sc-detail-close':'f-color pre-sc-hex-detail-close-a'"  v-else>
               <vue-json-pretty
                 :path="'res'"
-                :showDoubleQuotes="false"
+                :showDoubleQuotes="true"
                 :data="TXDetail"
                 :showLine = "false"
                 >
@@ -312,7 +312,8 @@
         txdetailFlagFlag:false,
         txdetailFlag:false,
         jsontxdetailFlagFlag:false,
-        jsontxdetailFlag:false
+        jsontxdetailFlag:false,
+        TXDetailjson: {}
       }
     },
     mounted() {
@@ -337,6 +338,13 @@
       },
       'TXDetail':function(){
         this.TXDetailFlag = true
+        this.TXDetailjson.Hex = this.TXDetail
+        console.log('',this.TXDetailjson)
+        console.log('',this.TXDetail)
+       /*  Vue.set(this.TXDetail,this.TXDetail) */
+      },
+      'JSONTXDetail':function(){
+        console.log('',this.JSONTXDetail)
        /*  Vue.set(this.TXDetail,this.TXDetail) */
       },
     },
@@ -534,7 +542,7 @@
     overflow: auto;
   }
   .pre-sc-hex-detail{
-    height: 70px;
+    height: 110px;
     -webkit-animation-name: hexfadeIn; /*动画名称*/
     -webkit-animation-duration: 1s; /*动画持续时间*/
     -webkit-animation-iteration-count: 1; /*动画次数*/
@@ -572,13 +580,13 @@
     }
     100% {
     opacity: 1; /*结尾状态 透明度为1*/
-    height: 70px;
+    height: 110px;
     }
   }
   @-webkit-keyframes hexfadeOut {
     0% {
     opacity: 1; /*初始状态 透明度为0*/
-    height: 70px;
+    height: 110px;
     }
     100% {
     opacity: 0; /*结尾状态 透明度为1*/

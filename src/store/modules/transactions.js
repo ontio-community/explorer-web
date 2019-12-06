@@ -79,7 +79,7 @@ export default {
         var msg = JSON.parse(response.request.response)
         commit({
           type: types.SET_TRANSACTIONSC_INFO_PAGE,
-          info: msg.Result
+          info: {'HEX':msg.Result}
         })
       }).catch(error => {
         console.log(error)
