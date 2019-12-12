@@ -269,10 +269,12 @@ module.exports = {
         creator: '创建者',
         totalSupply: '总量',
         decimals: '精度',
-        addressCount: '持币地址'
+        addressCount: '持币地址',
+        vm_category: '虚拟机类型'
       }
     },
     detail: {
+      vm_category: '虚拟机类型: ',
       name: '通证详情',
       hash: '哈希：',
       overview: '合约概览',

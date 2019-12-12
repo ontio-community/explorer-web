@@ -25,6 +25,7 @@
                   class="font-size18" scope="col">{{ $t('tokens.list.tab.totalSupply') }}</th>
               <th class="font-size18" scope="col">{{ $t('tokens.list.tab.addressCount') }}</th>
               <th class="font-size18" scope="col">{{ $t('tokens.list.tab.hash') }}</th>
+              <th class="font-size18" scope="col">{{ $t('tokens.list.tab.vm_category') }}</th>
               <th class="font-size18" scope="col">{{ $t('tokens.list.tab.creator') }}</th>
               <th class="font-size18" scope="col">{{ $t('tokens.list.tab.txns') }}</th>
               <!--<th class="font-size18" scope="col">{{ $t('tokens.list.tab.time') }}</th>-->
@@ -61,6 +62,7 @@
                   @click="goToTokenDetail(token)">
                 {{ token.contract_hash.substr(0,8) + '...' + token.contract_hash.substr(32)}}
               </td>
+              <td class="font-size14 font-Regular important_color">{{ token.vm_category }}</td>
               <td class="font-size14 font-Regular important_color pointer"
                   @click="goToAddressDetail(token.creator)">
                 {{ token.creator.substr(0,4) + '...' + token.creator.substr(30)}}

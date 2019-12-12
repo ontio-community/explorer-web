@@ -31,7 +31,6 @@
           </div>
         </div>
       </div>
-
       <!--oep-8 资产-->
       <div class="row" v-if="$route.params.contractType === 'oep8'">
         <div class="b-detail-divider-line"></div>
@@ -65,6 +64,9 @@
                     :rows2="'1.3'">
     </detail-block-2>
 
+    <detail-block
+      :params="[{name:$t('tokens.detail.vm_category'),  val:tokenData.vm_category}]"></detail-block>
+    <detail-block
     <!--addresses & transactions & volume-->
     <div class="row">
       <div class="vol-col">

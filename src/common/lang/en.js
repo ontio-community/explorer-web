@@ -269,10 +269,12 @@ module.exports = {
         creator: 'Creator',
         totalSupply: 'Total Supply',
         decimals: 'Decimals',
-        addressCount: 'Addresses'
+        addressCount: 'Addresses',
+        vm_category: 'VM Category'
       }
     },
     detail: {
+      vm_category: 'VM Category: ',
       name: 'Token Detail',
       hash: 'HASH:',
       overview: 'Contract Overview',
