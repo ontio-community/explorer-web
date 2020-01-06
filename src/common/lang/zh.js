@@ -296,6 +296,7 @@ module.exports = {
       statistic: '数据统计',
       tokenLbl: '通证标签',
       tokenImg: '通证图片',
+      holder: '持有人',
       tip: '注意：该项为累积统计，可能有最多10分钟的统计差异。'
     }
   },

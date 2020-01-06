@@ -296,6 +296,7 @@ module.exports = {
       statistic: 'Statistics',
       tokenLbl: 'Token Label',
       tokenImg: 'Token Image',
+      holder: 'Holders',
       tip: 'Please note: Here is daily cumulative statistics, there is up to 10 minutes statistical difference.'
     }
   },
