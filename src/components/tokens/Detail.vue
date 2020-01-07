@@ -111,7 +111,7 @@
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#scABI">{{ $t('tokens.detail.abi') }}</a>
       </li>
-      <li class="nav-item" v-if="$route.params.contractType === 'oep4'&& $route.params.tokenName!=='PAX'">
+      <li class="nav-item" v-if="$route.params.contractType === 'oep4'">
         <a class="nav-link" data-toggle="tab" href="#scHolder">{{ $t('tokens.detail.holder') }}</a>
       </li>
     </ul>
@@ -204,7 +204,7 @@
           </div>
         </div>
       </div>
-      <div id="scHolder" class="tab-pane" v-if="$route.params.contractType === 'oep4' && $route.params.tokenName!=='PAX'">
+      <div id="scHolder" class="tab-pane" v-if="$route.params.contractType === 'oep4'">
         <div class="row" v-if="holder.Total !== 0">
           <div class="col ">
             <div class="detail-col">
