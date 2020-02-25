@@ -1,99 +1,43 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+import './assets/reset.css'
+import './assets/common.css'
 import Vue from 'vue'
-import App from './components/App'
-// import "element-ui/lib/theme-chalk/index.css"; // element-ui css
-import router from './router'
-import store from './store/index'
-import VeeValidate from 'vee-validate';
-import i18n from "./common/lang"; // Internationalization
-import './components/Toast/toast.css';
-
-Vue.use(VeeValidate);
-import Toast from './components/Toast/index';
-Vue.use(Toast);
-
-import Helper from './helpers/helper'
-Vue.use(Helper);
-
 import {
-  Pagination,
   Select,
   Option,
   Dialog,
-  Tabs,
-  TabPane,
-  Upload,
-  Table,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Collapse,
+  CollapseItem,
+  Pagination,
   Button,
   Radio,
-  popover,
-  Icon,
+  Loading,
   TableColumn,
+  TabPane,
+  Table,
+  Tabs,
   Divider,
-  Message,
-} from "element-ui";
-Vue.component(Pagination.name, Pagination);
-Vue.prototype.$message = Message;
-Vue.use(Select)
-Vue.use(Option)
-Vue.use(Dialog)
-Vue.use(Tabs)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(TabPane)
-Vue.use(popover)
-Vue.use(Radio)
-Vue.use(Button)
-Vue.use(Icon)
-Vue.use(Divider)
-Vue.use(Upload)
-/* import Highcharts from 'highcharts/highstock';
-Vue.use(Highcharts);
-import HighchartsVue from 'highcharts-vue';
-Vue.use(HighchartsVue) */
-
-// 提取加载css文件，构建时让webpack打包压缩优化。
-import '../static/css/detail-block.css'
-import '../static/css/detail-tab.css'
-import '../static/css/loading.css'
-import '../static/css/main.css'
-import '../static/css/ont-element.css'
-
-import service from './common/utils'
-Vue.prototype.$httpService = service;
-/**
- * 全局组件注册
- */
-import NavBar from './components/common/NavBar'
-import NavBar1 from './components/common/NavBar1'
-import ListTitle from './components/common/ListTitle'
-import ListTitle1 from './components/common/ListTitle1'
-import OntPagination from './components/common/OntPagination'
-import DetailTitle from './components/common/DetailTitle'
-import DetailTitle1 from './components/common/DetailTitle1'
-import DetailTitle2 from './components/common/DetailTitle2'
-import DetailBlock from './components/common/DetailBlock'
-import DetailBlock2 from './components/common/DetailBlock2'
-import DetailBlock3 from './components/common/DetailBlock3'
+  Upload,
+  Tooltip,
+  Message
+} from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import App from './App.vue'
+import router from './router'
+import ch from './common/lang/zh'
+import en from './common/lang/en'
+import ko from './common/lang/ko'
+import ru from './common/lang/ru'
+import ja from './common/lang/ja'
+import VueI18n from 'vue-i18n'
+import store from './store/index'
+import Helper from './helpers/helper'
+import RouterTools from './helpers/router'
 import LineChart from './components/common/LineChart'
-import HiChart from './components/common/HiChart'
-import Loading from './components/common/Loading'
 
-Vue.component('nav-bar', NavBar);
-Vue.component('nav-bar-1', NavBar1);
-Vue.component('list-title', ListTitle);
-Vue.component('list-title-1', ListTitle1);
-Vue.component('ont-pagination', OntPagination);
-Vue.component('detail-title', DetailTitle);
-Vue.component('detail-title-1', DetailTitle1);
-Vue.component('detail-title-2', DetailTitle2);
-Vue.component('detail-block', DetailBlock);
-Vue.component('detail-block-2', DetailBlock2);
-Vue.component('detail-block-3', DetailBlock3);
-Vue.component('line-chart', LineChart);
-Vue.component('hi-chart', HiChart);
-Vue.component('o-load', Loading);
+import Router from 'vue-router'
 
 /**
  * Fixed compatibility issues with low version IE. lyx.
@@ -101,15 +45,84 @@ Vue.component('o-load', Loading);
 import promise from 'es6-promise'
 promise.polyfill();
 
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
 
-Vue.config.productionTip = false;
+Vue.use(Helper);
+Vue.use(RouterTools);
 
-/* eslint-disable no-new */
+Vue.component(Pagination.name, Pagination);
+Vue.prototype.$message = Message;
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Dialog)
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Collapse)
+Vue.use(Tooltip)
+Vue.use(CollapseItem)
+Vue.use(Button)
+Vue.use(TableColumn)
+Vue.use(TabPane)
+Vue.use(Tabs)
+Vue.use(Table)
+Vue.use(Radio)
+Vue.use(Loading)
+Vue.use(Upload)
+Vue.use(Divider)
+Vue.component('line-chart', LineChart);
+
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
+/**
+ * 全局组件注册
+ */
+
+import OntPagination from './components/common/OntPagination'
+Vue.component('ont-pagination', OntPagination);
+
+Vue.config.productionTip = false
+const yuyan = navigator.language.split('-')[0]
+let yuyans
+switch (yuyan) {
+  case 'zh':
+    yuyans = 'ch'
+    break
+  case 'en':
+    yuyans = 'en'
+    break
+  case 'ko':
+    yuyans = 'ko'
+    break
+  case 'ru':
+    yuyans = 'ru'
+    break
+  case 'ja':
+    yuyans = 'ja'
+    break
+  default:
+    yuyans = 'en'
+}
+Vue.use(VueI18n)
+const i18n = new VueI18n({
+  locale: localStorage.getItem('user_lang') || yuyans,
+  messages: {
+    ch: ch,
+    ru: ru,
+    ja: ja,
+    en: en,
+    ko: ko
+  }
+})
+
 new Vue({
-  el: '#app',
   router,
   store,
   i18n,
-  components: {App, ListTitle},
-  template: '<App/>',
-});
+  render: h => h(App)
+}).$mount('#app')

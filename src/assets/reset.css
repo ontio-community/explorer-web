@@ -1,0 +1,287 @@
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+
+html,
+body,
+div,
+
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  font-weight: normal;
+  vertical-align: baseline;
+  /* font-family: PingFang SC; */
+  color: #000;
+  box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* custom */
+a {
+  color: #000;
+  text-decoration: none;
+  -webkit-backface-visibility: hidden;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #f2f2f2;
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  width: 5px;
+  background-color: #e6e6e6;
+  -webkit-border-radius: 6px;
+}
+html,
+body {
+  width: 100%;
+  font-family: Arial, "PingFang SC", "Microsoft Yahei",
+  Helvetica Neue, Helvetica, sans-serif;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-overflow-scrolling: touch;
+}
+body {
+  overflow: hidden;
+  line-height: 1;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html {
+  overflow-y: scroll;
+}
+
+/*清除浮动*/
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: inline-block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix {
+  *zoom: 1;
+}
+
+/*隐藏*/
+.dn {
+  display: none;
+}
+
+/* @font-face {
+  font-family: NunitoSans-Bold;
+  src: url("Nunito_Sans/NunitoSans-Bold.woff2") format("woff2"),
+    url("Nunito_Sans/NunitoSans-Bold.WOFF") format("woff");
+  font-weight: 700;
+  font-display: optional;
+}
+@font-face {
+  font-family: NunitoSans-SemiBold;
+  src: url("Nunito_Sans/NunitoSans-SemiBold.woff2") format("woff2"),
+    url("Nunito_Sans/NunitoSans-SemiBold.WOFF") format("woff");
+  font-weight: 600;
+  font-display: optional;
+}
+@font-face {
+  font-family: NunitoSans-Regular;
+  src: url("Nunito_Sans/NunitoSans-Regular.woff2") format("woff2"),
+    url("Nunito_Sans/NunitoSans-Regular.WOFF") format("woff");
+  font-weight: 400;
+  font-display: optional;
+}
+@font-face {
+  font-family: NunitoSans-Light;
+  src: url("Nunito_Sans/NunitoSans-Light.woff2") format("woff2"),
+    url("Nunito_Sans/NunitoSans-Light.WOFF") format("woff");
+  font-weight: 300;
+  font-display: optional;
+} */
+
+/* Roboto Font */
+@font-face {
+  font-family: Roboto;
+  src: url("./Roboto/Roboto-Regular.woff") format("woff"),
+  url("./Roboto/Roboto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: auto;
+}
+@font-face {
+  font-family: Roboto;
+  src: url("./Roboto/Roboto-Medium.woff") format("woff"),
+  url("./Roboto/Roboto-Medium.woff2") format("woff2");
+  font-weight: 600;
+  font-display: auto;
+}
+@font-face {
+  font-family: Roboto;
+  src: url("./Roboto/Roboto-Black.woff") format("woff"),
+  url("./Roboto/Roboto-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-display: auto;
+}
+/* DINPro-Medium */
+@font-face
+{
+font-family: DINPro-Medium;
+  src: url('./Roboto/DINPro-Medium.otf'),
+  url('./Roboto/DINPro-Medium.eot') format('eot');
+font-weight: 800;
+}
+/* Explorerfonts-Bold */
+@font-face
+{
+font-family: Explorerfonts-Bold;
+  src: url('./Roboto/samsungsharpsans-bold.otf'); 
+font-weight: 800;
+}
+#app.lang_ch {
+  font-family:'PingFangSC-Regular', 'PingFang SC Bold',  'Microsoft Yahei', '黑体'
+    Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+#app.lang_en {
+  font-family: 'Roboto', 'PingFang SC Bold', 'PingFang SC', 'Microsoft Yahei',
+    Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+.home_contanier {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+/* // @media only screen and (min-width: 960px) and (max-width: 1279px) */
+@media only screen and (min-width: 1280px) and (max-width: 1440px) {
+  .home_contanier {
+    max-width: 1280px;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1279px) {
+  .home_contanier {
+    max-width: 960px;
+  }
+}
+
+.hover1 {
+  transition: all 0.5s;
+}

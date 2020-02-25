@@ -1,311 +1,348 @@
 <template>
-  <div class="footer-background">
-
-    <div class="e-container footer-container mobile-container">
-
-      <div class="footer-logo-title">
-        <img class="footer-logo-img" src="../../assets/footer/ont logo footer.png">
-        <label class="footer-logo-label">></label>
-        <label class="footer-logo-text">{{ $t('footer.Explorer') }}</label>
-      </div>
-
-      <div class="footer-content-info">
-        <div class="footer-content">
-          <div class="mobile-foot-line-developer"></div>
-          <div class="footer-content-title">{{ $t('footer.Development') }}</div>
-<!--           <div class="footer-content-div"><a class="footer-content-text" href="https://ontio.github.io/documentation/tutorial_for_developer_en.html">{{ $t('footer.Tutorials') }}</a></div> -->
-          <div class="footer-content-div"><a class="footer-content-text" href="https://developer.ont.io/">{{ $t('footer.DeveloperCenter') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://dev-docs.ont.io/#/">{{ $t('footer.Documentation') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://bounty.ont.io">{{ $t('footer.Bounty') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://smartx.ont.io">{{ $t('footer.SmartX') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://github.com/ontio">{{ $t('footer.Github') }}</a></div>
-        </div>
-
-<!--         <div class="footer-content">
-          <div class="mobile-foot-line"></div>
-          <div class="footer-content-title">{{ $t('footer.Cooperation') }}</div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://info.ont.io/cooperation/en">{{ $t('footer.CooperateWithOntology') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://info.ont.io/listtriones/en">{{ $t('footer.Nodes') }}</a></div>
-        </div> -->
-
-        <div class="footer-content">
-          <div class="mobile-foot-line"></div>
-          <div class="footer-content-title">{{ $t('footer.About') }}</div>
-<!--           <div class="footer-content-div"><a class="footer-content-text" href="https://info.ont.io/news/en">{{ $t('footer.Press') }}</a></div>
-          <div class="footer-content-div" @click="toTechNews()" ><a class="footer-content-text" >{{ $t('footer.TechNews') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://info.ont.io/team/en">{{ $t('footer.Team') }}</a></div> -->
-          <div class="footer-content-div"><a class="footer-content-text" href="https://ont.io/#/aboutus">{{ $t('footer.AboutOntology') }}</a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://ontio.github.io/documentation/wp_download_en.html">{{ $t('footer.WhitePaper') }}</a></div>
-<!--           <div class="footer-content-div"><a class="footer-content-text" href="https://explorer.ont.io">{{ $t('footer.Explorer') }}</a></div> -->
-        </div>
-
-        <div class="footer-content">
-          <div class="mobile-foot-line"></div>
-          <div class="footer-content-title">{{ $t('footer.dApps') }}</div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://oodapp.io"></a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://oodapp.io/">{{ $t('footer.dApp') }} <img class="wailian-img" src="../../assets/wailian.svg"/></a></div>
-          <div class="footer-content-div"><a class="footer-content-text" href="https://submit.oodapp.io">{{ $t('footer.SubmitAdApp') }} <img class="wailian-img" src="../../assets/wailian.svg"/></a></div>
+  <div class="home_footer">
+    <div class="container">
+      <div class="line"></div>
+      <div class="up">
+        <div class="logo"></div>
+        <div class="title">Blockchain Explorer & Trust Verifier</div>
+        <div class="social_link_box">
+          <a href="https://twitter.com/OntologyNetwork" target="_blank" class="hover1">+TWITTER</a>
+          <a
+            href="https://www.facebook.com/Ontology-Network-468098413590227/"
+            target="_blank"
+            class="hover1"
+          >+FACEBOOK</a>
+          <a href="https://medium.com/ontologynetwork" target="_blank" class="hover1">+MEDIUM</a>
+          <a href="https://t.me/OntologyNetwork" target="_blank" class="hover1">+TELEGRAM</a>
+          <a
+            href="https://www.youtube.com/channel/UCXzLZJgDglAWRU0b2GOa7pA"
+            target="_blank"
+            class="hover1"
+          >+YOUTUBE</a>
+          <a
+            href="https://www.linkedin.com/company/ontology-network-official/"
+            target="_blank"
+            class="hover1"
+          >+LINKEDIN</a>
+          <a href="https://open.kakao.com/o/gMm1F05" target="_blank" class="hover1">+KAKAO</a>
         </div>
       </div>
-
-      <div class="footer-language">
-        <div :class="$t('footer.flag') == 'en' ? 'footer-content-text-active footer-language-content':'footer-language-content footer-content-text' " @click="changeLanguage('en')">English</div>
-        <div :class="$t('footer.flag') == 'zh' ? 'footer-content-text-active footer-language-content':'footer-language-content footer-content-text' " style="margin-left: 40px;" @click="changeLanguage('zh')">中文</div>
+      <div class="down">
+        <div class="social_link_box">
+          <a href="https://twitter.com/OntologyNetwork" target="_blank" class="hover1">+TWITTER</a>
+          <a
+            href="https://www.facebook.com/Ontology-Network-468098413590227/"
+            target="_blank"
+            class="hover1"
+          >+FACEBOOK</a>
+          <a href="https://medium.com/ontologynetwork" target="_blank" class="hover1">+MEDIUM</a>
+          <a href="https://t.me/OntologyNetwork" target="_blank" class="hover1">+TELEGRAM</a>
+          <a
+            href="https://www.youtube.com/channel/UCXzLZJgDglAWRU0b2GOa7pA"
+            target="_blank"
+            class="hover1"
+          >+YOUTUBE</a>
+          <a
+            href="https://www.linkedin.com/company/ontology-network-official/"
+            target="_blank"
+            class="hover1"
+          >+LINKEDIN</a>
+          <a href="https://open.kakao.com/o/gMm1F05" target="_blank" class="hover1">+KAKAO</a>
+        </div>
+        <div class="copyright">&#169; 2018 - 2020 Ontology. All rights reserved</div>
       </div>
-
-      <div class="footer-line"></div>
-
-      <div class="footer-link">
-        <div style="display: inline-block">
-          <a href="https://t.me/OntologyNetwork"><img class="footer-link-telegram footer-link-img" src="../../assets/footer/telegram@2x.png"></a>
-          <a href="https://discord.gg/4TQujHj"><img class="footer-link-discord footer-link-img" src="../../assets/footer/discord@2x.png"></a>
-          <a href="https://twitter.com/OntologyNetwork"><img class="footer-link-twitter footer-link-img" src="../../assets/footer/twitter@2x.png"></a>
-        </div>
-        <div style="display: inline-block">
-          <a href="https://www.facebook.com/Ontology-Network-468098413590227/"><img class="footer-link-facebook footer-link-img" src="../../assets/footer/facebook@2x.png"></a>
-          <a href="https://old.reddit.com/r/OntologyNetwork/"><img class="footer-link-reddit footer-link-img" src="../../assets/footer/reddit@2x.png"></a>
-          <a href="https://medium.com/ontologynetwork"><img class="footer-link-medium footer-link-img" src="../../assets/footer/medium@2x.png"></a>
-        </div>
-        <div style="display: inline-block">
-          <a href="mailto:contact@ont.io"><img class="footer-link-email footer-link-img" src="../../assets/footer/email@2x.png"></a>
-          <a href="https://github.com/ontio"><img class="footer-link-github footer-link-img" src="../../assets/footer/github@2x.png"></a>
-          <a href="https://www.linkedin.com/company/ontology-network-official/"><img class="footer-link-linkedin footer-link-img" src="../../assets/footer/linkedin@2x.png"></a>
-        </div>
-      </div>
-      <div class="footer-copyright">Copyright © 2019 The Ontology Team</div>
-
-
     </div>
-
   </div>
 </template>
 
 <script>
-  import LangStorage from './../../helpers/lang'
-export default {
-  name: 'HelloWorld',
-  props: {
+import MobileFooterNav from "./MobileFooterNav.vue";
 
-  },
-  methods:{
-    changeLanguage($lang){
-      this.$i18n.locale = $lang
-      LangStorage.setLang(this.$i18n.locale)
+export default {
+  methods: {
+    openNewPage(url) {
+      window.open(url);
     },
-    toTechNews(){
-      let lang = LangStorage.getLang('en')
-      let url
-      switch (lang) {
-        case 'en':
-          url = 'https://medium.com/ontologynetwork/tagged/tech'
-          break
-        case 'zh':
-          url = 'https://medium.com/ontologynetwork/tagged/tech'
-          break
-        case 'jp':
-          url = 'https://medium.com/ontologynetwork/tagged/tech'
-          break
-        case 'ko':
-          url = 'https://medium.com/ontologynetwork/tagged/tech'
-          break
-        default:
-          url = 'https://medium.com/ontologynetwork/tagged/tech'
-          break;
+    getData() {
+      let self = this;
+      let par = {
+        type: "footer",
+        language: self.value
+      };
+      let url = "api/api-query-data";
+      this.$http.post(url, par).then(res => {
+        console.log("resfooter.data", res);
+        if (res.status === 200) {
+          res.data.map((item, index) => {
+            // 관하여
+            if (
+              item.title === "关于" ||
+              item.title === "About" ||
+              item.title === "관하여"
+            ) {
+              item.isAbout = true;
+            }
+          });
+          self.form.navData = this.filterData(res.data);
+          this.$nextTick(() => {
+            //   this.routeChange()
+          });
+        }
+      });
+    },
+    gopageNav(data) {
+      // console.log(data)
+      if (data.blok) {
+        window.open(data.url);
+      } else {
+        this.$router.push({ path: data.url });
       }
-      window.location.href = url
     },
+    filterData(data) {
+      data.map((value, index) => {
+        value.list.map((ele, idx) => {
+          if (ele.url === "/aboutus") {
+            ele.url = "https://ont.io" + ele.url;
+            ele.blok = true;
+          }
+          if (ele.url === "/contactUs") {
+            ele.url = "https://ont.io" + ele.url;
+            ele.blok = true;
+          }
+        });
+      });
+      return data;
+    }
+  },
+  components: {
+    MobileFooterNav
+  },
+  data() {
+    return {
+      navData: [
+        {
+          title: "Developer Center",
+          navList: [
+            {
+              name: "Documentation",
+              url: "https://ontio.github.io/documentation/wp_download_en.html"
+            },
+            {
+              name: "Github",
+              url: "https://github.com/ontio-ontid"
+            }
+          ]
+        },
+        {
+          title: "Cooperation",
+          navList: [
+            {
+              name: "Cooperate with Ontology",
+              url: "https://ont.io/contactUs"
+            },
+            {
+              name: "Trust Anchor",
+              url: "https://info.ont.io/trust-anchor/en"
+            }
+          ]
+        },
+        {
+          title: "Wallets",
+          navList: [
+            {
+              name: "ONTO",
+              url: "https://onto.app/"
+            },
+            {
+              name: "OWallet",
+              url: "https://github.com/ontio/owallet"
+            }
+          ]
+        },
+        {
+          title: "DApps",
+          navList: [
+            {
+              name: "DApps List",
+              url: "https://dapp.ont.io/"
+            },
+            {
+              name: "Submit a DApp",
+              url: "https://ont.io/dapp"
+            }
+          ]
+        }
+      ],
+      isShowLang: false,
+      value: this.$i18n.locale,
+      form: {
+        navData: []
+      },
+      enData:
+        '[{"title":"Developer","url":"","list":[{"text":"Developer Center","url":"https://developer.ont.io/","sort":"","blok":true},{"text":"Bounty Program","url":"https://bounty.ont.io/","sort":"","blok":true},{"text":"Documentation","url":"https://dev-docs.ont.io/#/","sort":"","blok":true},{"text":"Explorer","url":"https://explorer.ont.io/","sort":"","blok":true}],"sort":""},{"title":"dApps","url":"","list":[{"text":"dApp List","url":"http://oodapp.io","sort":"","blok":true},{"text":"Submit a dApp","url":"http://submit.oodapp.io","sort":"","blok":true}],"blok":false},{"title":"Wallets","url":"","list":[{"text":"ONTO","url":"https://onto.app/","sort":"","blok":true},{"text":"OWallet","url":"https://github.com/ontio/owallet","sort":"","blok":true}],"sort":"","blok":false},{"title":"Trust Ecosystem","url":"","list":[{"text":"PAX","url":"https://pax.ont.io ","blok":true},{"text":"Node","url":"https://info.ont.io/listtriones/en","blok":true}],"sort":"3"},{"title":"About","url":"","list":[{"text":"About us","url":"/aboutus","blok":false},{"text":"News","url":"https://medium.com/ontologynetwork","sort":"","blok":true},{"text":"Contact us","url":"/contactUs","sort":"","blok":false},{"text":"White papers","url":"https://dev-docs.ont.io/#/docs-en/DeveloperGuide/06-white-papers","sort":"","blok":true}],"sort":"3"}]',
+      chData:
+        '[{"title":"开发者","url":"","list":[{"text":"开发者中心","url":"https://developer.ont.io/","blok":true},{"text":"Bounty Program","url":"https://bounty.ont.io/","blok":true},{"text":"文档中心","url":"https://dev-docs.ont.io/#/docs-cn/","blok":true},{"text":"区块浏览器","url":"https://explorer.ont.io/","sort":"","blok":true}],"sort":"1","blok":false},{"title":"dApps","url":"","list":[{"text":"dApp List","url":"https://oodapp.io/","sort":"","blok":true},{"text":"Submit a dApp","url":"https://submit.oodapp.io/","sort":"","blok":true}],"sort":"2"},{"title":"钱包","url":"","list":[{"text":"ONTO","url":"https://onto.app/","sort":"","blok":true},{"text":"OWallet","url":"https://github.com/ontio/owallet","sort":"","blok":true}],"sort":"3","blok":""},{"title":"信任生态","url":"","list":[{"text":"PAX","url":"https://pax.ont.io ","blok":true},{"text":"节点","url":"https://info.ont.io/listtriones/en","blok":true}],"sort":"4"},{"title":"关于","url":"","list":[{"text":"关于我们","url":"/aboutus","sort":"1"},{"text":"联系我们","url":"/contactUs","sort":"4","blok":false},{"text":"白皮书","url":"https://dev-docs.ont.io/#/docs-cn/DeveloperGuide/06-white-papers","sort":"5","blok":true}],"sort":"5"}]',
+      koData:
+        '[{"title":"개발자","url":"","list":[{"text":"개발자 센터","url":"https://developer.ont.io/","sort":"","blok":true},{"text":"Bounty Program","url":"https://bounty.ont.io/","sort":"","blok":true},{"text":"문서 센터","url":"https://dev-docs.ont.io/#/docs-kr/","sort":"","blok":true},{"text":"블록체인 브라우저","url":"https://explorer.ont.io/","sort":"","blok":true}],"sort":""},{"title":"dApp","url":"","list":[{"text":"리스트","url":"https://oodapp.io/","sort":"","blok":true},{"text":"dApp 제출하기","url":"https://submit.oodapp.io/","sort":"","blok":true}],"blok":false},{"title":"월렛","url":"","list":[{"text":"ONTO","url":"https://onto.app/","sort":"","blok":true},{"text":"OWallet","url":"https://github.com/ontio/owallet","sort":"","blok":true}],"blok":false},{"title":"신뢰 생태계","url":"","list":[{"text":"PAX","url":"https://pax.ont.io ","blok":true},{"text":"노드","url":"https://node.ont.io","blok":true}]},{"title":"소개","url":"","list":[{"text":"온톨로지는","url":"/aboutus","blok":false},{"text":"연락하기","url":"/contactUs","sort":"","blok":true},{"text":"White Paper","url":"https://dev-docs.ont.io/#/docs-kr/DeveloperGuide/06-white-papers","sort":"","blok":true}]}]',
+      jaData:
+        '[{"title":"開発者","url":"","list":[{"text":"開発者センター","url":"https://developer.ont.io/","blok":true},{"text":"賞金プログラム","url":"https://bounty.ont.io/","blok":true},{"text":"ドキュメントセンター","url":"https://dev-docs.ont.io/#/","blok":true},{"text":"ブロックブラウザ","url":"https://explorer.ont.io/","sort":"","blok":true}],"sort":"1","blok":false},{"title":"dApps","url":"","list":[{"text":"dApp List","url":"https://oodapp.io/","sort":"","blok":true},{"text":"Submit a dApp","url":"https://submit.oodapp.io/","sort":"","blok":true}],"sort":"2"},{"title":"財布","url":"","list":[{"text":"ONTO","url":"https://onto.app/","sort":"","blok":true},{"text":"OWallet","url":"https://github.com/ontio/owallet","sort":"","blok":true}],"sort":"3","blok":""},{"title":"信頼エコロジー","url":"","list":[{"text":"ONT ID","url":"https://ontid.ont.io/","blok":true},{"text":"ノード","url":"https://info.ont.io/listtriones/en","blok":true}],"sort":"4"},{"title":"について","url":"","list":[{"text":"Ontologyについて","url":"/aboutus","sort":"1"},{"text":"お問い合わせ","url":"/contactUs","sort":"4","blok":false},{"text":"ホワイトペーパー","url":"https://dev-docs.ont.io/#/docs-en/DeveloperGuide/06-white-papers","sort":"5","blok":true}],"sort":"5"}]',
+      ruData:
+        '[{"title":"Разработчикам  ","url":"","list":[{"text":"Центр разработки","url":"https://developer.ont.io/","sort":"","blok":true},{"text":"Баунти Программа","url":"https://bounty.ont.io/","sort":"","blok":true},{"text":"Документация","url":"https://dev-docs.ont.io/","sort":"","blok":true},{"text":"Explorer","url":"https://explorer.ont.io/","sort":"","blok":true}],"sort":""},{"title":"dApp","url":"","list":[{"text":"Каталог dApp","url":"https://oodapp.io/","sort":"","blok":true},{"text":"Загрузить свое dApp","url":"https://submit.oodapp.io/","sort":"","blok":true}],"blok":false},{"title":"Кошелек","url":"","list":[{"text":"ONTO","url":"https://onto.app/","sort":"","blok":true},{"text":"OWallet","url":"https://github.com/ontio/owallet","sort":"","blok":true}],"blok":false},{"title":"Экосистема Доверия","url":"","list":[{"text":"ONT ID","url":"https://ontid.ont.io/","blok":true},{"text":"PAX","url":"https://pax.ont.io ","blok":true},{"text":"Ноды","url":"https://node.ont.io","blok":true}]},{"title":"О проекте","url":"","list":[{"text":"О нас","url":"/aboutus","blok":false},{"text":"Свяжитесь с нами","url":"/contactUs","sort":"","blok":true},{"text":"White Paper","url":"https://dev-docs.ont.io/#/docs-en/DeveloperGuide/06-white-papers","sort":"","blok":true}]}]'
+    };
+  },
+  mounted() {
+    switch (this.$i18n.locale) {
+      case "en":
+        this.form.navData = this.filterData(JSON.parse(this.enData));
+        break;
+      case "ch":
+        this.form.navData = this.filterData(JSON.parse(this.chData));
+        break;
+      case "ko":
+        this.form.navData = this.filterData(JSON.parse(this.koData));
+        break;
+      case "ja":
+        this.form.navData = this.filterData(JSON.parse(this.jaData));
+        break;
+      case "ru":
+        this.form.navData = this.filterData(JSON.parse(this.ruData));
+        break;
+      default:
+        this.form.navData = this.filterData(JSON.parse(this.enData));
+    }
+    // this.getData()
   }
-}
+};
 </script>
 
-<style scoped>
-  .footer-copyright{
-    margin-top: 20px;
-  }
-  .footer-background{
-    background:#fff;
-    padding-top: 40px;
-    margin-top:64px;
-  }
-
-  .footer-width{
-    width: 944px;
-  }
-  .footer-logo-title{
-    margin-bottom: 25px;
-  }
-  .footer-logo-img{
-    height: 18px;
-  }
-  .footer-logo-text{
-    font-size:18px;
-    font-family:SourceSansPro-Regular;
-    font-weight:400;
-    color:#595757;
-    line-height:23px;
-  }
-  .footer-logo-label{
-    opacity:0.2;
-    color: black;
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-
-  .footer-content{
-/*     width: 224px; */
-    width: 24%;
-    display: inline-block;
-    vertical-align: top;
-  }
-  .footer-content-title{
-    font-size:16px;
-    font-family:SourceSansPro-Bold;
-    font-weight:600;
-    color:#595757;
-    line-height:20px;
-  }
-  .footer-content-div{
-    margin-top: 14px;
-  }
-  .footer-content-text{
-    font-size:14px;
-    font-family:SourceSansPro-Regular;
-    font-weight:400;
-    color:#AFACAC !important;
-    line-height:18px;
-    cursor: pointer;
-  }
-  .footer-content-text-active{
-    font-size:14px;
-    font-family:SourceSansPro-Regular;
-    font-weight:400;
-    color:#595757 !important;
-    line-height:18px;
-    cursor: pointer;
-  }
-  .footer-content-text:hover{
-    color:#32A4BE !important;;
-    text-decoration:underline !important;
-  }
-  .footer-content-text:active{
-    color:rgba(50,164,190,1) !important;;
-    text-decoration:underline !important;
-  }
-  .footer-language{
-    margin-top: 34px;
-    text-align: center;
-  }
-  .footer-language-content{
-    display: inline-block;
-    vertical-align: top;
-  }
-  .footer-line{
-    height:1px;
-    border:1px solid #AFACAC;
-    margin-top: 25px;
-  }
-  .footer-link{
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  .footer-link-telegram{
-    width: 32px;
-    cursor: pointer;
-  }
-  .footer-link-discord{
-    width: 27px;
-  }
-  .footer-link-twitter{
-    width: 32px;
-  }
-  .footer-link-facebook{
-    width: 26px;
-  }
-  .footer-link-reddit{
-    width: 32px;
-  }
-  .footer-link-medium{
-    width: 26px;
-  }
-  .footer-link-email{
-    width: 30px;
-  }
-  .footer-link-github{
-    width: 32px;
-  }
-  .footer-link-linkedin{
-    width: 26px;
-  }
-  .footer-link-img{
-    opacity: 0.4;
-    cursor: pointer;
-    margin-top: 23px;
-    margin-left:22px;
-    margin-right: 22px;
-  }
-  .footer-link-img:hover,
-  .footer-link-img:active{
-    opacity: 1;
-  }
-  .footer-copyright{
-    font-size:14px;
-    font-family:SourceSansPro-Regular;
-    font-weight:400;
-    color:rgba(170,179,180,1);
-    line-height:18px;
-    text-align: center;
-    padding-bottom: 40px;
-  }
-  /*手机*/
-  @media screen and (max-width:576px) {
-    .footer-content{
-      display: unset;
+<style lang="less" scoped>
+.home_footer {
+  padding-top: 140px;
+  .container {
+    .line {
+      width: 100%;
+      border-top: 1px solid #fafafa;
+      padding-bottom: 60px;
     }
-    .mobile-foot-line-developer{
-      height: 1px;
-      opacity: 0.2;
-      border: 1px solid #ffffff;
-      margin-top: -17px;
-      margin-bottom: 8px;
+    .up {
+      padding-top: 0;
+      display: flex;
+      text-align: left;
+      align-items: center;
+      .logo {
+        width: 40px;
+        height: 40px;
+        background-image: url(../../assets/images/common/smalllogo.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        margin-right: 30px;
+      }
+      .title {
+        width: 234px;
+        font-size: 22px;
+        font-family: Explorerfonts-Bold, SamsungSharpSans;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 1);
+        line-height: 27px;
+      }
+      .social_link_box {
+        display: none;
+      }
     }
-    .mobile-foot-line {
-      height: 1px;
-      opacity: 0.2;
-      border: 1px solid #ffffff;
-      margin-top: 16px;
-      margin-bottom: 8px;
-    }
-    .mobile-container{
-      padding-left: 24px;
-      padding-right: 24px;
-    }
-    .footer-background{
-      background:#ffffff;
-      padding-top: 22px
-    }
-    .footer-link-img{
-      opacity: 0.4;
-      cursor: pointer;
-      margin-top: 23px;
-      margin-left:37px;
-      margin-right: 37px;
+    .down {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 80px;
+      padding-bottom: 50px;
+      .social_link_box {
+        a {
+          font-size: 13px;
+          font-family: Roboto-Medium, Roboto;
+          font-weight: 400;
+          color: rgba(0, 0, 0, 1);
+          line-height: 15px;
+          margin-right: 25px;
+          transition: all ease 0.5s;
+        }
+        a:hover {
+          text-decoration-line: line-through;
+          transition: all ease 0.5s;
+        }
+      }
+      .copyright {
+        font-size: 13px;
+        font-family: Roboto-Medium, Roboto;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 1);
+        line-height: 15px;
+      }
     }
   }
-  @media screen and (min-width:576px) and (max-width:768px) {
-    .footer-content{
-      width: 110px;
+}
+@media only screen and (max-width: 960px) {
+  .home_footer {
+    padding-top: 140px;
+    padding-left: 50px;
+    padding-right: 50px;
+    .container {
+      .line {
+        width: 100%;
+        border-top: 1px solid #fafafa;
+        padding-bottom: 60px;
+      }
+      .up {
+        display: flex;
+        align-items: flex-start;
+        .logo {
+          margin-right: 15px;
+        }
+        .title {
+          width: 117px;
+          font-size: 11px;
+          font-family: Explorerfonts-Bold, SamsungSharpSans;
+          font-weight: bold;
+          color: rgba(0, 0, 0, 1);
+          line-height: 14px;
+          margin-right: 25px;
+        }
+        .social_link_box {
+          display: flex;
+          flex-direction: column;
+          a {
+            font-size: 12px;
+            font-family: Roboto-Bold, Roboto;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 1);
+            line-height: 14px;
+            margin-bottom: 10px;
+            transition: all ease 0.5s;
+          }
+          a:hover {
+            text-decoration-line: line-through;
+            transition: all ease 0.5s;
+          }
+        }
+      }
+      .down {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 40px;
+        padding-bottom: 35px;
+        flex-direction: column;
+        text-align: left;
+        .social_link_box {
+          display: none;
+        }
+        .copyright {
+          font-size: 11px;
+          font-family: Roboto-Bold, Roboto;
+          font-weight: bold;
+          color: rgba(0, 0, 0, 1);
+          line-height: 13px;
+          padding-top: 20px;
+        }
+      }
     }
-
   }
-  @media screen and (min-width:769px) and (max-width:992px)  {
-    .footer-content{
-      width: 160px;
-    }
-  }
-.wailian-img{
-  width: 11px;
-  margin-left: 2px;
-  margin-bottom:2px;
-  opacity: 0.5;
 }
 </style>

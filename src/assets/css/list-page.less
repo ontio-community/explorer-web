@@ -1,0 +1,120 @@
+.click-able {
+    cursor: pointer;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .text-first {
+    padding-left: 20px;
+  }
+  .text-last {
+    padding-right: 20px;
+  }
+  .list-page {
+      min-height: calc(100vh - 460px);
+    .list-title {
+      padding-top: 178px;
+      padding-bottom: 82px;
+    }
+    .list-content {
+      .table-responsive {
+        overflow-x: auto;
+        min-height: 500px;
+        .table {
+          width: 960px;
+          text-align: left;
+          thead {
+            th {
+              font-size: 12px;
+              font-family: Roboto-Regular, Roboto;
+              font-weight: 500;
+              color: rgba(0, 0, 0, 0.6);
+              line-height: 14px;
+              width: 200px;
+              padding-bottom: 20px;
+            }
+            .small-th {
+              width: 100px;
+            }
+            .large-th {
+              width: 250px;
+            }
+            .huge-th{
+              width: 350px;
+  
+            }
+          }
+          tbody {
+            tr:hover {
+                background-color: #fafafa;
+                transition: all ease 0.3s;
+                .click-able {
+                    cursor: pointer;
+                    color: #1067BB;
+                    transition: all ease 0.3s;
+                  }
+            }
+            tr {
+                background-color: #fff;
+                transition: all ease 0.3s;
+                .click-able {
+                    cursor: pointer;
+                    color: #000;
+                    transition: all ease 0.3s;
+                  }
+              td {
+                padding-top: 14px;
+                padding-bottom: 14px;
+                font-size: 14px;
+                font-family: Roboto-Regular, Roboto;
+                font-weight: 400;
+                color: rgba(0, 0, 0, 1);
+                line-height: 32px;
+                vertical-align: middle;
+                .sc-list-img {
+                  width: 24px;
+                  height: 24px;
+                  margin-right: 10px;
+                }
+                .sc-no-logo {
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 10px;
+                    border-radius: 12px;
+                    background: #1067BB;
+                    color: #fff;
+                    text-align: center;
+                    line-height: 24px;
+                }
+              }
+              .confirmed{
+                color: #609A22;
+              }
+              .failed{
+                color: #E02020;
+              }
+              .token-name {
+                display: flex;
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+@media only screen and (max-width: 960px) {
+  .list-page{
+    padding-left: 25px;
+    padding-right: 25px;
+    .list-title{
+      padding-top: 90px;
+    }
+    .list-content{
+      .table-responsive{
+        overflow: auto;
+      }
+    }
+  }
+}

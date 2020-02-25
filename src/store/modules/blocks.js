@@ -16,7 +16,6 @@ export default {
   },
   actions: {
     GetBlocks({dispatch, commit}, $param) {
-
       return $httpService.get('/blocks', {
         params: {
           page_size: $param.pageSize,

@@ -37,12 +37,13 @@ module.exports = {
     }
   },
   all: {
+    name: "Name",
     more: '>>',
     return: '  Back',
     block: 'Block',
     hash: 'Hash',
     status: 'Status',
-    time: 'Time',
+    time: 'Created Time',
     height: 'Height',
     byte: 'byte',
     num: 'Number',
@@ -57,7 +58,12 @@ module.exports = {
     token: 'Token',
     txn: 'Transaction',
     txns: 'Transactions',
-    pk:"Public Key"
+    pk:"Public Key",
+    from:"From",
+    to:"To",
+    tokens:"Assets",
+    jsonopen:"Unfold",
+    jsonclose:"Fold"
   },
   ontPagination: {
     total: 'A total of ',
@@ -66,7 +72,10 @@ module.exports = {
   searchInput: {
     search: 'SEARCH',
     placeholder: 'ONT ID, Block Height, TX Hash, Contract Hash, Address',
-    slogan: 'Blockchain Explorer & Trust Verifier'
+    slogan: 'Blockchain Explorer & Trust Verifier',
+    qucik: 'Quick Links:',
+    oep4: 'OEP-4 Tokens',
+    contract: 'Contracts'
   },
   runStatus: {
     name: 'The whole network operation status',
@@ -78,13 +87,20 @@ module.exports = {
     addressCount: 'Total addresses',
     second: 's',
     address: "addresses",
-    ontid: "Total ONT ID"
+    ontid: "Total ONT ID",
+    overview: "Overview"
+  },
+  lastData:{
+    lastdata: "Latest Data",
+    ontid:"ONT ID Events",
+    tx:"Transactions", 
+    block:"Blocks"
   },
   ontIdList: {
-    name: 'ONT ID EVENTS'
+    name: 'ONT ID Events'
   },
   ontIdDetail: {
-    nickname: 'ONT ID DETAILS',
+    nickname: 'ONT ID Details',
     name: 'ONT ID: ',
     msgName: 'ONT ID Event Log',
     TxnId: 'Transaction ID',
@@ -97,7 +113,7 @@ module.exports = {
     failed: 'FAIL, not found.'
   },
   blockList: {
-    name: 'BLOCKS',
+    name: 'Blocks',
     Height: 'Height',
     TxnNum: 'Txns',
     bookkeeper: 'Bookkeeper',
@@ -108,23 +124,23 @@ module.exports = {
   addressList: {
     rank: 'Rank',
     name: 'Address',
-    nickname: 'ADDRESSES - Position Ranking',
+    nickname: 'Top Accounts',
     balance: ' Balance',
     percent: 'Percent'
   },
   addressDetail: {
-    name: 'ADDRESS DETAILS',
+    name: 'Address Details',
     address: 'Address: ',
-    ontBalance: 'ONT Balance: ',
-    ongBalance: 'ONG Balance: ',
-    claimable: 'Claimable ONG: ',
-    unbound: 'Unbound ONG: ',
+    ontBalance: 'ONT Balance',
+    ongBalance: 'ONG Balance',
+    claimable: 'Claimable ONG',
+    unbound: 'Unbound ONG',
     txOnAddr: 'Transactions on this Address:',
-    txns: 'Transactions:',
-    oep8Assets: 'OEP-8 Assets:',
-    oep4Assets: 'OEP-4 Assets:',
-    oep5Assets: 'OEP-5 Assets:',
-    oepOtherAssets: 'Other OEP Assets:'
+    txns: 'Transactions',
+    oep8Assets: 'OEP-8 Assets',
+    oep4Assets: 'OEP-4 Assets',
+    oep5Assets: 'OEP-5 Assets',
+    oepOtherAssets: 'Other OEP Assets'
   },
   assetName: {
     ont: 'ONT',
@@ -139,43 +155,49 @@ module.exports = {
     pumpkin08: 'Golden Pumpkin'
   },
   blockDetail: {
-    nickname: 'BLOCK DETAILS',
+    nickname: 'Block Details',
     name: 'Height:',
-    BlockSize: 'Size:',
-    BlockTime: 'Time:',
-    keeper: 'Bookkeeper:',
-    hash: 'Hash:',
+    BlockSize: 'Size',
+    BlockTime: 'Created Time',
+    keeper: 'Bookkeeper',
+    hash: 'Hash',
     TxnNum: 'Number Of Transactions In The Block:',
     Hash: 'The Block Hash:',
     PrevBlock: 'Previous Block:',
     LastBlock: 'Last Block:',
     NextBlock: 'Next Block:',
-    merkle: 'Merkle Root:',
-    Consensus: 'Consensus Data:',
-    txOnBlock: 'Transactions on this block'
+    merkle: 'Merkle Root',
+    Consensus: 'Consensus Data',
+    txOnBlock: 'transactions on this block'
   },
   transList: {
-    name: 'TRANSACTIONS'
+    name: 'Transactions',
+    hash: 'Hash',
+    total:'Total of',
+    data:'data',
+    confirmed: 'Confirmed',
+    failed: 'Failed'
   },
   txDetail: {
-    name: 'TRANSACTION DETAILS',
+    name: 'Transaction Details',
     txHash: 'Hash:',
-    time: 'Time: ',
-    type: 'Type: ',
+    time: 'Created Time',
+    type: 'Type',
     deploySC: 'Deploy Smart Contract',
     sc: 'Invoke neovm Contract',
     wasmsc: 'Invoke wasmvm Contract',
-    height: 'Height: ',
-    status: 'Status: ',
-    fee: 'Fee: ',
+    height: 'Height',
+    status: 'Status',
+    fee: 'Fee',
     issuer: 'Issuer OntId',
-    detial:'SC Event: ',
+    detial:'Smart Contract Event',
     open:'Detail',
     close:'Close',
-    transactionHex:'Transaction Hex: ',
-    transactionJson:'Transaction Json: ',
+    transactionHex:'Transaction Hex',
+    transactionJson:'Transaction Json',
     hexopen: 'Hex',
-    jasoopen: 'Json'
+    jasoopen: 'Json',
+    transfersOnTx: 'Transfers on this transaction'
   },
   claimDetail: {
     name: 'CLAIM DETAILS'
@@ -246,9 +268,10 @@ module.exports = {
       overview: 'Contract Overview',
       desc: 'Description',
       txOn: 'Number Of Transactions In The Contract:',
-      creator: 'Creator: ',
-      createdTime: 'Created Time: ',
+      creator: 'Creator ',
+      createdTime: 'Created Time',
       contractInfo: 'Info',
+      contact: 'Contact',
       logo: 'Logo',
       ontFlow: 'ONT Flow: ',
       ongFlow: 'ONG Flow: ',
@@ -274,14 +297,14 @@ module.exports = {
       }
     },
     detail: {
-      vm_category: 'VM Category: ',
+      vm_category: 'VM Category',
       name: 'Token Detail',
       hash: 'HASH:',
       overview: 'Contract Overview',
       desc: 'Description',
       txOn: 'Number Of Transactions In The Contract:',
-      creator: 'Creator: ',
-      createdTime: 'Created Time: ',
+      creator: 'Creator',
+      createdTime: 'Created Time',
       contractInfo: 'Info',
       logo: 'Logo',
       ontFlow: 'ONT Flow: ',
@@ -291,8 +314,8 @@ module.exports = {
       volume: 'Volume',
       code: 'ByteCode',
       abi: 'ABI',
-      totalSupply: 'Total Supply: ',
-      decimals: 'Decimals: ',
+      totalSupply: 'Total Supply',
+      decimals: 'Decimals',
       statistic: 'Statistics',
       tokenLbl: 'Token Label',
       tokenImg: 'Token Image',
@@ -358,6 +381,62 @@ module.exports = {
     requiredtext:"* Required",
     requiredstar:"*",
     
+  },
+  tooltip:{
+    address:{
+      ont:"ONT balance",
+      ong:"ONG balance",
+      unboundong:"Unbound ONG,You can convert all of them into Claimable ONG through one ONT transfer",
+      claimableong:"Claimable ONG,You can withdraw it to the ONG balance with a single withdrawal operation",
+      oep4:"The OEP-4 proposal is the standard interface for tokens, which allows the implementation of standard APIs for tokens in smart contracts. OEP-4 is a standardized token. ",
+      oep5:"The OEP-5 proposal is the standard interface for NFT, which allows the implementation of standard APIs for tokens in smart contracts. NFT's standard token interface allows tokens on the ONT to be used by other applications.",
+      oep8:"The OEP-8 proposal is the standard interface for Crypto Item, which allows you to transfer any number of tokens for differential encryption items from one address to another. It combines the advantages of OEP-4 and OEP-5 to make it easy to transfer different types of Crypto Item.",
+    },
+    ontid:{
+      Type:"Ontology supports multiple encryption algorithms, including ECDSA, SM2, and ED25519.",
+      Curve:"Key curves, such as: P-224, P-256, P-384, P-521, sm2p256v1, SM3withSM2, 25519, SHA512withEdDSA",
+      Value:"Publickey in HEX string",
+      PublicKeyId:"Owner publickey"
+    },
+    block:{
+      height:"Block height",
+      time:"Created time of this block",
+      size:"Size of this block, unit:bytes",
+      hash:"Block hash",
+      bookkeeper:"Keepers of this block",
+      merkle:"The root of the Merkle tree for all transactions in this block",
+      consensus:"Consensus data"
+    },
+    tx:{
+      hash:"Transaction Hash",
+      time:"Created time of the transaction",
+      type:"Transaction type,include deploy smart contract,invoke neovm smart contract,invoke wasmvm smart contract",
+      txhex:"The transaction serialized information, which is represented by a hexadecimal string",
+      txjson:"The detailed information of the corresponding transaction which is represented by a JSON format string",
+      scevent:"Contract event",
+      height:"The height of the block where the transaction exists",
+      fee:"Transaction Fees",
+      status:"Transaction state on the blockchain"
+    },
+    token:{
+      hash:"Token Contract hash",
+      creater:"Token Contract creator's address",
+      createdTime:"Token Contract creation time",
+      totalSupply:"Total supply of the token",
+      decimals:"Decimals of the token",
+      vm_category:"Virtual machine category",
+      addressesamount:"Please note: Here is daily cumulative statistics, there is up to 10 minutes statistical difference.",
+      txamount:"Please note: Here is daily cumulative statistics, there is up to 10 minutes statistical difference.",
+      volume:"Please note: Here is daily cumulative statistics, there is up to 10 minutes statistical difference.",
+    },
+    contract:{
+      hash:"Contract hash",
+      creater:"Contract creator's address",
+      createdTime:"Contract creation time",
+      addressesamount:"Please note: Here is daily cumulative statistics, there is up to 10 minutes statistical difference.",
+      txamount:"Please note: Here is daily cumulative statistics, there is up to 10 minutes statistical difference.",
+      volume:"Please note: Here is daily cumulative statistics, there is up to 10 minutes statistical difference.",
+    },
   },
   error:{
     format:"Sorry, the search string you entered could not be found.",

@@ -27,9 +27,9 @@ module.exports = {
       blocks: '区块',
       txns: '交易',
       accounts: '账户',
-      oep4: 'OEP-4 概述',
-      oep5: 'OEP-5 概述',
-      oep8: 'OEP-8 概述',
+      oep4: 'OEP-4',
+      oep5: 'OEP-5',
+      oep8: 'OEP-8',
       submit: '提交',
       statistics: '统计',
       tool: '工具',
@@ -38,11 +38,12 @@ module.exports = {
   },
   all: {
     more: '>>',
+    name: '名称',
     return: '返回',
     block: '区块',
     hash: '哈希',
     status: '状态',
-    time: '时间',
+    time: '创建时间',
     height: '高度',
     byte: '字节',
     num: '数量',
@@ -57,7 +58,12 @@ module.exports = {
     token: 'Token',
     txn: '交易',
     txns: '交易',
-    pk:"公钥"
+    pk:"公钥",
+    from:"转出地址",
+    to:"转入地址",
+    tokens:"资产",
+    jsonopen:"展开",
+    jsonclose:"收起"
   },
   ontPagination: {
     total: '共有 ',
@@ -66,19 +72,29 @@ module.exports = {
   searchInput: {
     search: '查询',
     placeholder: ' ONT ID，区块高度，交易哈希，合约哈希，资产地址',
-    slogan: '区块链浏览器 & 可信验证器'
+    slogan: '区块链浏览器 & 可信验证器',
+    qucik: '快速链接：',
+    oep4: 'OEP-4',
+    contract: '合约列表'
   },
   runStatus: {
     name: '全网运行状态',
     RunningTime: '全网运行时间: ',
-    CurrentHeight: '当前区块高度: ',
+    CurrentHeight: '当前区块高度',
     BlockInterval: '平均出块时间',
-    TxnCount: '当前交易笔数：',
-    NodeCount: '共识节点数量: ',
+    TxnCount: '当前交易笔数',
+    NodeCount: '共识节点数量',
     addressCount: '注册地址数量',
     second: '秒',
     address: "地址数",
-    ontid: "ONT ID 总数："
+    ontid: "ONT ID 总数",
+    overview: "概览"
+  },
+  lastData:{
+    lastdata: "最新数据",
+    ontid:"最新ONT ID事件",
+    tx:"最新交易", 
+    block:"最新区块"
   },
   ontIdList: {
     name: '最新 ONT ID 事件'
@@ -115,16 +131,16 @@ module.exports = {
   addressDetail: {
     name: '地址详情',
     address: '地址： ',
-    ontBalance: 'ONT： ',
-    ongBalance: 'ONG： ',
-    claimable: '可提取的 ONG： ',
-    unbound: '未解绑的 ONG： ',
-    txOnAddr: '笔交易在这个地址上：',
-    txns: '交易列表:',
-    oep8Assets: 'OEP-8 资产：',
-    oep4Assets: 'OEP-4 资产：',
-    oep5Assets: 'OEP-5 资产：',
-    oepOtherAssets: '其他的 OEP 资产:'
+    ontBalance: 'ONT',
+    ongBalance: 'ONG',
+    claimable: '可提取的 ONG',
+    unbound: '未解绑的 ONG',
+    txOnAddr: '笔交易在这个地址上',
+    txns: '交易列表',
+    oep8Assets: 'OEP-8 资产',
+    oep4Assets: 'OEP-4 资产',
+    oep5Assets: 'OEP-5 资产',
+    oepOtherAssets: '其他的 OEP 资产'
   },
   assetName: {
     ont: 'ONT',
@@ -141,41 +157,48 @@ module.exports = {
   blockDetail: {
     nickname: '区块详情',
     name: '区块高度：',
-    BlockSize: '区块大小：',
-    BlockTime: '生成时间：',
-    keeper: '记账人地址：',
-    hash: '哈希值：',
+    BlockSize: '区块大小',
+    BlockTime: '生成时间',
+    keeper: '记账人地址',
+    hash: '哈希值',
     TxnNum: '区块内交易笔数：',
     Hash: '当前区块哈希：',
     PrevBlock: '上一个区块：',
     LastBlock: '最后一个区块：',
     NextBlock: '下一个区块：',
-    merkle: 'Merkle 根：',
-    Consensus: '共识数据：',
-    txOnBlock: '条交易记录在这个区块：'
+    merkle: 'Merkle 根',
+    Consensus: '共识数据',
+    txOnBlock: '条交易记录在这个区块'
   },
   transList: {
-    name: '最新交易'
+    name: '最新交易',
+    hash: '交易哈希',
+    total:'总共',
+    data: '条交易',
+    confirmed: '已确认',
+    failed: '失败'
   },
   txDetail: {
     name: '交易详情',
     txHash: '哈希：',
     time: '时间：',
-    type: '类型： ',
+    type: '类型',
     deploySC: 'Deploy Smart Contract',
     sc: 'Invoke neovm Contract',
     wasmsc: 'Invoke wasmvm Contract',
-    height: '高度： ',
-    status: '状态： ',
-    fee: '费用： ',
+    height: '高度',
+    status: '状态',
+    fee: '费用',
     issuer: '发行人  ONT ID',
-    detial:'合约事件：',
+    detial:'合约事件',
     open:'详情',
     close:'收起',
-    transactionHex:'交易 Hex: ',
-    transactionJson:'交易 Json: ',
+    transactionHex:'交易 Hex',
+    transactionJson:'交易 Json',
     hexopen: 'Hex',
-    jasoopen: 'Json'
+    jasoopen: 'Json',
+    transfersOnTx: '该交易内的转账'
+
   },
   claimDetail: {
     name: '认证详情'
@@ -246,13 +269,14 @@ module.exports = {
       overview: '合约概览',
       desc: '合约描述',
       txOn: '条交易记录在这个合约：',
-      creator: '创建者：',
-      createdTime: '创建时间：',
+      creator: '创建者',
+      createdTime: '创建时间',
       contractInfo: '信息',
       logo: 'Logo',
       ontFlow: 'ONT 流水总量：',
       ongFlow: 'ONG 流水总量：',
-      amount: '流水总量：'
+      amount: '流水总量：',
+      contact: '联系方式'
     }
   },
   tokens: {
@@ -274,14 +298,14 @@ module.exports = {
       }
     },
     detail: {
-      vm_category: '虚拟机类型: ',
+      vm_category: '虚拟机类型',
       name: '通证详情',
       hash: '哈希：',
       overview: '合约概览',
       desc: '合约描述',
       txOn: '条交易记录在这个合约：',
-      creator: '创建者：',
-      createdTime: '创建时间：',
+      creator: '创建者',
+      createdTime: '创建时间',
       contractInfo: '信息',
       logo: 'Logo',
       ontFlow: 'ONT 流水总量：',
@@ -291,8 +315,8 @@ module.exports = {
       volume: '流水总量',
       code: '字节代码',
       abi: 'ABI',
-      totalSupply: '发行总量：',
-      decimals: '精度位数：',
+      totalSupply: '发行总量',
+      decimals: '精度位数',
       statistic: '数据统计',
       tokenLbl: '通证标签',
       tokenImg: '通证图片',
@@ -338,6 +362,62 @@ module.exports = {
     dApps:'dApps',
     dAppsList:'dApps 列表',
     SubmitAdApp:'提交 dApp',
+  },
+  tooltip:{
+    address:{
+      ont:"ONT 余额",
+      ong:"ONG 余额",
+      unboundong:"未解绑的 ONG,你可以通过一次本地址的ONT转账将其转化为可提取的ONG",
+      claimableong:"可提取的 ONG，你可以通过一次提取操作将其转入ONG 余额",
+      oep4:"OEP-4 提案是令牌的标准接口，该标准允许在智能合约中实现令牌的标准 API 。 OEP-4 是标准化的令牌。",
+      oep5:"OEP-5 提案是 NFT 的标准接口，该标准允许在智能合约中实施令牌的标准 API。 NFT 的标准令牌接口允许 ONT 上的令牌方便其他应用程序使用。",
+      oep8:"OEP-8 提案是 Crypto Item 的标准接口，该标准允许您将差异加密项的任意数量的令牌从一个地址传输到另一个地址。 它结合了 OEP-4 和 OEP-5 的优点，可以非常方便地传输不同类型的 Crypto Item 。",
+    },
+    ontid:{
+      Type:"本体支持多种加密算法，包括ECDSA，SM2和ED25519。",
+      Curve:"密钥曲线，例如：P-224，P-256，P-384，P-521，sm2p256v1，SM3withSM2、25519，SHA512withEdDSA",
+      Value:"以十六进制字符串展示的所有者公钥",
+      PublicKeyId:"所有者公钥"
+    },
+    block:{
+      height:"区块高度",
+      time:"区块产生的时间",
+      size:"区块的大小，单位：bytes",
+      hash:"区块HASH",
+      bookkeeper:"记账节点",
+      merkle:"此区块中所有交易的Merkle树的根",
+      consensus:"共识数据"
+    },
+    tx:{
+      hash:"Transaction Hash",
+      time:"交易发生的时间",
+      type:"交易类型，包括部署智能合约，调用neovm智能合约，调用wasmvm智能合约",
+      txhex:"十六进制字符串表示的序列化交易信息",
+      txjson:"以 JSON 格式表示的交易详细信息",
+      scevent:"智能合约的执行事件",
+      height:"交易所在的区块的高度",
+      fee:"交易手续费",
+      status:"区块链上的交易状态"
+    },
+    token:{
+      hash:"合约哈希",
+      creater:"合约创建者的地址",
+      createdTime:"合约创建时间",
+      totalSupply:"总供应量",
+      decimals:"精度",
+      vm_category:"虚拟机类别",
+      addressesamount:"请注意：这是每日的累积统计信息，最多有10分钟的统计差异。",
+      txamount:"请注意：这是每日的累积统计信息，最多有10分钟的统计差异。",
+      volume:"请注意：这是每日的累积统计信息，最多有10分钟的统计差异。",
+    },
+    contract:{
+      hash:"合约哈希",
+      creater:"合约创建者的地址",
+      createdTime:"合约创建时间",
+      addressesamount:"请注意：这是每日的累积统计信息，最多有10分钟的统计差异。",
+      txamount:"请注意：这是每日的累积统计信息，最多有10分钟的统计差异。",
+      volume:"请注意：这是每日的累积统计信息，最多有10分钟的统计差异。",
+    },
   },
   error:{
     format:"对不起，无法找到您输入的搜索内容。",

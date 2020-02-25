@@ -108,7 +108,6 @@ export default {
       })
     },
     GetAddressTX({dispatch, commit}, $param) {
-
       return $httpService.get('/addresses/' + $param.address + '/transactions',{
         params: {
           page_size: $param.pageSize,
@@ -130,7 +129,6 @@ export default {
       })
     },
     GetAddressAssetTX({dispatch, commit}, $param) {
-
       return $httpService.get('/addresses/' + $param.address + '/' +$param.assetName+ '/transactions/',{
         params: {
           page_size: $param.pageSize,

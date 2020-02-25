@@ -15,8 +15,18 @@
         </div>
         <div class="item">
           <div class="item-title">Virtual Machine Category*</div>
-          <el-radio v-model="radio" label="neovm">neovm</el-radio>
-          <el-radio v-model="radio" label="wasmvm">wasmvm</el-radio>
+          <!--           <el-radio v-model="radio" label="neovm">neovm</el-radio>
+          <el-radio v-model="radio" label="wasmvm">wasmvm</el-radio>-->
+          <div class="radio-content">
+            <span
+              :class="radioFlag?'radio-item active':'radio-item'"
+              @click="chooseVM('neovm')"
+            >Neovm</span>
+            <span
+              :class="radioFlag?'radio-item':'radio-item active'"
+              @click="chooseVM('wasmvm')"
+            >Wasmvm</span>
+          </div>
         </div>
         <div class="item">
           <div class="item-title">Token Abi*</div>
@@ -32,12 +42,43 @@
         </div>
       </div>
       <div class="token-info">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <!--         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="OEP-4" name="first">OEP-4</el-tab-pane>
           <el-tab-pane label="OEP-5" name="second">OEP-5</el-tab-pane>
           <el-tab-pane label="OEP-8" name="third">OEP-8</el-tab-pane>
-        </el-tabs>
-        <div v-if="activeName === 'first'" id="oep4" class="content">
+        </el-tabs>-->
+        <div class="tabs">
+          <div class="switch">
+            <div
+              @click="toPage('oep4')"
+              :class="tokenType=='oep4s' ? 'btn-current' : 'btn-choose'"
+              style="margin-right:30px"
+              class="btn"
+            >
+              <div class="text">OEP-4</div>
+              <div class="line"></div>
+            </div>
+            <div
+              @click="toPage('oep5')"
+              :class="tokenType=='oep5s' ? 'btn-current' : 'btn-choose'"
+              style="margin-right:30px"
+              class="btn"
+            >
+              <div class="text">OEP-5</div>
+              <div class="line"></div>
+            </div>
+            <div
+              @click="toPage('oep8')"
+              :class="tokenType=='oep8s' ? 'btn-current' : 'btn-choose'"
+              style="margin-right:30px"
+              class="btn btn-left-0-border"
+            >
+              <div class="text">OEP-8</div>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+        <div v-if="tokenType=='oep4s'" id="oep4" class="content">
           <div class="item">
             <div class="item-title">Token Symbol*</div>
             <input v-model="tokenSymbol" maxlength="255" />
@@ -51,7 +92,7 @@
             <input v-model="tokenTotalSupply" type="number" maxlength="15" />
           </div>
           <div class="item">
-            <div class="item-title">Logo*</div>
+            <div class="item-title">Logo* (256px*256px in jpg or png, no rounded corners)</div>
             <el-upload
               :class="imageUrl?'avatar-uploader none':'avatar-uploader'"
               action="/"
@@ -62,10 +103,9 @@
               <img v-if="imageUrl" :src="imageUrl" class="avatar" id="logoImg" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <div class="desc">256px*256px in jpg or png, no rounded corners</div>
           </div>
         </div>
-        <div v-if="activeName === 'second'" id="oep5" class="content">
+        <div v-if="tokenType=='oep5s'" id="oep5" class="content">
           <div class="item">
             <div class="item-title">Token Symbol*</div>
             <input v-model="tokenSymbol" maxlength="255" />
@@ -89,7 +129,7 @@
             <div class="desc">256px*256px in jpg or png, no rounded corners</div>
           </div>
         </div>
-        <div v-if="activeName === 'third'" id="oep8" class="content">
+        <div v-if="tokenType=='oep8s'" id="oep8" class="content">
           <div class="item">
             <el-table :data="tokens" style="width: 100%" empty-text="No token added">
               <el-table-column label="Token ID" width="120">
@@ -107,7 +147,7 @@
                   <div class="table-text">{{scope.row.total_supply}}</div>
                 </template>
               </el-table-column>
-              <el-table-column label="Token Symbol" width="120">
+              <el-table-column label="Token Symbol" width="130">
                 <template slot-scope="scope">
                   <div class="table-text">{{scope.row.symbol}}</div>
                 </template>
@@ -168,10 +208,11 @@
         </div>
       </div>
       <div class="contact-info">
-        <el-divider>Contact Information</el-divider>
+        <!-- <el-divider>Contact Information</el-divider> -->
+        <div class="title">Contact Information</div>
         <div class="item">
-          <div class="item-title">Website</div>
-          <input v-model="tokenWebsite" placeholder="Optional" />
+          <div class="item-title">Website (Optional)</div>
+          <input v-model="tokenWebsite" />
         </div>
         <div class="item">
           <div class="item-title">E-mail*</div>
@@ -180,7 +221,7 @@
       </div>
       <div class="submit">
         <div class="btn">
-          <div class="text" @click="submit()">Submit</div>
+          <img src="../../assets/images/home/search.png" @click="submit()"/>
         </div>
       </div>
     </div>
@@ -254,6 +295,7 @@ export default {
   },
   data() {
     return {
+      radioFlag: true,
       dialogVisible: false,
       showCodeCopied: false,
       showABICopied: false,
@@ -261,7 +303,7 @@ export default {
       tokenInfo: {},
       loadingFlag: false,
       activeName: "first",
-      radio: "",
+      radio: "neovm",
       tokenHash: "",
       tokenSymbol: "",
       tokenAbi: "",
@@ -315,6 +357,15 @@ export default {
               type: "error"
             });
           });
+      }
+    },
+    chooseVM($val) {
+      if ($val == "neovm") {
+        this.radioFlag = true;
+        this.radio = "neovm";
+      } else {
+        this.radioFlag = false;
+        this.radio = "wasmvm";
       }
     },
     check($type) {
@@ -439,7 +490,7 @@ export default {
           });
           flag = false;
           return flag;
-        }        
+        }
         if (
           self.tokenTotalSupply > 999999999999999 ||
           self.tokenTotalSupply < 1
@@ -581,6 +632,27 @@ export default {
       }
       return false;
     },
+
+    toPage($val) {
+      this.tokens = [];
+      this.oep8info.token_id = "";
+      this.oep8info.token_name = "";
+      this.oep8info.total_supply = "";
+      this.oep8info.symbol = "";
+      this.imageUrl = "";
+      this.tokenSymbol = "";
+      this.tokenDecimals = "";
+      this.tokenTotalSupply = "";
+      if ($val == "oep4") {
+        this.tokenType = "oep4s";
+      }
+      if ($val == "oep5") {
+        this.tokenType = "oep5s";
+      }
+      if ($val == "oep8") {
+        this.tokenType = "oep8s";
+      }
+    },
     handleClick(tab, event) {
       console.log(tab, event);
       console.log(this.activeName);
@@ -643,7 +715,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: rgba(0, 0, 0, 0.1);
@@ -668,49 +740,41 @@ textarea:focus {
 }
 .avatar-uploader {
   width: 100%;
-  height: 168px;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .avatar-uploader.none {
   /deep/ .el-upload {
-    width: 138px;
-    height: 138px;
+    width: 82px;
+    height: 82px;
     background: rgba(72, 163, 255, 0);
-    border-radius: 10px;
     border: 1px solid rgba(0, 0, 0, 0);
-    margin: 14px;
   }
 }
 .avatar-uploader {
   /deep/ .el-upload {
-    width: 138px;
-    height: 138px;
-    background: rgba(72, 163, 255, 0.1);
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 14px;
+    width: 82px;
+    height: 82px;
+    border: 1px rgba(0, 0, 0, 0.3);
+    border-style: dashed;
   }
 }
 .avatar-uploader .el-upload:hover {
   border-color: #32a4be;
 }
 .avatar-uploader-icon {
-  font-size: 28px;
+  font-size: 16px;
   color: #000;
   font-weight: 1000;
-  width: 138px;
-  height: 138px;
-  line-height: 138px;
+  width: 82px;
+  height: 82px;
+  line-height: 82px;
   text-align: center;
 }
 .avatar-uploader-icon:hover {
   color: rgba(0, 0, 0, 0.8);
 }
 .avatar {
-  width: 138px;
-  height: 138px;
+  width: 82px;
+  height: 82px;
   display: block;
 }
 /deep/ .el-table th {
@@ -764,72 +828,120 @@ textarea:focus {
   padding: 0;
 }
 /deep/ .el-tabs__item {
-  padding: 0 16px !important;
+  padding: 0 !important;
   border-bottom: none;
+  margin-right: 30px;
 }
 /deep/ .el-tabs__item.is-active {
   border-bottom: 2px solid #32a4be;
 }
 /deep/ .el-divider__text {
-  font-size: 16px;
-  font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
+  font-size: 18px;
+  font-family: Roboto-Medium, Roboto;
   font-weight: 600;
-  color: rgba(0, 0, 0, 1);
-  line-height: 22px;
+  color: #000000;
+  line-height: 21px;
 }
 .token-submit {
-  background: rgba(245, 242, 242, 1);
   padding-top: 32px;
   padding-bottom: 32px;
   .container {
-    width: 992px;
+    width: 688px;
     background: rgba(255, 255, 255, 1);
     .title-info {
-      padding-top: 59px;
+      padding-top: 130px;
       display: flex;
-      justify-content: center;
+      justify-content: start;
       .title {
-        font-size: 24px;
-        font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial", sans-serif;
-        font-weight: 300;
+        font-size: 32px;
+        font-family: Explorerfonts-Bold, SamsungSharpSans;
+        font-weight: bold;
         color: rgba(0, 0, 0, 1);
-        line-height: 32px;
+        line-height: 40px;
       }
     }
     .common-info {
-      padding-top: 74px;
+      padding-top: 80px;
       display: flex;
       justify-content: start;
       flex-flow: column;
       width: 688px;
       margin-left: auto;
       margin-right: auto;
+      text-align: left;
       .item {
         padding-bottom: 40px;
+        .radio-content {
+          display: flex;
+          .radio-item {
+            border: 1px solid rgba(242, 242, 242, 1);
+            transition: all ease 0.3s;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: Roboto-Regular, Roboto;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 1);
+            line-height: 16px;
+            padding: 10px 16px;
+            margin-right: 10px;
+          }
+          .active {
+            border: 1px solid rgba(0, 0, 0, 1);
+            transition: all ease 0.3s;
+            font-size: 14px;
+            font-family: Roboto-Regular, Roboto;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 1);
+            line-height: 16px;
+          }
+        }
         .item-title {
-          font-size: 14px;
-          font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial", sans-serif;
-          font-weight: 600;
+          font-size: 12px;
+          font-family: Roboto-Regular, Roboto;
+          font-weight: 400;
           color: rgba(0, 0, 0, 1);
-          line-height: 19px;
-          margin-bottom: 8px;
+          line-height: 14px;
+          margin-bottom: 20px;
         }
         input {
-          width: 540px;
+          width: 100%;
           height: 42px;
+          font-size: 14px;
+          font-family: Roboto-Regular, Roboto;
+          font-weight: 400;
+          color: rgba(0, 0, 0, 1);
+          line-height: 16px;
           background: rgba(255, 255, 255, 1);
-          border-radius: 3px;
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          padding-left: 14px;
+          border-top: 0;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 2px solid #f2f2f2;
+          transition: all ease 0.3s;
+        }
+        input:focus {
+          border-bottom-color: #000;
+          transition: all ease 0.3s;
+        }
+        textarea:focus {
+          border-bottom-color: #000;
+          transition: all ease 0.3s;
         }
         textarea {
-          width: 540px;
+          width: 100%;
           height: 168px;
+          font-size: 14px;
+          font-family: Roboto-Regular, Roboto;
+          font-weight: 400;
+          color: rgba(0, 0, 0, 1);
+          line-height: 16px;
           background: rgba(255, 255, 255, 1);
-          border-radius: 3px;
-          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-top: 0;
+          border-left: 0;
+          border-right: 0;
+          border: 0 0 2px 0;
+          border-bottom: 2px solid #f2f2f2;
           resize: none;
-          padding-left: 14px;
+          transition: all ease 0.3s;
         }
       }
     }
@@ -837,18 +949,57 @@ textarea:focus {
       padding-top: 32px;
       display: flex;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.02);
       border-radius: 6px;
       width: 688px;
       flex-flow: column;
       margin-left: auto;
       margin-right: auto;
+      .tabs {
+        .switch {
+          display: flex;
+
+          .line {
+            width: 20px;
+            height: 4px;
+            background-color: #000;
+            margin: auto;
+            transition: all ease 0.5s;
+          }
+          .btn-current {
+            font-size: 18px;
+            font-family: Roboto-Medium, Roboto;
+            font-weight: 500;
+            line-height: 21px;
+            .text {
+              margin-bottom: 10px;
+              color: rgba(0, 0, 0, 1);
+            }
+          }
+          .btn-choose {
+            font-size: 18px;
+            font-family: Roboto-Medium, Roboto;
+            font-weight: 500;
+            line-height: 21px;
+            cursor: pointer;
+            .text {
+              margin-bottom: 10px;
+              color: rgba(0, 0, 0, 0.6);
+            }
+            .line {
+              width: 20px;
+              height: 4px;
+              background-color: #fff;
+              margin: auto;
+              transition: all ease 0.5s;
+            }
+          }
+        }
+      }
       /deep/ .el-tabs__item {
-        font-size: 16px;
-        font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
-          sans-serif;
-        font-weight: 400;
-        color: rgba(0, 0, 0, 0.3);
+        font-size: 18px;
+        font-family: Roboto-Medium, Roboto;
+        font-weight: 600;
+        color: #000000;
         line-height: 41px;
         height: 41px;
       }
@@ -863,32 +1014,41 @@ textarea:focus {
         justify-content: center;
       }
       /deep/ .el-tabs__header {
-        width: 265px;
+        width: 100%;
       }
       /deep/ .el-tabs__nav-wrap::after {
         width: 240px;
       }
       .content {
-        padding: 32px 48px 15px;
+        padding-top: 60px;
+        text-align: left;
         .item {
-          padding-bottom: 40px;
+          padding-bottom: 44px;
           .item-title {
-            font-size: 14px;
-            font-family: SourceSansPro-Semibold, "Helvetica Neue", "Arial",
-              sans-serif;
-            font-weight: 600;
-            opacity: 0.65;
+            font-size: 12px;
+            font-family: Roboto-Regular, Roboto;
+            font-weight: 400;
             color: rgba(0, 0, 0, 1);
-            line-height: 19px;
-            padding-bottom: 8px;
+            line-height: 14px;
+            padding-bottom: 20px;
           }
           input {
-            width: 320px;
-            height: 42px;
-            background: rgba(255, 255, 255, 1);
-            border-radius: 3px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding-left: 14px;
+            width: 100%;
+            padding-bottom: 25px;
+            font-size: 14px;
+            font-family: Roboto-Regular, Roboto;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 1);
+            line-height: 16px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid #f2f2f2;
+            transition: all ease 0.3s;
+          }
+          input:focus {
+            transition: all ease 0.3s;
+            border-bottom: 2px solid #000;
           }
           .img-wrapper {
             width: 100%;
@@ -955,58 +1115,69 @@ textarea:focus {
       width: 688px;
       margin-left: auto;
       margin-right: auto;
-      padding-top: 54px;
-      padding-bottom: 16px;
+      padding-top: 16px;
+      padding-bottom: 20px;
       display: flex;
       justify-content: start;
       flex-flow: column;
+      text-align: left;
       /deep/ .el-divider--horizontal {
         margin-bottom: 64px;
+      }
+      .title {
+        font-size: 18px;
+        font-family: Roboto-Medium, Roboto;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 1);
+        line-height: 21px;
+        padding-bottom: 60px;
       }
       .item {
         padding-bottom: 40px;
         .item-title {
-          font-size: 14px;
-          font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
-            sans-serif;
-          font-weight: 600;
+          font-size: 12px;
+          font-family: Roboto-Regular, Roboto;
+          font-weight: 400;
           color: rgba(0, 0, 0, 1);
-          line-height: 19px;
-          margin-bottom: 8px;
+          line-height: 14px;
+          margin-bottom: 20px;
         }
         input {
-          width: 320px;
-          height: 42px;
-          background: rgba(255, 255, 255, 1);
-          border-radius: 3px;
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          padding-left: 14px;
+          width: 100%;
+          font-size: 14px;
+          font-family: Roboto-Regular, Roboto;
+          font-weight: 400;
+          color: rgba(0, 0, 0, 1);
+          line-height: 16px;
+          border-top: 0;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 2px solid #f2f2f2;
+          transition: all ease .3s;
+          padding-bottom: 25px;
+        }
+        input:focus{
+          border-bottom: 2px solid #000;
+          transition: all ease .3s;
+          padding-bottom: 25px;
+
         }
       }
     }
     .submit {
       display: flex;
-      justify-content: center;
       padding-bottom: 64px;
       .btn {
-        width: 100px;
-        height: 32px;
-        background: rgba(50, 164, 190, 1);
-        border-radius: 4px;
         cursor: pointer;
-        .text {
-          height: 22px;
-          font-size: 16px;
-          font-family: SourceSansPro-Regular, "Helvetica Neue", "Arial",
-            sans-serif;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 1);
-          line-height: 18px;
+        img{
+          width: 60px;
+          height: 60px;
+          transition: all ease 0.3s;
         }
-      }
-      .btn:hover {
-        background: rgba(50, 164, 190, 0.8);
-        border-radius: 4px;
+        img:hover{
+          opacity: 0.5;
+          transition: all ease 0.3s;
+        }
       }
     }
   }

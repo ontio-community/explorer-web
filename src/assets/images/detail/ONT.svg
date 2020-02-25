@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="80px" viewBox="0 0 80 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>编组</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="其他" transform="translate(-702.000000, -172.000000)">
+            <g id="编组" transform="translate(702.000000, 172.000000)">
+                <circle id="Oval-9" fill="#FFFFFF" cx="40" cy="40" r="40"></circle>
+                <path d="M19.99992,21.43532 L25.64572,27.08092 L52.90552,54.34072 C45.37792,61.86832 33.17332,61.86832 25.64572,54.34072 C21.88192,50.57692 19.99992,45.64392 19.99992,40.71072 L19.99992,40.71072 L19.99992,21.43532 Z M27.75144,25.84554 C35.27904,18.31794 47.48364,18.31794 55.01124,25.84554 C58.77484,29.60934 60.65704,34.54254 60.65704,39.47554 L60.65704,39.47554 L60.65704,58.75114 Z" id="形状结合" fill="#49A3FF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,244 +1,226 @@
 <template>
-  <div class="e-container margin-top-15 explorer-detail-tab">
-    <list-title :name="$t('tokens.detail.name')"></list-title>
-    <detail-title :name="$t('tokens.detail.hash')" :val="$route.params.contractHash"></detail-title>
+  <div class="detail-page">
+    <div class="noshow"></div>
+    <div class="container">
+      <title-div
+        class="title-content"
+        :title="$t('tokens.detail.name')"
+        :data="$route.params.contractHash"
+      ></title-div>
 
-    <detail-block-2 v-if="tokenData" :name1="$t('tokens.detail.creator')" :val1="tokenData.creator" :rows1="'1.2'"
-                    :params1="['address', tokenData.creator]"
-                    :name2="$t('tokens.detail.createdTime')"
-                    :val2="$HelperTools.getTransDate(tokenData.create_time)" :rows2="'1.1'">
-    </detail-block-2>
+      <div class="detail-content">
+        <div class="item-content">
+          <div class="item">
+            <item-div :title="$t('all.name')" :singledata="tokenData.name"  :logo="tokenData.logo"></item-div>
+          </div>
+        </div>
+        <div class="item-content">
+          <div class="item">
+            <item-div :title="$t('all.description')" :singledata="tokenData.description"></item-div>
+          </div>
+        </div>
+        <div class="item-content">
+          <div class="m-item">
+            <item-div :tooltipstr="$t('tooltip.token.creater')"  :title="$t('tokens.detail.creator')" :singledata="tokenData.creator"></item-div>
+          </div>
+          <div class="m-item">
+            <item-div
+            :tooltipstr="$t('tooltip.token.createdTime')"
+              :title="$t('tokens.detail.createdTime')"
+              :singledata="$HelperTools.getTransDate(tokenData.create_time)"
+            ></item-div>
+          </div>
+        </div>
+        <div class="item-content">
+          <div class="m-item">
+            <item-div
+            :tooltipstr="$t('tooltip.token.totalSupply')"
+              :title="$t('tokens.detail.totalSupply')"
+              :singledata="$HelperTools.toFinancialVal(tokenData.total_supply)"
+            ></item-div>
+          </div>
+          <div class="m-item">
+            <item-div :tooltipstr="$t('tooltip.token.decimals')" :title="$t('tokens.detail.decimals')" :singledata="tokenData.decimals"></item-div>
+          </div>
+        </div>
+        <div class="item-content">
+          <div class="item">
+            <item-div :tooltipstr="$t('tooltip.token.vm_category')" :title="$t('tokens.detail.vm_category')" :singledata="tokenData.vm_category"></item-div>
+          </div>
+        </div>
+        <div class="item-content">
+          <div class="m-item">
+            <item-div
+            :tooltipstr="$t('tooltip.token.addressesamount')"
+              :title="$t('tokens.list.tab.addressCount')"
+              :singledata="$HelperTools.toFinancialVal(tokenData.address_count )"
+            ></item-div>
+          </div>
+          <div class="m-item">
+            <item-div
+            :tooltipstr="$t('tooltip.token.txamount')"
+              :title="$t('tokens.detail.txn')"
+              :singledata="$HelperTools.toFinancialVal(tokenData.tx_count)"
+            ></item-div>
+          </div>
+          <div class="m-item">
+            <item-div
+            :tooltipstr="$t('tooltip.token.volume')"
+              :title="$t('tokens.detail.volume')"
+              :singledata="$HelperTools.toFinancialVal(parseInt(tokenData.ont_sum)) + ' ONT,  '+$HelperTools.toFinancialVal(tokenData.ong_sum) + ' ONG'"
+            ></item-div>
+          </div>
+        </div>
+      </div>
 
-    <div class="detail-col font-Regular detail-col-fix">
-      <div class="row">
-        <div class="col">
-          <div class="d-flex" v-if="tokenData">
-            <div style="width: 106px; height: 106px;">
-              <img v-if="tokenData.logo !== ''" class="img-sc-detail" :src="tokenData.logo" alt="">
-              <div v-else class="token-no-logo-detail">
-                {{ $route.params.type === 'oep4' ? tokenData.symbol : tokenData.name.substr(0, 2) }}
-              </div>
+      <div class="tab-content"  v-loading="fullscreenLoading">
+        <div class="tabs">
+          <div class="switch">
+            <div
+              @click="toPage('txns')"
+              :class="txnsFlag ? 'btn-current' : 'btn-choose'"
+              style="margin-right:30px"
+              class="btn"
+            >
+              <div class="text">{{ $t('all.txns') }}</div>
+              <div class="line"></div>
             </div>
-
-            <div class="token-detail-desc">
-              <h4>{{ tokenData.name }}
-                <span v-if="$route.params.type === 'oep4'">&nbsp;&nbsp;{{ '(' + tokenData.symbol + ')' }}</span>
-              </h4>
-              <div class="f-color word-break d-block height-100 font-size14">
-                <p class="word-break-word">{{ tokenData.description }}</p>
-              </div>
+            <div
+              v-if="$route.params.contractType == 'oep8'"
+              @click="toPage('tokens')"
+              :class="tokensFlag ? 'btn-current' : 'btn-choose'"
+              style="margin-right:30px"
+              class="btn"
+            >
+              <div class="text">{{ $t('all.tokens') }}</div>
+              <div class="line"></div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!--oep-8 资产-->
-      <div class="row" v-if="$route.params.contractType === 'oep8'">
-        <div class="b-detail-divider-line"></div>
-        <div class="col-12 f-color">{{ $t('addressDetail.oep8Assets') }}</div>
-        <div class="col-3 text-center symbol-top" v-for="(item, index) in tokenData.symbol">
-          <div class="font-blod">{{ item }}</div>
-          <div class="important_color font-size24">{{ $HelperTools.toFinancialVal(tokenData.total_supply[index]) }}</div>
-        </div>
-      </div>
-
-      <!--<div class="b-detail-divider-line"></div>-->
-
-<!--       <div v-if="tokenData.contact_info" class="row font-size14" v-for="(scVal, scKey, scIndex) in tokenData.contact_info">
-        <div v-if="scIndex !== tokenData.contact_info.length" class="sc-detail-divider-line"></div>
-
-        <div class="col-2"><span class="normal_color">{{ scKey }}</span></div>
-        <div class="col-10">
-          <span class="f-color word-break d-block height-100 font-size14">
-            <div class="height-100">{{ scVal }}</div>
-          </span>
-        </div>
-      </div> -->
-    </div>
-
-    <!--total_supply & Decimals-->
-    <detail-block-2 :name1="$t('tokens.detail.totalSupply')"
-                    :val1="$HelperTools.toFinancialVal(tokenData.total_supply)"
-                    :rows1="'1.3'"
-                    :name2="$t('tokens.detail.decimals')"
-                    :val2="tokenData.decimals"
-                    :rows2="'1.3'">
-    </detail-block-2>
-
-    <detail-block
-      :params="[{name:$t('tokens.detail.vm_category'),  val:tokenData.vm_category}]"></detail-block>
-    <detail-block
-    <!--addresses & transactions & volume-->
-    <div class="row">
-      <div class="vol-col">
-        <div class="detail-col detail-col-left">
-          <div class="f-color">{{ $t('tokens.list.tab.addressCount') }}&nbsp;
-            <a href="#" data-toggle="tooltip" class="tooltip-style" :title="$t('tokens.detail.tip')">
-              <i class="fa fa-info-circle" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div class="important_color font-size24 text-center line-height72">{{ $HelperTools.toFinancialVal(tokenData.address_count ) }}</div>
-        </div>
-      </div>
-      <div class="vol-col">
-        <div class="detail-col detail-col-middle">
-          <div class="f-color">{{ $t('tokens.detail.txn') }}</div>
-          <div class="important_color font-size24 text-center line-height72">{{ $HelperTools.toFinancialVal(tokenData.tx_count) }}</div>
-        </div>
-      </div>
-      <div class="vol-col">
-        <div class="detail-col detail-col-right">
-          <div class="f-color">{{ $t('tokens.detail.volume') }}&nbsp;
-            <a href="#" data-toggle="tooltip" class="tooltip-style" :title="$t('tokens.detail.tip')">
-              <i class="fa fa-info-circle" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div  class="important_color  text-center volume-height font-size24 " >
-            <div class="volume-font">{{$HelperTools.toFinancialVal(parseInt(tokenData.ont_sum)) + ' ONT'}}</div>
-            <div class="volume-font">{{$HelperTools.toFinancialVal(tokenData.ong_sum) + ' ONG'}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab Control -->
-    <ul class="nav nav-tabs f-color" role="tablist" style="margin-top: 4px;">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#scTxn">{{ $t('all.txns') }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#scCode">{{ $t('tokens.detail.code') }}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#scABI">{{ $t('tokens.detail.abi') }}</a>
-      </li>
-      <li class="nav-item" v-if="$route.params.contractType === 'oep4'">
-        <a class="nav-link" data-toggle="tab" href="#scHolder">{{ $t('tokens.detail.holder') }}</a>
-      </li>
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <div id="scTxn" class=" tab-pane active">
-        <div class="row" v-if="contractTxList.Total !== 0">
-          <div class="col ">
-            <div class="detail-col">
-              <ont-pagination :total="contractTxList.total"></ont-pagination>
-              
-              <o-load v-if="!(contractTxList.list && loadingFlag)" ></o-load>
-              <div v-else class="table-responsive">
-                <table class="table">
-                  <thead>
-                  <tr class="f-color">
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('all.hash') }}</th>
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('all.fee') }}</th>
-                    <th v-if="$route.params.contractType === 'oep5'"
-                         class="td-tx-head font-size18 font-Blod">{{ $t('tokens.detail.tokenLbl') }}</th>
-                    <th v-if="$route.params.contractType === 'oep5'"
-                        class="td-tx-head font-size18 font-Blod">{{ $t('tokens.detail.tokenImg') }}</th>
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('all.status') }}</th>
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('all.block') }}</th>
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('all.time') }}</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="tx in contractTxList.list">
-                    <td class="font-size14 important_color font-Regular pointer" @click="toTransDetailPage(tx.tx_hash)">
-                      {{tx.tx_hash.substr(0,4) + '...' + tx.tx_hash.substr(60)}}
-                    </td>
-                    <td class="normal_color">{{Number(tx.fee).toString()}}</td>
-<!--                     <td v-if="$route.params.contractType === 'oep5'"
-                        class="normal_color">{{ typeof(tx.json_url) === 'undefined' ? '' : tx.json_url.name }}</td> -->
-                    <td v-if="$route.params.contractType === 'oep5' " 
-                        class="normal_color">{{ tx.hd_name }}</td>
-                    <td v-if="$route.params.contractType === 'oep5' " 
-                        class="normal_color">
-                      <img width="100px" :src="typeof(tx.json_url) === 'undefined' ? '' : tx.hd_image" alt="">
-                    </td>
-
-                    <td class="font-size14 s-color font-Regular" v-if="tx.confirm_flag === 1">Confirmed</td>
-                    <td class="font-size14 f-color font-Regular" v-else>Failed</td>
-
-                    <td class="font-size14 normal_color font-Regular">{{tx.block_height}}</td>
-                    <td class="font-size14 normal_color font-Regular">{{$HelperTools.getTransDate(tx.tx_time)}}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              <ont-pagination :total="contractTxList.total"></ont-pagination>
+            <div
+              @click="toPage('code')"
+              :class="codeFlag ? 'btn-current' : 'btn-choose'"
+              style="margin-right:30px"
+              class="btn"
+            >
+              <div class="text">{{ $t('tokens.detail.code') }}</div>
+              <div class="line"></div>
+            </div>
+            <div
+              @click="toPage('abi')"
+              :class="abiFlag ? 'btn-current' : 'btn-choose'"
+              style="margin-right:30px"
+              class="btn btn-left-0-border"
+            >
+              <div class="text">{{ $t('tokens.detail.abi') }}</div>
+              <div class="line"></div>
+            </div>
+            <div
+            v-if="$route.params.contractType === 'oep4'"
+              @click="toPage('holder')"
+              :class="holderFlag ? 'btn-current' : 'btn-choose'"
+              class="btn btn-left-0-border"
+            >
+              <div class="text">{{ $t('tokens.detail.holder') }}</div>
+              <div class="line"></div>
             </div>
           </div>
         </div>
-      </div>
-      <div id="scCode" class=" tab-pane">
-        <div class="row">
-          <div class="col ">
-            <div class="detail-col">
-              <div class="copy-bottom">
-                <span class="pull-right pointer font-size14">
-                  <i @click="copyDetailVal('scCodeData')"
-                     data-clipboard-target="#scCodeData"
-                     class="copy-success l-25px fa fa-clone"
-                     aria-hidden="true"></i>
-                </span>
-                <span class="pull-right font-size14 font-Regular copied-right" v-show="showCodeCopied">Copied!</span>
-              </div>
-              <textarea id="scCodeData" readonly rows="6">{{ tokenData.code }}</textarea>
-            </div>
+        <!-- 交易列表 -->
+        <div v-if="txnsFlag" class="tab-item">
+          <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-first">{{ $t('all.hash') }}</th>
+                  <th class="small-th">{{ $t('all.fee') }}</th>
+                <th v-if="$route.params.contractType === 'oep5'">{{ $t('tokens.detail.tokenLbl') }}</th>
+                <th v-if="$route.params.contractType === 'oep5'">{{ $t('tokens.detail.tokenImg') }}</th>
+                <th>{{ $t('all.status') }}</th>
+                  <th class="small-th">{{ $t('all.block') }}</th>
+                <th class="text-right text-last">{{ $t('all.time') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(tx,index) in contractTxList.list" :key="index">
+                <td
+                  class="click-able text-first"
+                  @click="toTransactionDetailPage(tx.tx_hash)"
+                >{{tx.tx_hash.substr(0,16) + '...'}}</td>
+                  <td>{{Number(tx.fee).toString()}}</td>
+                <td v-if="$route.params.contractType === 'oep5' ">{{ tx.hd_name }}</td>
+                <td v-if="$route.params.contractType === 'oep5' ">
+                  <img
+                    width="100px"
+                    :src="typeof(tx.json_url) === 'undefined' ? '' : tx.hd_image"
+                    alt
+                  />
+                </td>
+                <td :class="tx.confirm_flag === 1 ? 'confirmed' : 'failed'">{{ tx.confirm_flag === 1 ? 'Confirmed' : 'Failed' }}</td>
+                  <td>{{tx.block_height}}</td>
+                <td class="text-right text-last">{{$HelperTools.getTransDate(tx.tx_time)}}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <ont-pagination v-if="contractTxList.total" :total="contractTxList.total"></ont-pagination>
+        </div>
+        <!-- 资产列表（oep8独有） -->
+        <div v-if="tokensFlag && $route.params.contractType == 'oep8'" class="tab-item">
+          <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-first">{{ $t('all.name') }}</th>
+                <th class="text-right text-last">{{ $t('tokens.detail.totalSupply') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in tokenData.symbol" :key="index">
+                <td class="text-first">{{item}}</td>
+                <td
+                  class="text-right text-last"
+                >{{$HelperTools.toFinancialVal(tokenData.total_supply[index])}}</td>
+              </tr>
+            </tbody>
+          </table>
           </div>
         </div>
-      </div>
-      <div id="scABI" class=" tab-pane">
-        <div class="row">
-          <div class="col ">
-            <div class="detail-col"><div class="copy-bottom">
-                <span class="pull-right pointer font-size14">
-                  <i @click="copyDetailVal('scABIData')"
-                     data-clipboard-target="#scABIData"
-                     class="copy-success l-25px fa fa-clone"
-                     aria-hidden="true"></i>
-                  </span>
-              <span class="pull-right font-size14 font-ExtraLight copied-right" v-show="showABICopied">Copied!</span>
-            </div>
-              <textarea id="scABIData" readonly rows="6">{{tokenData.abi}}</textarea>
-            </div>
-          </div>
+        <!-- code -->
+        <div v-if="codeFlag" class="tab-item">
+            <!-- <textarea id="scCodeData" readonly :rows="'6'" v-model="tokenData.code"></textarea> -->
+            <item-div v-if="tokenData.code"
+              :jsondata="tokenData.code"
+            ></item-div>
         </div>
-      </div>
-      <div id="scHolder" class="tab-pane" v-if="$route.params.contractType === 'oep4'">
-        <div class="row" v-if="holder.Total !== 0">
-          <div class="col ">
-            <div class="detail-col">
-              <ont-pagination :total="holderCount.total"></ont-pagination>
-              
-              <!-- <o-load v-if="!(holder.list && loadingFlag)" ></o-load> -->
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                  <tr class="f-color">
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('addressList.rank') }}</th>
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('addressList.name') }}</th>
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('addressList.balance') }}</th>
-                    <th class="td-tx-head font-size18 font-Blod">{{ $t('addressList.percent') }}</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="(address,index) in holder.list">
-                    <td class="font-size14 important_color font-Regular">
-                      {{Number(holder.basicRank) + index}}
-                    </td>
-
-                    <td class="font-size14 s-color font-Regular pointer" @click="toAddressDetailPage(address.addressShow)">{{address.addressShow.substr(0,6) + '...' + address.addressShow.substr(28)}}</td>
-
-                    <!-- <td class="font-size14 normal_color font-Regular">{{$HelperTools.toFinancialVal(address.showbalance)}}</td> -->
-                    <td class="font-size14 normal_color font-Regular">{{address.showbalance}}</td>
-                    <td class="font-size14 normal_color font-Regular">{{(address.percent * 100).toFixed(4)}}%</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              <ont-pagination :total="holderCount.total"></ont-pagination>
-            </div>
+        <!-- abi -->
+        <div v-if="abiFlag" class="tab-item">
+            <!-- <textarea id="scCodeData" readonly :rows="'6'" v-model="tokenData.abi"></textarea> -->
+            <item-div v-if="tokenData.abi"
+              :jsondata="JSON.parse(tokenData.abi)"
+            ></item-div>
+        </div>
+        <!-- holder -->
+        <div v-if="holderFlag" class="tab-item">
+          <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-first">{{ $t('addressList.rank') }}</th>
+                <th>{{ $t('addressList.name') }}</th>
+                <th>{{ $t('addressList.balance') }}</th>
+                <th class="text-right text-last"> {{$t('addressList.percent') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(address,index) in holder.list" :key="index">
+                <td class="text-first">{{Number(holder.basicRank) + index}}</td>
+                <td class="click-able" @click="toAddressDetailPage(address.addressShow)">{{address.addressShow.substr(0,6) + '...' + address.addressShow.substr(28)}}</td>
+                <td>{{address.showbalance}}</td>
+                <td class="text-right text-last">{{(address.percent * 100).toFixed(4)}}%</td>
+              </tr>
+            </tbody>
+          </table>
           </div>
+          <ont-pagination v-if="holderCount.total" :total="holderCount.total"></ont-pagination>
         </div>
       </div>
     </div>
@@ -246,193 +228,220 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import Clipboard from 'clipboard';
-  import HelperTool from "./../../helpers/helper"
-  const BigNumber = require('bignumber.js');
+import { mapState } from "vuex";
+import Clipboard from "clipboard";
+import HelperTool from "./../../helpers/helper";
+const BigNumber = require("bignumber.js");
+import itemDiv from "../common/DetailItem";
+import titleDiv from "../common/DetailTitle";
 
-  export default {
-    name: "Token-Detail",
-    mounted() {
-      this.getTokenData()
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
+export default {
+  name: "Token-Detail",
+  components: {
+    itemDiv,
+    titleDiv
+  },
+  mounted() {
+    this.getTokenData();
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  },
+  watch: {
+    $route: "getTokenData",
+    token: function() {
+      console.log("token", this.token);
+      this.tokenData = this.token.list;
+      this.$store.dispatch("GetTokenHolder", this.$route.params).then();
+      this.$store.dispatch("GetTokenHolderCount", this.$route.params).then();
     },
-    watch: {
-      '$route': 'getTokenData',
-      'token':function(){
-        console.log("token",this.token)
-        this.tokenData = this.token.list
-        this.$store.dispatch('GetTokenHolder', this.$route.params).then();
-        this.$store.dispatch('GetTokenHolderCount', this.$route.params).then();
-      },
-      'contractTxList':function(){
-        console.log("tokenTXList",this.contractTxList)
-        this.loadingFlag = true
-        if(this.$route.params.contractType === 'oep5'){
-          for(var i = 0;i<this.contractTxList.list.length;i++){
-            if(this.contractTxList.list[i].json_url){
-              for(var key in this.$HelperTools.strToJson(this.contractTxList.list[i].json_url)){
-                if(key =="name"){
-                  this.contractTxList.list[i].hd_name = this.$HelperTools.strToJson(this.contractTxList.list[i].json_url)[key]
-                }
-                if(key =="image"){
-                  this.contractTxList.list[i].hd_image = this.$HelperTools.strToJson(this.contractTxList.list[i].json_url)[key]
-                }
+    contractTxList: function() {
+      console.log("tokenTXList", this.contractTxList);
+      this.loadingFlag = true;
+      this.fullscreenLoading = false;
+      if (this.$route.params.contractType === "oep5") {
+        for (var i = 0; i < this.contractTxList.list.length; i++) {
+          if (this.contractTxList.list[i].json_url) {
+            for (var key in this.$HelperTools.strToJson(
+              this.contractTxList.list[i].json_url
+            )) {
+              if (key == "name") {
+                this.contractTxList.list[
+                  i
+                ].hd_name = this.$HelperTools.strToJson(
+                  this.contractTxList.list[i].json_url
+                )[key];
+              }
+              if (key == "image") {
+                this.contractTxList.list[
+                  i
+                ].hd_image = this.$HelperTools.strToJson(
+                  this.contractTxList.list[i].json_url
+                )[key];
               }
             }
           }
         }
-      },
-      'holder':function() {
-        let num = "1"
-        for(var j =0;j<this.tokenData.decimals;j++){
-          num = num + "0"
-        }
-        num = Number(num)
-        console.log(num)
-        for(var i =0;i<this.holder.list.length;i++){
-          this.holder.list[i].addressShow = new Ont.Crypto.Address(this.holder.list[i].address).toBase58()
-          let x = new BigNumber(this.holder.list[i].balance)
-          let y = new BigNumber(num)
-          this.holder.list[i].showbalance = x.dividedBy(y)
-        }
       }
     },
-    computed: {
-      ...mapState({
-        contractTxList: state => state.Contracts.TxList,
-        token: state => state.Tokens.Detail,
-        holder: state => state.Tokens.Holder,
-        holderCount: state => state.Tokens.Count,
-      })
-    },
-    data() {
-      return {
-        showCodeCopied: false,
-        showABICopied: false,
-        tokenData:{},
-        tokenInfo:{},
-        loadingFlag:false,
+    holder: function() {
+      let num = "1";
+      for (var j = 0; j < this.tokenData.decimals; j++) {
+        num = num + "0";
       }
-    },
-    methods: {
-      toAddressDetailPage($address) {
-        if (this.$route.params.net == undefined) {
-          this.$router.push({name: 'AddressDetail', params: {address: $address, assetName:"ALL", pageSize: 20, pageNumber: 1}})
-        } else {
-          this.$router.push({
-            name: 'AddressDetailTest',
-            params: {address: $address, assetName:"ALL", pageSize: 20, pageNumber: 1, net: "testnet"}
-          })
-        }
-      },
-      getTokenData() {
-        this.token.list = '';
-        this.loadingFlag = false;
-        this.$store.dispatch('GetToken', this.$route.params).then();
-        this.$store.dispatch('GetContractTx', this.$route.params).then();
-      },
-      toTransDetailPage($TxnId) {
-        if (this.$route.params.net === 'testnet') {
-          this.$router.push({name: 'TransactionDetailTest', params: {tx_hash: $TxnId, net: 'testnet'}})
-        } else {
-          this.$router.push({name: 'TransactionDetail', params: {tx_hash: $TxnId}})
-        }
-      },
-      copyDetailVal($id) {
-        let clipboard = new Clipboard('.copy-success');
-
-        clipboard.on('success', function(e) {
-          e.clearSelection();
-        });
-
-        if($id === 'scCodeData') {
-          this.showCodeCopied = true
-        } else {
-          this.showABICopied = true
-        }
-      },
-      toJson(str){
-        return JSON.parse(str)
+      num = Number(num);
+      console.log(num);
+      for (var i = 0; i < this.holder.list.length; i++) {
+        this.holder.list[i].addressShow = new Ont.Crypto.Address(
+          this.holder.list[i].address
+        ).toBase58();
+        let x = new BigNumber(this.holder.list[i].balance);
+        let y = new BigNumber(num);
+        this.holder.list[i].showbalance = x.dividedBy(y);
       }
     }
+  },
+  computed: {
+    ...mapState({
+      contractTxList: state => state.Contracts.TxList,
+      token: state => state.Tokens.Detail,
+      holder: state => state.Tokens.Holder,
+      holderCount: state => state.Tokens.Count
+    })
+  },
+  data() {
+    return {
+      showCodeCopied: false,
+      showABICopied: false,
+      tokenData: {},
+      tokenInfo: {},
+      loadingFlag: false,
+      fullscreenLoading: true,
+      txnsFlag: true,
+      tokensFlag: false,
+      codeFlag: false,
+      abiFlag: false,
+      holderFlag: false
+    };
+  },
+  methods: {
+    toPage($val) {
+      if ($val == "txns") {
+        this.txnsFlag = true;
+        this.tokensFlag = false;
+        this.codeFlag = false;
+        this.abiFlag = false;
+        this.holderFlag = false;
+      }
+      if ($val == "tokens") {
+        this.txnsFlag = false;
+        this.tokensFlag = true;
+        this.codeFlag = false;
+        this.abiFlag = false;
+        this.holderFlag = false;
+      }
+      if ($val == "code") {
+        this.txnsFlag = false;
+        this.tokensFlag = false;
+        this.codeFlag = true;
+        this.abiFlag = false;
+        this.holderFlag = false;
+      }
+      if ($val == "abi") {
+        this.txnsFlag = false;
+        this.tokensFlag = false;
+        this.codeFlag = false;
+        this.abiFlag = true;
+        this.holderFlag = false;
+      }
+      if ($val == "holder") {
+        this.txnsFlag = false;
+        this.tokensFlag = false;
+        this.codeFlag = false;
+        this.abiFlag = false;
+        this.holderFlag = true;
+      }
+    },
+    toTransactionDetailPage($TxnId) {
+      if (this.$route.params.net == undefined) {
+        this.$router.push({
+          name: "TransactionDetail",
+          params: { tx_hash: $TxnId }
+        });
+      } else {
+        this.$router.push({
+          name: "TransactionDetailTest",
+          params: { tx_hash: $TxnId, net: "testnet" }
+        });
+      }
+    },
+    toAddressDetailPage($address) {
+      if (this.$route.params.net == undefined) {
+        this.$router.push({
+          name: "AddressDetail",
+          params: {
+            address: $address,
+            assetName: "ALL",
+            pageSize: 20,
+            pageNumber: 1
+          }
+        });
+      } else {
+        this.$router.push({
+          name: "AddressDetailTest",
+          params: {
+            address: $address,
+            assetName: "ALL",
+            pageSize: 20,
+            pageNumber: 1,
+            net: "testnet"
+          }
+        });
+      }
+    },
+    getTokenData() {
+      this.token.list = "";
+      this.loadingFlag = false;
+      this.fullscreenLoading = true;
+      this.$store.dispatch("GetToken", this.$route.params).then();
+      this.$store.dispatch("GetContractTx", this.$route.params).then();
+    },
+    toTransDetailPage($TxnId) {
+      if (this.$route.params.net === "testnet") {
+        this.$router.push({
+          name: "TransactionDetailTest",
+          params: { tx_hash: $TxnId, net: "testnet" }
+        });
+      } else {
+        this.$router.push({
+          name: "TransactionDetail",
+          params: { tx_hash: $TxnId }
+        });
+      }
+    },
+    copyDetailVal($id) {
+      let clipboard = new Clipboard(".copy-success");
+
+      clipboard.on("success", function(e) {
+        e.clearSelection();
+      });
+
+      if ($id === "scCodeData") {
+        this.showCodeCopied = true;
+      } else {
+        this.showABICopied = true;
+      }
+    },
+    toJson(str) {
+      return JSON.parse(str);
+    }
   }
+};
 </script>
 
-<style scoped>
-  .tab-content > .container {
-    padding: 0;
-  }
-
-  .tab-content > .container .detail-col {
-    margin-top: 0;
-  }
-
-  .tab-content textarea {
-    border: none;
-    width: 100%;
-    padding: 0 10px 0 0;
-    font-size: 14px;
-    color: #595757;
-    background-color: #edf2f5;
-  }
-
-  .symbol-top {
-    margin-top: 15px;
-  }
-
-  .detail-col-fix {
-    padding: 32px 24px 34px !important;;
-  }
-
-  .height-100 {
-    height: 100%;
-  }
-
-  .b-detail-divider-line {
-    background: #e5e4e4;
-    height: 1px;
-    margin: 15px;
-    width: 100%;
-  }
-
-  .img-sc-detail {
-    height: 106px;
-    width: 106px;
-    border-radius: 53px;
-  }
-
-  .token-detail-desc {
-    margin-left: 30px;
-  }
-
-  .token-no-logo-detail {
-    width: 106px !important;
-    height: 106px !important;
-    border-radius: 53px;
-    background-color: #32A4BE;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 106px;
-    text-align: center;
-  }
-
-  .sc-detail-divider-line {
-    background: #e5e4e4;
-    height: 1px;
-    margin: 15px;
-    width: 100%;
-  }
-
-  .copied-right {
-    margin-right: 10px;
-  }
-
-  .copy-bottom {
-    margin-bottom: 5px;
-  }
-.padding0{
-  padding:0 !important;
+<style lang="less" scoped>
+@import "../../assets/css/detail-page.less";
+</style>
+<style>
+.el-loading-spinner .path {
+  stroke: #000;
 }
 </style>

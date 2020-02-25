@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/home/Index'
+import Home from '@/components/home/index'
 // import BlockListPage from '@/components/blocks/List'
 // import BlockDetailPage from '@/components/blocks/Detail'
 // import OntIdListPage from '@/components/ontId/List'
@@ -21,26 +21,28 @@ import Home from '@/components/home/Index'
 // import StatisticsTable from '@/components/statistics/Table'
 // import ContractForm from '@/components/form/ContractForm'
 
-// const Home = () => import('@/components/home/Index')
-const BlockListPage = () => import('@/components/blocks/List')
-const BlockDetailPage = () => import('@/components/blocks/Detail')
-const OntIdListPage = () => import('@/components/ontId/List')
-const OntIdDetailPage = () => import('@/components/ontId/Detail')
-const AddressDetailPage = () => import('@/components/addresses/Detail')
-const AddressList = () => import('@/components/addresses/List')
-const TransactionList = () => import('@/components/transactions/List')
-const TransactionDetail = () => import('@/components/transactions/Detail')
-const ClaimDetailPage = () => import('@/components/claim/Detail')
-const ClaimVerifyPage = () => import('@/components/claim/Verify')
-const NodeStakeAuthorization = () => import('@/components/nodes/List')
-const NodeTeamDetail = () => import('@/components/nodes/Detail')
-const ContractList = () => import('@/components/contracts/List')
-const ContractDetail = () => import('@/components/contracts/Detail')
+const BlockListPage = () => import('@/components/block/List')
+const BlockDetailPage = () => import('@/components/block/Detail')
+const OntIdListPage = () => import('@/components/ontid/List')
+const OntIdDetailPage = () => import('@/components/ontid/Detail')
+const AddressDetailPage = () => import('@/components/address/Detail')
+const AddressList = () => import('@/components/address/List')
+const TransactionList = () => import('@/components/transaction/List')
+const TransactionDetail = () => import('@/components/transaction/Detail')
+// const ClaimDetailPage = () => import('@/components/claim/Detail')
+// const ClaimVerifyPage = () => import('@/components/claim/Verify')
+// const NodeStakeAuthorization = () => import('@/components/nodes/List')
+// const NodeTeamDetail = () => import('@/components/nodes/Detail')
+const ContractList = () => import('@/components/contract/List')
+const ContractDetail = () => import('@/components/contract/Detail')
+const Oep4TokenList = () => import('@/components/tokenOep4/List')
+const Oep5TokenList = () => import('@/components/tokenOep5/List')
+const Oep8TokenList = () => import('@/components/tokenOep8/List')
 const TokenList = () => import('@/components/tokens/List')
 const TokenDetail = () => import('@/components/tokens/Detail')
 const TokenSubmit = () => import('@/components/tokens/submit')
 const StatisticsTable = () => import('@/components/statistics/Table')
-const ContractForm = () => import('@/components/form/ContractForm')
+// const ContractForm = () => import('@/components/form/ContractForm')
 
 Vue.use(Router);
 
@@ -54,10 +56,10 @@ let routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
+   },
   {
     path: '/blocks/:pageSize/:pageNumber',
-    name: 'blockListDetail',
+    name: 'blockList',
     component: BlockListPage
   },
   {
@@ -77,7 +79,7 @@ let routes = [
   },
   {
     path: '/ontidlist/:pageSize/:pageNumber',
-    name: 'OntIdListDetail',
+    name: 'OntIdList',
     component: OntIdListPage
   },
   {
@@ -135,16 +137,16 @@ let routes = [
     name: 'TransactionDetailTest',
     component: TransactionDetail
   },
-  {
-    path: '/claimverify/:cardId/:ownerOntId',
-    name: 'ClaimDetai',
-    component: ClaimDetailPage
-  },
-  {
-    path: '/claimverifyresult',
-    name: 'ClaimVerify',
-    component: ClaimVerifyPage
-  },
+//   {
+//     path: '/claimverify/:cardId/:ownerOntId',
+//     name: 'ClaimDetai',
+//     component: ClaimDetailPage
+//   },
+//   {
+//     path: '/claimverifyresult',
+//     name: 'ClaimVerify',
+//     component: ClaimVerifyPage
+//   },
   {
     path: '/:net',
     name: 'HomeTest',
@@ -175,31 +177,31 @@ let routes = [
     name: 'AddressDetailTest',
     component: AddressDetailPage
   },
-  {
-    path: '/claimverify/:cardId/:ownerOntId/:net',
-    name: 'ClaimDetaiTest',
-    component: ClaimDetailPage
-  },
-  {
-    path: '/claimverifyresult/:net',
-    name: 'ClaimVerifyTest',
-    component: ClaimVerifyPage
-  },
-  {
-    path: '/nodes/list',
-    name: 'NodeStakeList',
-    component: NodeStakeAuthorization
-  },
-  {
-    path: '/nodes/detail/:pk',
-    name: 'NodeTeamDetail',
-    component: NodeTeamDetail
-  },
-  {
-    path: '/nodes/list/:net',
-    name: 'NodeStakeListTestNet',
-    component: NodeStakeAuthorization
-  },
+//   {
+//     path: '/claimverify/:cardId/:ownerOntId/:net',
+//     name: 'ClaimDetaiTest',
+//     component: ClaimDetailPage
+//   },
+//   {
+//     path: '/claimverifyresult/:net',
+//     name: 'ClaimVerifyTest',
+//     component: ClaimVerifyPage
+//   },
+//   {
+//     path: '/nodes/list',
+//     name: 'NodeStakeList',
+//     component: NodeStakeAuthorization
+//   },
+//   {
+//     path: '/nodes/detail/:pk',
+//     name: 'NodeTeamDetail',
+//     component: NodeTeamDetail
+//   },
+//   {
+//     path: '/nodes/list/:net',
+//     name: 'NodeStakeListTestNet',
+//     component: NodeStakeAuthorization
+//   },
   {
     path: '/contract/list/:pageSize/:pageNumber',
     name: 'ContractList',
@@ -290,26 +292,26 @@ let routes = [
     name: 'StatisticsTest',
     component: StatisticsTable
   },
-  {
-    path: '/statistics/contract/:contractHash/:day',
-    name: 'StatisticsContract',
-    component: StatisticsTable
-  },
-  {
-    path: '/statistics/contract/:contractHash/:day/:net',
-    name: 'StatisticsContractTest',
-    component: StatisticsTable
-  },
-  {
-    path: '/form/contractform',
-    name: 'ContractForm',
-    component: ContractForm
-  },
-  {
-    path: '/addresses/:pageSize/:pageNumber/:net',
-    name: 'ContractFormTest',
-    component: ContractForm
-  },
+//   {
+//     path: '/statistics/contract/:contractHash/:day',
+//     name: 'StatisticsContract',
+//     component: StatisticsTable
+//   },
+//   {
+//     path: '/statistics/contract/:contractHash/:day/:net',
+//     name: 'StatisticsContractTest',
+//     component: StatisticsTable
+//   },
+//   {
+//     path: '/form/contractform',
+//     name: 'ContractForm',
+//     component: ContractForm
+//   },
+//   {
+//     path: '/addresses/:pageSize/:pageNumber/:net',
+//     name: 'ContractFormTest',
+//     component: ContractForm
+//   },
 ];
 
 const router = new Router({

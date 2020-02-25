@@ -30,7 +30,6 @@ export default {
   actions: {
     GetTransactions({dispatch, commit}, $param) {
       let apiUrl = ($param.net === "testnet") ? process.env.TEST_API_URL : process.env.API_URL;
-
       return $httpService.get('/transactions',{        
         params: {
           page_size: $param.pageSize,

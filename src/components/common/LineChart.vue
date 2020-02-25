@@ -1,60 +1,90 @@
+<template>
+  <div :id="'myChart'+index" :style="{width: '480px', height: '400px'}"></div>
+</template>
 <script>
-  import {Line} from 'vue-chartjs'
+import { Line } from "vue-chartjs";
 
-  export default {
-    name: "LineChart",
-    extends: Line,
-    props: ['labels', 'label', 'data', 'options'],
-    mounted() {
-      // 使用本体蓝做渐变色
-      this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 450);
-      this.gradient.addColorStop(0, 'rgba(54, 163 ,188, 0.5)');
-      this.gradient.addColorStop(0.5, 'rgba(54, 163, 188, 0.25)');
-      this.gradient.addColorStop(1, 'rgba(54, 163, 188, 0)');
-
-      this.renderChart({
-        labels: this.labels,
-        datasets: [
-          {
-            label: this.label,
-            data: this.data,
-            // borderColor: '#36a3bc',
-            borderWidth: 1,
-            backgroundColor: this.gradient, //线性图的渐变颜色
-            pointBackgroundColor: '#36a3bc', //x轴 Y轴对应圆点的颜色
-            pointBorderColor: 'white', //x轴 Y轴对应圆点的圆点border的颜色
-            fontSize: 12, //字体的大小
-            radius: '2' //圆点的半径
+export default {
+  name: "LineChart",
+  extends: Line,
+  props: ["labels", "label", "data", "options", "index"],
+  mounted() {
+    this.drawLine();
+  },
+  methods: {
+    drawLine() {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = this.$echarts.init(
+        document.getElementById("myChart" + this.index)
+      );
+      // 绘制图表
+      myChart.setOption({
+        title: { text: this.label },
+        tooltip: {
+          trigger: "axis",
+          position: function(pt) {
+            return [pt[0], "10%"];
+          },
+          axisPointer: {
+            lineStyle: {
+              width: 3,
+              color: "#000"
+            }
+          },
+          backgroundColor: "#fff",
+          textStyle: {
+            color: "#F7B500"
+          },
+          formatter: function(params) {
+            var res = "<div><div>"+params[0].name+"</div><div>"+params[0].seriesName.substr(3,20)+": "+params[0].data+"</div></div>";
+            return res;
           }
-        ]
-      }, {
-        responsive: true, //长宽100%
-        maintainAspectRatio: false, //保持长宽比
-        // events: ["mousemove", "mouseout", "touchstart", "touchmove", "touchend"], //对事件的反应，去掉了click
-        scales: {
-          yAxes: [{ //对Y轴进行配置
-            gridLines: { //Y轴网格配置
-              // display: false, //如果为false，则不显示该轴的网格线。
-            },
-            ticks: {
-              beginAtZero: true,
-              userCallback: function (label, index, labels) {
+        },
+        xAxis: {
+          data: this.labels,
+          axisPointer: {
+            show: true
+          }
+        },
+        yAxis: {
+            axisLabel: {
+              formatter: function (value,index) {
                 // when the floored value is the same as the value we have a whole number
-                if (labels[0] > 1000 && Math.floor(label) === label) {
+/*                 if (labels[0] > 1000 && Math.floor(label) === label) {
                   return label / 1000 + 'k';
                 } else {
                   return label
+                } */
+                if (value > 1000) {
+                  return value / 1000 + 'k';
+                } else {
+                  return value
                 }
               }
             }
-          }],
-          xAxes: [{ //对X轴进行配置
-            gridLines: { //X轴网格配置
-              display: false, //如果为false，则不显示该轴的网格线。
-            }
-          }]
-        }
-      })
+        },
+        series: [
+          {
+            name: this.label,
+            type: "line",
+            symbol: "none",
+            /* 填充颜色 */
+            areaStyle: {
+              color: "#f7b5006e"
+            },
+            itemStyle: {
+              normal: {
+                /* 线条颜色 */
+                lineStyle: {
+                  color: "#F7B500"
+                }
+              }
+            },
+            data: this.data
+          }
+        ]
+      });
     }
   }
+};
 </script>

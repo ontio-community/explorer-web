@@ -3,21 +3,26 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-// 引入插件
-// const {
-//   SkeletonPlugin
-// } = require('page-skeleton-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
+const createLintingRule = () => ({
+  test: /\.(js|vue)$/,
+  loader: 'eslint-loader',
+  enforce: 'pre',
+  include: [resolve('src'), resolve('test')],
+  options: {
+    formatter: require('eslint-friendly-formatter'),
+    emitWarning: !config.dev.showEslintErrorsInOverlay
+  }
+})
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
+    /* app: ['babel-polyfill','./src/main.js'] */
     app: './src/main.js'
   },
   output: {
@@ -36,6 +41,7 @@ module.exports = {
   },
   module: {
     rules: [
+      ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -69,7 +75,12 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader",
+         
+      }        
     ]
   },
   node: {
@@ -83,15 +94,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  },
-  plugins: [
-    // new HtmlWebpackPlugin({
-    //   // Your HtmlWebpackPlugin config
-    // }),
-    // new SkeletonPlugin({
-    //   pathname: path.resolve(__dirname, '../shell'), // 用来存储 shell 文件的地址
-    //   staticDir: path.resolve(__dirname, '../dist'), // 最好和 `output.path` 相同
-    //   routes: ['/'], // 将需要生成骨架屏的路由添加到数组中
-    // })
-  ],
+  }
 }

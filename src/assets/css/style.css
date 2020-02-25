@@ -1,0 +1,30 @@
+.noshow{
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0;
+    padding: 0;
+    border: 0;
+}
+.el-loading-spinner .path{
+    stroke: #000;
+    stroke-width: 4px;
+}
+.el-loading-mask.is-fullscreen .el-loading-spinner .circular {
+    height: 40px;
+    width: 40px;
+}
+::selection {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.99);
+    opacity: 1 !important;
+}
+::-moz-selection{
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.99);
+    opacity: 1 !important;
+}
+::-webkit-selection {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.99);
+    opacity: 1 !important;
+}

@@ -1,5 +1,6 @@
 import $httpService from '../../common/utils'
 import * as types from "../mutation-type"
+import axios from 'axios'
 
 export default {
   state: {
@@ -31,6 +32,7 @@ export default {
           type: types.SET_RUN_STATUS,
           info: response.result
         })
+        console.log(response)
       }).catch(error => {
         console.log(error)
       })
