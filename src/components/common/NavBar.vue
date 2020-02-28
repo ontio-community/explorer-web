@@ -72,6 +72,10 @@
                 <a class="dropdown-item" @click="toStatistics"><i class="fas fa-table"></i>&nbsp;&nbsp;{{ $t('navbar.top.statistics') }}</a>
               </div>
             </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" @click="toOntIdListPage"><i class="fas fa-id-card"></i>&nbsp;&nbsp;{{ $t('navbar.top.ontId') }}</a>
+            </li>
 
             <li class="nav-item dropdown">
               <a v-if="$route.params.net === 'testnet'" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">

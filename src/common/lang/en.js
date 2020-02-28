@@ -33,6 +33,7 @@ module.exports = {
       submit: 'Submit',
       statistics: 'Statistics',
       tool: 'Tools',
+      toanother: 'New Version',
       apiDocUrl:"https://dev-docs.ont.io/#/docs-en/explorer/overview"
     }
   },
@@ -57,7 +58,11 @@ module.exports = {
     token: 'Token',
     txn: 'Transaction',
     txns: 'Transactions',
-    pk:"Public Key"
+    pk:"Public Key",
+    newTitle:"New version is online!",
+    newText:"We have launched a new version of the browser. Try it now?",
+    trueBtn:"Let's Go",
+    falseBtn:"No, Thanks"
   },
   ontPagination: {
     total: 'A total of ',
@@ -337,6 +342,7 @@ module.exports = {
     Explorer: 'Explorer',
     dApps: 'dApps',
     dAppsList: 'dApps List',
+    toanother: 'New Version',
     SubmitAdApp: 'Submit a dApp',
 
   },
@@ -356,7 +362,7 @@ module.exports = {
     addFile:"Add File",
     required:"Required",
     requiredtext:"* Required",
-    requiredstar:"*",
+    requiredstar:"*"
     
   },
   error:{

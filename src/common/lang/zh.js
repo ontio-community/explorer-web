@@ -33,6 +33,7 @@ module.exports = {
       submit: '提交',
       statistics: '统计',
       tool: '工具',
+      toanother: '新版本',
       apiDocUrl:"https://dev-docs.ont.io/#/docs-cn/explorer/overview"
     }
   },
@@ -57,7 +58,11 @@ module.exports = {
     token: 'Token',
     txn: '交易',
     txns: '交易',
-    pk:"公钥"
+    pk:"公钥",
+    newTitle:"新版本上线!",
+    newText:"我们上线了新版本浏览器，立即体验吗？",
+    trueBtn:"立即体验",
+    falseBtn:"不，谢谢"
   },
   ontPagination: {
     total: '共有 ',
@@ -338,6 +343,7 @@ module.exports = {
     dApps:'dApps',
     dAppsList:'dApps 列表',
     SubmitAdApp:'提交 dApp',
+    toanother: '新版本'
   },
   error:{
     format:"对不起，无法找到您输入的搜索内容。",

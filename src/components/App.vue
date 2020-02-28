@@ -24,6 +24,9 @@ export default {
   created() {
     this.isDisplay();
   },
+  mounted() {
+    this.openNoti();
+  },
   watch: {
     $route: "isDisplay"
   },
@@ -31,13 +34,67 @@ export default {
     isDisplay() {
       this.inHomePage =
         this.$route.name === "Home" || this.$route.name === "HomeTest";
-    }
+    },
+    openNoti() {
+      let openNotiFlag = window.localStorage.getItem('opennew')
+      if(openNotiFlag == "false"){
+        return
+      }
+      const h = this.$createElement;
+
+      this.$notify({
+        title: this.$t("all.newTitle"),
+
+        message: h("p", null,[
+          this.$t("all.newText"),
+          h(
+            "a",
+            {
+              attrs: { href: "https://explorer.ont.io"} // 在新窗口加载路由
+            },
+            [
+              h(
+                "el-button",
+                {
+                  style: {
+                    float: "right"
+                  },
+                  attrs: {
+                    size: "small",
+                    type: "primary"
+                  },
+                  on: {
+                    click: this.closeNotify // 路由加载之后，调用关闭消息弹窗的方法
+                  }
+                },
+                this.$t("all.trueBtn")
+              )
+            ]
+          )
+        ]),
+        duration: 0,
+        onClose(){
+          console.log("no thanks")
+          window.localStorage.setItem('opennew', "false")
+        }
+      });
+    },
+    closeNotify() {
+      let _this = this;
+      for (let key in _this.notifications) {
+        _this.notifications[key].close();
+        delete _this.notifications[key];
+      }
+    },
   },
   components: { TheFooter }
 };
 </script>
 
 <style>
+.el-notification__content p a button{
+  margin-top: 20px;
+}
 .container-bg-color {
   background-color: #f4f4f4;
   padding: 0 !important;

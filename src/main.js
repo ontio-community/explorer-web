@@ -31,10 +31,12 @@ import {
   Icon,
   TableColumn,
   Divider,
+  Notification,
   Message,
 } from "element-ui";
 Vue.component(Pagination.name, Pagination);
 Vue.prototype.$message = Message;
+Vue.prototype.$notify = Notification;
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Dialog)
