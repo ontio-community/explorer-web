@@ -81,6 +81,7 @@ export default {
     },
     closeNotify() {
       let _this = this;
+          window.localStorage.setItem('opennew', "false")
       for (let key in _this.notifications) {
         _this.notifications[key].close();
         delete _this.notifications[key];
